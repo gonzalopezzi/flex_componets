@@ -11,7 +11,7 @@ dependencies:
   browser_detect: any
   animation: any
   polymer: '>=0.15.0 <0.16.0'
-  paper_elements: '>=0.5.0 <0.6.0'
+  paper_elements: '>=0.6.0 <0.7.0'
 transformers:
 - polymer:
     entry_points: web/index.html
