@@ -26,6 +26,8 @@ class FxList extends FxBase {
   @published bool focused = false;
   @observable int focusedIndex;
   
+  @published int listHeight = 250;
+  
   StreamSubscription keyboardStreamSubs;
   
   /// Constructor used to create instance of FxDropdownList.
@@ -113,7 +115,7 @@ class FxList extends FxBase {
   }
   
   void _updateListScrollToFocusedItem () {
-    Element lst = $["list"];
+    Element lst = $["lst"];
     Element item = this.shadowRoot.querySelectorAll(".item-holder")[focusedIndex];
     if (item.offsetTop < lst.scrollTop) {
       anim.animate(lst, duration:200, easing:anim.Easing.QUADRATIC_EASY_IN_OUT, 
@@ -126,7 +128,7 @@ class FxList extends FxBase {
   }
   
   void _updateListScrollToFocusedItemUp () {
-    Element lst = $["list"];
+    Element lst = $["lst"];
     Element item = this.shadowRoot.querySelectorAll(".item-holder")[focusedIndex];
     if (item.offsetTop < lst.scrollTop) {
       anim.animate(lst, duration:200, easing:anim.Easing.QUADRATIC_EASY_IN_OUT, 
@@ -151,7 +153,7 @@ class FxList extends FxBase {
   @override 
   void commitProperties () {
     super.commitProperties();
-    Element listDiv = $['list'] as Element;
+    Element listDiv = $['lst'] as Element;
     if (_selectedItemDirty) {
       List<Element> lst = this.shadowRoot.querySelectorAll(".item-holder");
       for (int i = 0; i < dataProvider.length; i++) {

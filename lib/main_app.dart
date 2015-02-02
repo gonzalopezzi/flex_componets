@@ -34,17 +34,28 @@ class MainApp extends PolymerElement {
   
   @observable List<Country> stores = toObservable ([
                                        (new Country ('ES', 'Spain'))
-                                            ..stores = toObservable ([
-                                                          new Store(1, "Food for you"),
-                                                          new Store(2, "Market Me"),
-                                                          new Store(3, "Super Precio")
-                                                       ]),
+                                            ..regions = toObservable ([
+                                                            new Region ("R01", "North")
+                                                                ..stores = toObservable ([
+                                                                     new Store(1, "Food for you"),
+                                                                     new Store(2, "Market Me"),
+                                                                     new Store(3, "Super Precio")
+                                                               ]),
+                                                            new Region ("R02", "South")
+                                                              ..stores = toObservable ([
+                                                                             new Store(1, "Food for you"),
+                                                                             new Store(2, "Market Me"),
+                                                                             new Store(3, "Super Precio")
+                                                                       ])
+                                                        ]),
                                        (new Country ('UK', 'United Kingdom'))
-                                           ..stores = toObservable ([
-                                                         new Store(4, "Fruit King"),
-                                                         new Store(5, "Supermarket Now")
+                                           ..regions = toObservable ([
+                                                         new Region ("R01", "North")
+                                                            ..stores = toObservable ([
+                                                                            new Store(4, "Fruit King"),
+                                                                            new Store(5, "Supermarket Now")
+                                                                       ])
                                                       ])
-                                          
                                    ]);
   
   @observable dynamic selectedTreeItem;
@@ -77,9 +88,22 @@ class MainApp extends PolymerElement {
 class Country implements TreeNode {
   String code;
   String name;
-  List<Store> stores;
+  List<Region> regions;
   
   Country (this.code, this.name);
+  
+  List<dynamic> get children => regions;
+  
+  @override
+  String toString () => "$name";
+}
+
+class Region implements TreeNode {
+  String code;
+  String name;
+  List<Store> stores;
+  
+  Region (this.code, this.name);
   
   List<dynamic> get children => stores;
   

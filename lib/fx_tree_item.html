@@ -12,7 +12,14 @@
       #lst {
         padding: 0;
         height: 0px;
+        overflow:hidden;
       }
+      
+      /*#lst.deployed {
+        padding: 0;
+        height: auto;
+        overflow:hidden;
+      }*/
       
       #main-item {
         padding: 8px;
@@ -63,10 +70,10 @@
       
     </style>
     <div id="main-item" on-click="{{treeItemClick}}" class="{{ {selected: selectedItem == value} }}">
+      <div id="spacer"></div>
       <template if="{{isTreeNode(value)}}">
         <div id="expand-button" on-click="{{toggleDeployed}}" class="{{ {deployed:deployed} }}"></div>
       </template>
-      <div id="spacer"></div>
       <div id="text">
         <template if="{{itemRenderer != null}}">
           <fx-item-renderer tag="{{itemRenderer}}" data="{{value}}"></fx-item-renderer>
