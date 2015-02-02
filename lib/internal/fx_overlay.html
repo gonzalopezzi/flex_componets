@@ -1,0 +1,75 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+<polymer-element name="fx-overlay">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      
+      #overlayDiv {
+        background-color: #000;
+        position:absolute;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+        opacity:0;
+        transition: all 0.2s ease-in-out;
+      }
+      
+      #overlayDiv.attached {
+        opacity:0.4;
+      }
+      
+      #tblDiv {
+        position:absolute;
+        overflow:auto;
+        width:100%;
+        height:100%;
+      }
+      
+      #tbl {
+        width:100%;
+        height:100%;
+      }
+      
+      #contentCell {
+        align:center;
+        vertical-align:middle;
+      }
+      
+      #contentDiv {
+        display:inline-block;
+        opacity:0;
+        transition: all 0.4s ease-in-out;
+      }
+      
+      #contentDiv.attached {
+        opacity:1;
+      }
+      
+    </style>
+    <div id="overlayDiv" 
+      class="{{ {attached:isAttached} }}">
+    </div>
+    <div id="tblDiv">
+      <table id="tbl">
+        <tbody>
+          <tr>
+            <td id="contentCell" align="center" vertical-align="middle"
+              on-click="{{overlayClickHandler}}">
+              <div id="contentDiv" class="{{ {attached:isAttached} }}">
+              </div> 
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    
+    
+  </template>
+  <script type="application/dart" src="fx_overlay.dart"></script>
+</polymer-element>

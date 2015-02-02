@@ -1,0 +1,92 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/flex_components/fx_item_renderer.html">
+
+<polymer-element name="fx-tree-item">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      
+      #lst {
+        padding: 0;
+        overflow:hidden;
+        height: 0px;
+      }
+      
+      #main-item {
+        padding: 8px;
+        line-height:24px;
+        transition: all 0.2s ease-in-out;
+      }
+      
+      #main-item.selected, #main-item.selected:hover {
+        background-color: #009fb2;
+        color: #fff;
+      }
+      
+      #main-item:hover {
+        background-color: #ddd;
+        color: #000;
+      }
+      
+      #spacer {
+        display:inline-block;
+        float:left;
+        width:0;
+        height:24px;
+      }
+      
+      #expand-button {
+        display:inline-block;
+        float:left;
+        background: transparent url("icon/arrow-down.png") no-repeat right center;
+        width:24px;
+        height:24px;
+        transform: rotate(-90deg);
+        transform-origin: 12px 12px;
+        transition: all 0.2s ease-in-out;
+      }
+      
+      #expand-button.deployed {
+        transform:rotate(0deg);
+      }
+      
+      #text {
+        display: inline-block;
+        float: left;
+      }
+      
+      .clear {
+        clear:left;
+      }
+      
+    </style>
+    <div id="main-item" on-click="{{treeItemClick}}" class="{{ {selected: selectedItem == value} }}">
+      <template if="{{isTreeNode(value)}}">
+        <div id="expand-button" on-click="{{toggleDeployed}}" class="{{ {deployed:deployed} }}"></div>
+      </template>
+      <div id="spacer"></div>
+      <div id="text">
+        <template if="{{itemRenderer != null}}">
+          <fx-item-renderer tag="{{itemRenderer}}" data="{{value}}"></fx-item-renderer>
+        </template>
+        <template if="{{itemRenderer == null}}">
+          {{value}}
+        </template>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <template if="{{isTreeNode(value)}}">
+      <div id="lst" class="{{ {deployed:deployed} }}">
+        <template repeat="{{item in value.children}}">
+          <fx-tree-item value="{{item}}" level="{{level+1}}"
+              selectedItem="{{selectedItem}}" 
+              itemRenderer="{{itemRenderer}}"></fx-tree-item>
+        </template>
+      </div>
+    </template>
+  </template>
+  <script type="application/dart" src="fx_tree_item.dart"></script>
+</polymer-element>

@@ -1,0 +1,120 @@
+<!--
+  Copyright (c) 2015, <your name>. All rights reserved. Use of this source code
+  is governed by a BSD-style license that can be found in the LICENSE file.
+-->
+
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/flex_components/fx_list.html">
+<link rel="import" href="../../packages/flex_components/fx_dropdown_list.html">
+<link rel="import" href="../../packages/flex_components/fx_tree.html">
+<link rel="import" href="../../packages/flex_components/fx_button.html">
+<link rel="import" href="../../packages/flex_components/fx_panel.html">
+<link rel="import" href="../../packages/flex_components/sample/fx_sample_panel.html">
+<link rel="import" href="../../packages/flex_components/internal/fx_overlay.html">
+<link rel="import" href="../../packages/flex_components/fx_item_renderer.html">
+<link rel="import" href="../../packages/flex_components/my_item_renderer.html">
+
+
+<polymer-element name="main-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      
+      #left-panel {
+        display: inline-block;
+        float:left;
+        width:30%;
+        min-width:300px;
+      }
+      
+      #center-panel {
+        display: inline-block;
+        float:left;
+        width:30%;
+        min-width:300px;
+      }
+      
+      fx-dropdown-list, fx-list, fx-tree {
+        display:block;
+      }
+      
+      fx-button {
+        float:left;
+        width:48%;
+      }
+      
+      #btnPrimary {
+        margin-right:4%;
+      }
+      
+      .form-item {
+        margin: 25px;
+      }
+      
+    </style>
+    <div id="left-panel">
+      <div class="form-item">
+        <fx-dropdown-list
+          prompt="Select a category" 
+          dataProvider="{{productCategoriesObject}}"
+          selectedItem="{{selectedProductCategory}}"
+          labelField="name" on-selection-change="{{alertChange}}"></fx-dropdown-list>
+        {{selectedProductCategory}}
+      </div>
+      <div class="form-item">
+        <fx-dropdown-list
+          prompt="Select a category (item rend)" 
+          dataProvider="{{productCategoriesObject}}"
+          selectedItem="{{selectedProductCategory}}"
+          itemRenderer="my-item-renderer"
+          labelField="name" on-selection-change="{{alertChange}}"></fx-dropdown-list>
+      </div>
+      <!--
+      <div class="form-item">
+        <fx-dropdown-list
+          prompt="Select a category (item rend)" 
+          dataProvider="{{productCategoriesObject}}"
+          selectedItem="{{selectedProductCategory}}"
+          itemRenderer="my-item-renderer"
+          labelField="name" on-selection-change="{{alertChange}}"></fx-dropdown-list>
+      </div>-->
+      <div class="form-item">
+        <fx-list
+          dataProvider="{{productCategoriesObject}}"
+          selectedItem="{{selectedProductCategory}}"
+          itemRenderer="my-item-renderer"
+          labelField="name" on-selection-change="{{alertChange}}"></fx-list>
+      </div>
+      
+      <div class="form-item">
+        <fx-tree
+          dataProvider="{{stores}}"
+          selectedItem="{{selectedTreeItem}}"
+          labelField="name" 
+          on-selection-change="{{alertChange}}"></fx-tree>
+          {{selectedTreeItem}}
+      </div>
+      
+      <div class="form-item">
+        <fx-button id="btnPrimary" label="Modal Popup" type="primary" 
+          on-click="{{openModalPopup}}"></fx-button>
+        <fx-button id="btnSecondary" label="Popup" type="secondary"
+          on-click="{{openPopup}}"></fx-button>
+      </div>
+    </div>
+    <div id="center-panel">
+      <div class="form-item">
+        <fx-panel title="Title" footer="Footer">
+          This is a panel
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis diam est. Maecenas dictum, velit eget laoreet facilisis, dolor lacus sagittis lacus, ut tincidunt risus lacus suscipit tellus. Nullam vitae varius diam, vel facilisis risus. Quisque eget justo ac ante euismod viverra. Suspendisse rhoncus nibh nulla, ut elementum diam mattis eget. Pellentesque sit amet sem dui. Aliquam erat volutpat. Vestibulum vehicula leo lorem, hendrerit pellentesque dui malesuada eu.
+          </p>
+        </fx-panel>
+      </div>
+    </div>
+  </template>
+  <script type="application/dart" src="main_app.dart"></script>
+</polymer-element>
