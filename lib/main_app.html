@@ -10,6 +10,7 @@
 <link rel="import" href="../../packages/flex_components/fx_tree.html">
 <link rel="import" href="../../packages/flex_components/fx_button.html">
 <link rel="import" href="../../packages/flex_components/fx_panel.html">
+<link rel="import" href="../../packages/flex_components/fx_date_chooser.html">
 <link rel="import" href="../../packages/flex_components/sample/fx_sample_panel.html">
 <link rel="import" href="../../packages/flex_components/internal/fx_overlay.html">
 <link rel="import" href="../../packages/flex_components/fx_item_renderer.html">
@@ -112,6 +113,11 @@
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis diam est. Maecenas dictum, velit eget laoreet facilisis, dolor lacus sagittis lacus, ut tincidunt risus lacus suscipit tellus. Nullam vitae varius diam, vel facilisis risus. Quisque eget justo ac ante euismod viverra. Suspendisse rhoncus nibh nulla, ut elementum diam mattis eget. Pellentesque sit amet sem dui. Aliquam erat volutpat. Vestibulum vehicula leo lorem, hendrerit pellentesque dui malesuada eu.
           </p>
         </fx-panel>
+      </div>
+      <div class="form-item">
+        <fx-date-chooser selectedDate="{{selectedDate}}"
+          firstDayOfWeek="1"></fx-date-chooser>
+        {{selectedDate}}
       </div>
     </div>
   </template>

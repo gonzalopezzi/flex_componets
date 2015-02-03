@@ -1,0 +1,53 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+
+<polymer-element name="fx-date-chooser">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      
+      .week-label {
+        font-weight: bold;
+      }
+      
+      .day-button {
+        textAlign: center;
+        width: 100%;
+        height: 25px;
+        background-color: #EEE;
+        border: solid 1px #444;
+        cursor: pointer;
+      }
+      
+      .other-month-day-button {
+        color: #AAA;
+        border: solid 1px #AAA;
+        background-color: #F5F5F5;
+      }
+      
+      .selected-day {
+        background-color: rgb(57, 179, 215);
+        color: white;
+      }
+            
+      
+    </style>
+    <div id="mainDiv">
+      <table id="day-table">
+        <thead>
+          <tr>
+            <th><button type="button" style="width:100%;height:25" on-click="{{prevMonth}}">&lt;</button></th>
+            <th colspan="5">{{monthLabel}}</th>
+            <th><button type="button" style="width:100%;height:25" on-click="{{nextMonth}}">&gt;</button></th>
+          </tr>
+          <tr id="week-day-row"></tr>
+        </thead>
+        <tbody id="day-table-body">
+        </tbody>
+      </table>
+    </div>
+  </template>
+  <script type="application/dart" src="fx_date_chooser.dart"></script>
+</polymer-element>

@@ -9,8 +9,7 @@ import 'package:flex_components/sample/fx_sample_panel.dart';
 /// A Polymer `<main-app>` element.
 @CustomTag('main-app')
 class MainApp extends PolymerElement {
-  @observable String input = '';
-  @observable String reversed = '';
+  @observable DateTime selectedDate = new DateTime.now();
 
   @observable List productCategories = toObservable ([
                                             {'id':1, 'name':'Appliances'},
