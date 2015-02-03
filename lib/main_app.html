@@ -62,6 +62,7 @@
           prompt="Select a category" 
           dataProvider="{{productCategoriesObject}}"
           selectedItem="{{selectedProductCategory}}"
+          listHeight="150"
           labelField="name" on-selection-change="{{alertChange}}"></fx-dropdown-list>
         {{selectedProductCategory}}
       </div>
@@ -70,6 +71,7 @@
           prompt="Select a category (item rend)" 
           dataProvider="{{productCategoriesObject}}"
           selectedItem="{{selectedProductCategory}}"
+          listHeight="150"
           itemRenderer="my-item-renderer"
           labelField="name" on-selection-change="{{alertChange}}"></fx-dropdown-list>
       </div>
@@ -77,6 +79,7 @@
         <fx-list
           dataProvider="{{productCategoriesObject}}"
           selectedItem="{{selectedProductCategory}}"
+          listHeight="150"
           itemRenderer="my-item-renderer"
           labelField="name" on-selection-change="{{alertChange}}"></fx-list>
       </div>
@@ -85,6 +88,7 @@
           dataProvider="{{productCategoriesObject}}"
           selectedItems="{{selectedProductCategories}}"
           allowMultipleSelection="true"
+          listHeight="150"
           itemRenderer="my-item-renderer"
           labelField="name" on-selection-change="{{alertChange}}"></fx-list>
       </div>
@@ -93,7 +97,7 @@
           dataProvider="{{stores}}"
           selectedItem="{{selectedTreeItem}}"
           labelField="name"
-          listHeight="800" 
+          listHeight="250" 
           on-selection-change="{{alertChange}}"></fx-tree>
           {{selectedTreeItem}}
       </div>
@@ -107,7 +111,7 @@
     </div>
     <div id="center-panel">
       <div class="form-item">
-        <fx-panel title="Title" footer="Footer">
+        <fx-panel panelTitle="Title" panelFooter="Footer">
           This is a panel
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis diam est. Maecenas dictum, velit eget laoreet facilisis, dolor lacus sagittis lacus, ut tincidunt risus lacus suscipit tellus. Nullam vitae varius diam, vel facilisis risus. Quisque eget justo ac ante euismod viverra. Suspendisse rhoncus nibh nulla, ut elementum diam mattis eget. Pellentesque sit amet sem dui. Aliquam erat volutpat. Vestibulum vehicula leo lorem, hendrerit pellentesque dui malesuada eu.

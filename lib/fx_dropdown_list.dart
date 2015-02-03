@@ -14,6 +14,7 @@ class FxDropdownList extends FxBase {
   @published List dataProvider;
   @published String labelField;
   @published String prompt = "";
+  @published int listHeight = 150;
   
   @observable bool deployed = false;
   

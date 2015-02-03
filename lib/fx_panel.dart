@@ -7,8 +7,8 @@ import 'package:polymer/polymer.dart';
 
 class FxPanel extends PolymerElement {
 
-  @published String title;
-  @published String footer;
+  @published String panelTitle;
+  @published String panelFooter;
   
   /// Constructor used to create instance of FxPanel.
   FxPanel.created() : super.created() {
