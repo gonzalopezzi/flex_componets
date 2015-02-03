@@ -72,15 +72,6 @@
           itemRenderer="my-item-renderer"
           labelField="name" on-selection-change="{{alertChange}}"></fx-dropdown-list>
       </div>
-      <!--
-      <div class="form-item">
-        <fx-dropdown-list
-          prompt="Select a category (item rend)" 
-          dataProvider="{{productCategoriesObject}}"
-          selectedItem="{{selectedProductCategory}}"
-          itemRenderer="my-item-renderer"
-          labelField="name" on-selection-change="{{alertChange}}"></fx-dropdown-list>
-      </div>-->
       <div class="form-item">
         <fx-list
           dataProvider="{{productCategoriesObject}}"
@@ -88,7 +79,14 @@
           itemRenderer="my-item-renderer"
           labelField="name" on-selection-change="{{alertChange}}"></fx-list>
       </div>
-      
+      <div class="form-item">
+        <fx-list
+          dataProvider="{{productCategoriesObject}}"
+          selectedItems="{{selectedProductCategories}}"
+          allowMultipleSelection="true"
+          itemRenderer="my-item-renderer"
+          labelField="name" on-selection-change="{{alertChange}}"></fx-list>
+      </div>
       <div class="form-item">
         <fx-tree
           dataProvider="{{stores}}"

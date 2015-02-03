@@ -112,10 +112,15 @@ class FxDropdownList extends FxBase {
     Element listDiv = $['lst'] as Element;
     if (_selectedItemDirty) {
       List<Element> lst = this.shadowRoot.querySelectorAll(".item-holder");
-      for (int i = 0; i < dataProvider.length; i++) {
-        dynamic item = dataProvider[i];
-        if (item == selectedItem) {
-          selectedIndex = i;
+      if (selectedItem == null) {
+        selectedIndex = -1;
+      }
+      else {
+        for (int i = 0; i < dataProvider.length; i++) {
+          dynamic item = dataProvider[i];
+          if (item == selectedItem) {
+            selectedIndex = i;
+          }
         }
       }
       _selectedItemDirty = false;

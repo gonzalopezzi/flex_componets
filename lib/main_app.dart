@@ -31,6 +31,7 @@ class MainApp extends PolymerElement {
                                             new ProductCategory (7, 'Cellphones')]);
   
   @observable ProductCategory selectedProductCategory;
+  @observable List<ProductCategory> selectedProductCategories;
   
   @observable List<Country> stores = toObservable ([
                                        (new Country ('ES', 'Spain'))
