@@ -34,11 +34,35 @@ class FxList extends FxBase {
   
   StreamSubscription keyboardStreamSubs;
   
+  DivElement lstDiv;
+  int scrollPosition;
+  
   /// Constructor used to create instance of FxDropdownList.
   FxList.created() : super.created() {
   }
   factory FxList () => new Element.tag('fx-list');
 
+  @override
+  void attached () {
+    queryLstDiv();
+    lstDiv.onScroll.listen((Event event) {
+      scrollPosition = lstDiv.scrollTop;
+    });
+    _setLstHeight();
+  }
+  
+  void queryLstDiv () {
+    lstDiv = $['lst'] as DivElement;
+  }
+  
+  void listHeightChanged (int oldValue) {
+    _setLstHeight();
+  }
+  
+  void _setLstHeight() {
+    lstDiv.style.height = "${listHeight}px";
+  }
+  
   void focusedChanged (bool oldValue) {
     if (!focusEnabled) {
       if (focused) {
@@ -51,11 +75,24 @@ class FxList extends FxBase {
     invalidateProperties();
   }
   
-  void wrapDataProvider () {
+  void _wrapDataProvider () {
     List<WrappedItem> wrapped = new List<WrappedItem> ();
     dataProvider.forEach((dynamic item) {
       wrapped.add(new WrappedItem (item)..selected = false);
     });
+    _setSelectionsInWrappedDataProvider(wrapped);
+    wrappedDataProvider = wrapped;
+  }
+  
+  
+  void _updateSelectedInDataProvider() {
+    wrappedDataProvider.forEach((WrappedItem item) {
+      item.selected = false;
+    });
+    _setSelectionsInWrappedDataProvider (wrappedDataProvider);
+  }
+  
+  void _setSelectionsInWrappedDataProvider (List<WrappedItem> wrapped) {
     if (allowMultipleSelection) {
       selectedIndices.forEach((int i) {
         wrapped[i].selected = true;
@@ -65,12 +102,11 @@ class FxList extends FxBase {
       if (selectedIndex >= 0) 
         wrapped[selectedIndex].selected = true;
     }
-    wrappedDataProvider = wrapped;
   }
   
   void dataProviderChanged (List oldValue) {
-    wrapDataProvider();
-    invalidateProperties;
+    _wrapDataProvider();
+    invalidateProperties();
   }
   
   void selectedIndexChanged (int oldValue) {
@@ -225,7 +261,7 @@ class FxList extends FxBase {
           }  
         }
       }
-      wrapDataProvider();
+      _updateSelectedInDataProvider();
       _selectedItemDirty = false;
     }
   }
@@ -265,8 +301,8 @@ class FxList extends FxBase {
   
 }
 
-class WrappedItem {
+class WrappedItem extends Observable {
   dynamic listItem;
-  bool selected;
+  @observable bool selected;
   WrappedItem (this.listItem);
 }

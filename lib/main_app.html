@@ -13,6 +13,7 @@
 <link rel="import" href="../../packages/flex_components/fx_date_chooser.html">
 <link rel="import" href="../../packages/flex_components/sample/fx_sample_panel.html">
 <link rel="import" href="../../packages/flex_components/internal/fx_overlay.html">
+<link rel="import" href="../../packages/flex_components/fx_slider.html">
 <link rel="import" href="../../packages/flex_components/fx_item_renderer.html">
 <link rel="import" href="../../packages/flex_components/my_item_renderer.html">
 
@@ -57,6 +58,9 @@
       
     </style>
     <div id="left-panel">
+      <div>
+        <fx-item-renderer data="Hola" tag="my-item-renderer"></fx-item-renderer>
+      </div>
       <div class="form-item">
         <fx-dropdown-list
           prompt="Select a category" 
@@ -121,7 +125,12 @@
       <div class="form-item">
         <fx-date-chooser selectedDate="{{selectedDate}}"
           firstDayOfWeek="1"></fx-date-chooser>
-        {{selectedDate}}
+        <p>
+          {{selectedDate}}
+        </p>
+      </div>
+      <div class="form-item">
+        <fx-slider></fx-slider>
       </div>
     </div>
   </template>

@@ -9,7 +9,7 @@
         display: block;
       }
       
-      #lst {
+      #treeItemLst {
         padding: 0;
         height: 0px;
         overflow:hidden;
@@ -85,7 +85,7 @@
       <div class="clear"></div>
     </div>
     <template if="{{isTreeNode(value)}}">
-      <div id="lst" class="{{ {deployed:deployed} }}">
+      <div id="treeItemLst" class="{{ {deployed:deployed} }}">
         <template repeat="{{item in value.children}}">
           <fx-tree-item value="{{item}}" level="{{level+1}}"
               selectedItem="{{selectedItem}}" 

@@ -89,7 +89,7 @@ class FxDateChooser extends FxBase {
     int lastDayOfWeek = (firstDayOfWeek + 6) % 7; /* TODO: QUITAR ESTE HARDCODE. ESTO DEBE DEPENDER DE firstDayOfWeek */
     _initButtonData ();
     DateTime firstDate = new DateTime (_displayedDate.year, _displayedDate.month, 1, 0, 0);
-    while ((firstDate.weekday - firstDayOfWeek % 7) > (firstDayOfWeek - firstDayOfWeek % 7)) {
+    while (((firstDate.weekday - firstDayOfWeek) % 7) > (firstDayOfWeek - firstDayOfWeek % 7)) {
       firstDate = firstDate.subtract(new Duration(days:1));
     }
     DateTime lastDate = new DateTime (_displayedDate.year, _displayedDate.month + 1, 1, 0, 0);

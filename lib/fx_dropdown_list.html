@@ -36,7 +36,7 @@
         box-shadow:         0px 0px 4px 0px rgba(86, 182, 255, 0.75);
       }
       
-      #lst {
+      #fxlst {
         visibility: hidden;
         position: absolute;
         z-index: 990;
@@ -48,7 +48,7 @@
         opacity: 0;
       }
       
-      #lst.deployed {
+      #fxlst.deployed {
         visibility: visible;
         opacity: 1;
         top: 32px;
@@ -70,7 +70,7 @@
         </template>
       </template>
     </button>
-    <fx-list id="lst" 
+    <fx-list id="fxlst" 
         focusEnabled="false"
         focused="{{focused}}"
         dataProvider="{{dataProvider}}"
@@ -79,19 +79,6 @@
         labelField="{{labelField}}" 
         listHeight="{{listHeight}}"
         on-selection-change="{{onSelectionChangeHandler}}" ></fx-list>
-    <!--<div id="list">
-      <template repeat="{{item in dataProvider | enumerate}}">
-        <div class="item-holder {{ {selected:item.index==selectedIndex, focused:item.index==focusedIndex } }}" data-index="{{item.index}}" 
-              on-click="{{clickItem}}">
-            <template if="{{itemRenderer == null}}">
-              {{render(item.value)}}
-            </template>
-            <template if="{{itemRenderer != null}}">
-              <fx-item-renderer tag="{{itemRenderer}}" data="{{item.value}}" data-index="{{item.index}}"></fx-item-renderer>
-            </template>
-        </div>
-      </template>
-    </div>-->
   </template>
   <script type="application/dart" src="fx_dropdown_list.dart"></script>
 </polymer-element>

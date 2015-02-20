@@ -46,11 +46,11 @@ class FxTreeItem extends PolymerElement {
     if (isTreeNode(value)) {
       if (deployed) {
         int childHeight = getChildHeight();
-        anim.animate($['lst'] as Element, duration:200, easing:anim.Easing.QUADRATIC_EASY_IN_OUT, 
-                  properties:{'height': childHeight * (value as TreeNode).children.length } ).onComplete.listen((_) => ($['lst'] as Element).style.setProperty("height",  "auto"));
+        anim.animate($['treeItemLst'] as Element, duration:200, easing:anim.Easing.QUADRATIC_EASY_IN_OUT, 
+                  properties:{'height': childHeight * (value as TreeNode).children.length } ).onComplete.listen((_) => ($['treeItemLst'] as Element).style.setProperty("height",  "auto"));
       }
       else {
-        anim.animate($['lst'] as Element, duration:200, easing:anim.Easing.QUADRATIC_EASY_IN_OUT, 
+        anim.animate($['treeItemLst'] as Element, duration:200, easing:anim.Easing.QUADRATIC_EASY_IN_OUT, 
          properties:{'height': 0 } );
         
       }

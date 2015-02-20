@@ -22,7 +22,7 @@
         position:absolute;
       }
       
-      #lst {
+      #treeLst {
         display:block;
         text-align:left;
         box-sizing: border-box;
@@ -37,7 +37,7 @@
         transition: all 0.2s ease-in-out;
       }
       
-      #lst.focused {
+      #treeLst.focused {
         -webkit-box-shadow: 0px 0px 4px 0px rgba(86, 182, 255, 0.75);
         -moz-box-shadow:    0px 0px 4px 0px rgba(86, 182, 255, 0.75);
         box-shadow:         0px 0px 4px 0px rgba(86, 182, 255, 0.75);
@@ -83,7 +83,7 @@
             on-focus="{{focusHandler}}" on-blur="{{blurHandler}}">
         </button>
       </template>
-      <div id="lst" class="{{ {focused:focused } }}" style="height:{{listHeight}}px">
+      <div id="treeLst" class="{{ {focused:focused } }}">
         <template repeat="{{item in dataProvider | enumerate}}">
           
               <fx-tree-item value="{{item.value}}" 

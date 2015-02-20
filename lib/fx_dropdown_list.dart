@@ -109,8 +109,9 @@ class FxDropdownList extends FxBase {
   
   @override 
   void commitProperties () {
+    print ("CommitProperties Dropdown");
     super.commitProperties();
-    Element listDiv = $['lst'] as Element;
+    Element listDiv = $['fxlst'] as Element;
     if (_selectedItemDirty) {
       List<Element> lst = this.shadowRoot.querySelectorAll(".item-holder");
       if (selectedItem == null) {
@@ -127,11 +128,13 @@ class FxDropdownList extends FxBase {
       _selectedItemDirty = false;
     }
     if (deployed) {
+      print ("Deployed!");
       listDiv.classes.add('deployed');
       listDiv.scrollTop = 0;
       window.addEventListener("click", windowClickHandler);
     }
     else {
+      print ("Undeployed!");
       listDiv.classes.remove('deployed');
       window.removeEventListener("click", windowClickHandler);
     }
