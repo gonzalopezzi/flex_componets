@@ -100,10 +100,9 @@ class FxDateChooser extends FxBase {
     
     _tableBody.children = new List<Element> ();
     
-    DateTime currentDate = firstDate;
     int dayCounter = 0;
     TableRowElement tr;
-    for (DateTime currentDate = firstDate; 
+    for (DateTime currentDate = firstDate.add(new Duration(hours:12)) /*Soluciona bug calendario verano / invierno*/ ; 
               currentDate.difference(lastDate).inDays <= 0; 
               currentDate = currentDate.add(new Duration (days:1))) {
       if (dayCounter % 7 == 0) { // Must create a new row
@@ -127,13 +126,14 @@ class FxDateChooser extends FxBase {
   }
   
   ButtonElement createButtonElement (DateTime currentDate)  {
+    DateTime curDate = copyDateTime(currentDate);
     ButtonElement button = new ButtonElement() 
-      ..appendText("${currentDate.day}");
-    if (currentDate.month != _displayedDate.month) {
+      ..appendText("${curDate.day}");
+    if (curDate.month != _displayedDate.month) {
       button.className = "day-button other-month-day-button";
     }
     else {
-      if (selectedDate != null && currentDate.difference(truncatedSelectedDate).inHours == 0) {
+      if (selectedDate != null && curDate.difference(truncatedSelectedDate).inHours == 0) {
         button.className = "day-button selected-day";
       }
       else {
@@ -141,7 +141,7 @@ class FxDateChooser extends FxBase {
       }
     }
     
-    buttonData[button] = currentDate;
+    buttonData[button] = curDate;
     button.onClick.listen(dayButtonClick);
     return button;
   }

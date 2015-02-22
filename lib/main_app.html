@@ -10,12 +10,18 @@
 <link rel="import" href="../../packages/flex_components/fx_tree.html">
 <link rel="import" href="../../packages/flex_components/fx_button.html">
 <link rel="import" href="../../packages/flex_components/fx_panel.html">
+<link rel="import" href="../../packages/flex_components/fx_panel_title.html">
+<link rel="import" href="../../packages/flex_components/fx_panel_footer.html">
+<link rel="import" href="../../packages/flex_components/fx_panel_content.html">
 <link rel="import" href="../../packages/flex_components/fx_date_chooser.html">
 <link rel="import" href="../../packages/flex_components/sample/fx_sample_panel.html">
 <link rel="import" href="../../packages/flex_components/internal/fx_overlay.html">
 <link rel="import" href="../../packages/flex_components/fx_slider.html">
 <link rel="import" href="../../packages/flex_components/fx_item_renderer.html">
 <link rel="import" href="../../packages/flex_components/my_item_renderer.html">
+
+<!-- THEME -->
+<link rel="import" href="../../packages/flex_components/themes/fx_components_blue_theme.html">
 
 
 <polymer-element name="main-app">
@@ -58,9 +64,6 @@
       
     </style>
     <div id="left-panel">
-      <div>
-        <fx-item-renderer data="Hola" tag="my-item-renderer"></fx-item-renderer>
-      </div>
       <div class="form-item">
         <fx-dropdown-list
           prompt="Select a category" 
@@ -115,11 +118,15 @@
     </div>
     <div id="center-panel">
       <div class="form-item">
-        <fx-panel panelTitle="Title" panelFooter="Footer">
-          This is a panel
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis diam est. Maecenas dictum, velit eget laoreet facilisis, dolor lacus sagittis lacus, ut tincidunt risus lacus suscipit tellus. Nullam vitae varius diam, vel facilisis risus. Quisque eget justo ac ante euismod viverra. Suspendisse rhoncus nibh nulla, ut elementum diam mattis eget. Pellentesque sit amet sem dui. Aliquam erat volutpat. Vestibulum vehicula leo lorem, hendrerit pellentesque dui malesuada eu.
-          </p>
+        <fx-panel>
+          <fx-panel-title>Title</fx-panel-title>
+          <fx-panel-content>
+            This is a panel
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis diam est. Maecenas dictum, velit eget laoreet facilisis, dolor lacus sagittis lacus, ut tincidunt risus lacus suscipit tellus. Nullam vitae varius diam, vel facilisis risus. Quisque eget justo ac ante euismod viverra. Suspendisse rhoncus nibh nulla, ut elementum diam mattis eget. Pellentesque sit amet sem dui. Aliquam erat volutpat. Vestibulum vehicula leo lorem, hendrerit pellentesque dui malesuada eu.
+            </p>
+          </fx-panel-content>
+          <fx-panel-footer>Footer</fx-panel-footer>
         </fx-panel>
       </div>
       <div class="form-item">

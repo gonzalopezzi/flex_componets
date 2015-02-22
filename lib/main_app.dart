@@ -75,8 +75,8 @@ class MainApp extends PolymerElement {
   }
   
   void openPopup (MouseEvent event) {
-    int top = event.client.y;
-    int left = event.client.x;
+    int top = event.page.y;
+    int left = event.page.x;
     FxSamplePanel fxSamplePanel = new FxSamplePanel();
     fxSamplePanel.style.setProperty("width", "400px");
     fxSamplePanel.style.setProperty("height", "400px");

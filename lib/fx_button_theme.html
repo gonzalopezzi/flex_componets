@@ -1,0 +1,110 @@
+<link rel="import" href="../../packages/core_elements/core_style.html">
+<link rel="import" href="../../packages/flex_components/fx_colors_theme.html">
+
+<core-style ref="fxColorsTheme"></core-style>
+
+<script>
+  CoreStyle.g.fxButtonTheme = {
+    fontSize: '11pt',
+    defaultColor: '#009fb2',
+    borderWidth: '1px', 
+    borderStyle: 'solid', 
+    borderRadius: '3px',
+    defaultBorderColor: '#009fb2',
+    fontColor: 'white',
+    cursor: 'pointer',
+    gradientOpacity: '0.7',
+    gradientPressedOpacity: '0.4',
+    gradientStart: 'rgba(255,255,255,0.65)',
+    gradientEnd: 'rgba(255,255,255,0)',
+    pressedShadow: 'inset 0px 2px 6px 0px rgba(50, 50, 50, 0.75)'
+  };
+</script>
+
+<core-style id="fxButtonTheme">
+    #mainButton {
+      display:block;
+      position:relative;
+      width:100%;
+      padding: 0px;
+      font-size: {{g.fxButtonTheme.fontSize}};
+      background:{{g.fxButtonTheme.defaultColor}};
+      border-width: {{g.fxButtonTheme.borderWidth}};
+      border-style: {{g.fxButtonTheme.borderStyle}};
+      border-color: {{g.fxButtonTheme.defaultBorderColor}};
+      border-radius: {{g.fxButtonTheme.borderRadius}};
+      color:{{g.fxButtonTheme.fontColor}};
+      cursor:{{g.fxButtonTheme.cursor}};
+    }
+    #mainButton:focus {
+      outline:0;
+    }
+    
+    #mainButton.primary {
+      background-color: {{g.fxColorsTheme.primary}};
+      border-color: {{g.fxColorsTheme.primary}};
+    }
+    
+    #mainButton.secondary {
+      background-color: {{g.fxColorsTheme.secondary}};
+      border: 1px solid {{g.fxColorsTheme.secondary}};
+    }
+    
+    #mainButton.tertiary {
+      background-color: {{g.fxColorsTheme.tertiray}};
+      border: 1px solid {{g.fxColorsTheme.tertiary}};
+    }
+    
+    #mainButton.success {
+      background-color: {{g.fxColorsTheme.success}};
+      border: 1px solid {{g.fxColorsTheme.sucess}};
+    }
+    
+    #mainButton.warn {
+      background-color: {{g.fxColorsTheme.warn}};
+      border: 1px solid {{g.fxColorsTheme.warn}};
+    }
+    
+    #mainButton.error {
+      background-color: {{g.fxColorsTheme.error}};
+      border: 1px solid {{g.fxColorsTheme.error}};
+    }
+    
+    #btnContent {
+      display:block;
+      padding:10px;
+    }
+    
+    #btnContent.pressed {
+      padding-top:11px;
+      padding-bottom:9px;
+    }
+    
+    #gradient {
+      display:block;
+      position:absolute;
+      top:0;
+      right:0;
+      bottom:0;
+      left:0;
+      
+      opacity: {{g.fxButtonTheme.gradientOpacity}};
+      
+      background: -moz-linear-gradient(top,  {{g.fxButtonTheme.gradientStart}} 0%, {{g.fxButtonTheme.gradientEnd}} 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,{{g.fxButtonTheme.gradientStart}}), color-stop(100%,{{g.fxButtonTheme.gradientEnd}})); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top,  {{g.fxButtonTheme.gradientStart}} 0%,{{g.fxButtonTheme.gradientEnd}} 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top,  {{g.fxButtonTheme.gradientStart}} 0%,{{g.fxButtonTheme.gradientEnd}} 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top,  {{g.fxButtonTheme.gradientStart}} 0%,{{g.fxButtonTheme.gradientEnd}} 100%); /* IE10+ */
+      background: linear-gradient(to bottom,  {{g.fxButtonTheme.gradientStart}} 0%,{{g.fxButtonTheme.gradientEnd}} 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+    }
+    
+    #gradient.pressed {
+      opacity:{{g.fxButtonTheme.gradientPressedOpacity}};
+      
+      /* inset shadow */
+      -webkit-box-shadow: {{g.fxButtonTheme.pressedShadow}};
+      -moz-box-shadow:    {{g.fxButtonTheme.pressedShadow}};
+      box-shadow:         {{g.fxButtonTheme.pressedShadow}};
+    }
+</core-style>

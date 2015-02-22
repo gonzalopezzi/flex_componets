@@ -46,7 +46,6 @@ class FxItemRenderer extends PolymerElement {
   
   void _render () {
     if (!_tagAdded && attachedPolymerElement != null) {
-      print("Adding Tag");
       ($['mainFxItemRendererContent'] as DivElement).children.add(attachedPolymerElement);
       _tagAdded = true;
     }

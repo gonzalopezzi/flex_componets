@@ -19,7 +19,7 @@ class FxOverlay extends PolymerElement {
   factory FxOverlay () => new Element.tag('fx-overlay');
   
   void overlayClickHandler (Event e) {
-    PopUpManager.removePopUp(content);
+    /*PopUpManager.removePopUp(content);*/ //TODO: Do we want the popup to be closed when clicking the overlay???
   }
   
   Future performCloseAnimation () {
