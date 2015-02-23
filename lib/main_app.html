@@ -14,6 +14,7 @@
 <link rel="import" href="../../packages/flex_components/fx_panel_footer.html">
 <link rel="import" href="../../packages/flex_components/fx_panel_content.html">
 <link rel="import" href="../../packages/flex_components/fx_date_chooser.html">
+<link rel="import" href="../../packages/flex_components/fx_textarea.html">
 <link rel="import" href="../../packages/flex_components/sample/fx_sample_panel.html">
 <link rel="import" href="../../packages/flex_components/internal/fx_overlay.html">
 <link rel="import" href="../../packages/flex_components/fx_slider.html">
@@ -39,6 +40,13 @@
       }
       
       #center-panel {
+        display: inline-block;
+        float:left;
+        width:30%;
+        min-width:300px;
+      }
+      
+      #right-panel {
         display: inline-block;
         float:left;
         width:30%;
@@ -138,6 +146,14 @@
       </div>
       <div class="form-item">
         <fx-slider></fx-slider>
+      </div>
+    </div>
+    <div id="right-panel">
+      <div class="form-item">
+        <fx-textarea text="{{textAreaText}}"></fx-textarea>
+      </div>
+      <div class="form-item">
+        {{textAreaText}}
       </div>
     </div>
   </template>

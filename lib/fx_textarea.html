@@ -1,0 +1,39 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+
+<polymer-element name="fx-textarea">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      
+      textarea {
+        box-sizing: border-box;
+        margin:0;
+        display:block;
+        width: 100%;
+        height: 120px;
+        resize:vertical;
+        padding: 15px;
+        
+        font-family: RobotoDraft, sans-serif;
+        color: #333;
+        line-height: 20px;
+        
+        -webkit-box-shadow: inset 0px 0px 4px 0px rgba(50, 50, 50, 0.3);
+        -moz-box-shadow:    inset 0px 0px 4px 0px rgba(50, 50, 50, 0.3);
+        box-shadow:         inset 0px 0px 4px 0px rgba(50, 50, 50, 0.3);
+        
+        border-width: 1px;
+        border-color: #ccc;
+        border-radius: 3px;
+        border-style: solid;
+      }
+      
+    </style>
+    <textarea value="{{text}}">
+    </textarea>
+  </template>
+  <script type="application/dart" src="fx_textarea.dart"></script>
+</polymer-element>
