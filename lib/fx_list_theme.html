@@ -1,4 +1,5 @@
 <link rel="import" href="../../packages/core_elements/core_style.html">
+<link rel="import" href="../../packages/flex_components/fx_scrollbars_theme.html">
 
 <script>
   CoreStyle.g.fxListTheme = {
@@ -22,6 +23,8 @@
     selectedHoverFontColor: '#fff'
   };
 </script>
+
+<core-style ref="fxScrollbarsTheme"></core-style>
 
 <core-style id="fxListTheme">
 
@@ -59,6 +62,32 @@
     -webkit-box-shadow: {{g.fxListTheme.focusedShadow}};
     -moz-box-shadow:    {{g.fxListTheme.focusedShadow}};
     box-shadow:         {{g.fxListTheme.focusedShadow}};
+  }
+  
+  #lst::-webkit-scrollbar-track
+  {
+    -webkit-box-shadow: {{g.fxScrollbarsTheme.trackShadow}};
+    background-color: {{g.fxScrollbarsTheme.trackColor}};
+    border-radius: {{g.fxScrollbarsTheme.trackBorderRadius}};
+  }
+  
+  #lst::-webkit-scrollbar
+  {
+    width: {{g.fxScrollbarsTheme.scrollbarWidth}};
+    background-color: {{g.fxScrollbarsTheme.scrollbarBackgroundColor}};
+  }
+  
+  #lst::-webkit-scrollbar-thumb
+  {
+    border-radius: {{g.fxScrollbarsTheme.scrollbarThumbWidth}};
+    background-color: {{g.fxScrollbarsTheme.scrollbarThumbColor}};
+  }
+  
+  #lst {
+    scrollbar-face-color: {{g.fxScrollbarsTheme.scrollbarThumbColor}};  
+    scrollbar-shadow-color: {{g.fxScrollbarsTheme.scrollbarThumbColor}};  
+    scrollbar-track-color: {{g.fxScrollbarsTheme.trackColor}};  
+    scrollbar-arrow-color: {{g.fxScrollbarsTheme.arrowColor}};
   }
   
   .item-holder {

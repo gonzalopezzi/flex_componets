@@ -1,6 +1,8 @@
 <!-- import polymer-element's definition -->
 <link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/core_elements/core_style.html">
 <link rel="import" href="../../packages/flex_components/fx_item_renderer.html">
+<link rel="import" href="../../packages/flex_components/fx_tree_item_theme.html">
 
 <polymer-element name="fx-tree-item">
   <template>
@@ -8,67 +10,9 @@
       :host {
         display: block;
       }
-      
-      #treeItemLst {
-        padding: 0;
-        height: 0px;
-        overflow:hidden;
-      }
-      
-      /*#lst.deployed {
-        padding: 0;
-        height: auto;
-        overflow:hidden;
-      }*/
-      
-      #main-item {
-        padding: 8px;
-        line-height:24px;
-        transition: all 0.2s ease-in-out;
-      }
-      
-      #main-item.selected, #main-item.selected:hover {
-        background-color: #009fb2;
-        color: #fff;
-      }
-      
-      #main-item:hover {
-        background-color: #ddd;
-        color: #000;
-      }
-      
-      #spacer {
-        display:inline-block;
-        float:left;
-        width:0;
-        height:24px;
-      }
-      
-      #expand-button {
-        display:inline-block;
-        float:left;
-        background: transparent url("icon/arrow-down.png") no-repeat right center;
-        width:24px;
-        height:24px;
-        transform: rotate(-90deg);
-        transform-origin: 12px 12px;
-        transition: all 0.2s ease-in-out;
-      }
-      
-      #expand-button.deployed {
-        transform:rotate(0deg);
-      }
-      
-      #text {
-        display: inline-block;
-        float: left;
-      }
-      
-      .clear {
-        clear:left;
-      }
-      
     </style>
+    <core-style ref="fxTreeItemTheme"></core-style>
+    
     <div id="main-item" on-click="{{treeItemClick}}" class="{{ {selected: selectedItem == value} }}">
       <div id="spacer"></div>
       <template if="{{isTreeNode(value)}}">
