@@ -60,7 +60,8 @@ class FxList extends FxBase {
   }
   
   void _setLstHeight() {
-    lstDiv.style.height = "${listHeight}px";
+    if (lstDiv != null)
+      lstDiv.style.height = "${listHeight}px";
   }
   
   void focusedChanged (bool oldValue) {
