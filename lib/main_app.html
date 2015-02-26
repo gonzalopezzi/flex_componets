@@ -16,8 +16,8 @@
 <link rel="import" href="../../packages/flex_components/fx_date_chooser.html">
 <link rel="import" href="../../packages/flex_components/fx_textarea.html">
 <link rel="import" href="../../packages/flex_components/sample/fx_sample_panel.html">
-<link rel="import" href="../../packages/flex_components/internal/fx_overlay.html">
 <link rel="import" href="../../packages/flex_components/fx_slider.html">
+<link rel="import" href="../../packages/flex_components/fx_viewstack.html">
 <link rel="import" href="../../packages/flex_components/fx_item_renderer.html">
 <link rel="import" href="../../packages/flex_components/my_item_renderer.html">
 
@@ -68,6 +68,18 @@
       
       .form-item {
         margin: 25px;
+      }
+      
+      .border {
+        border: solid 1px #ccc;
+        border-radius: 5px;
+        margin: 10px 0 10px 0;
+        padding: 10px;
+      }
+      
+      #viewSelector {
+        display:inline-block;
+        width: 80px;
       }
       
     </style>
@@ -154,6 +166,17 @@
       </div>
       <div class="form-item">
         {{textAreaText}}
+      </div>
+      <div class="form-item">
+        View: 
+        <fx-dropdown-list id="viewSelector" dataProvider="[0,1,2]" selectedItem="0"></fx-dropdown-list>
+        <div class="border">
+          <fx-viewstack selectedIndex="{{$['viewSelector'].selectedItem}}">
+            <div>One</div>
+            <div>Two</div>
+            <div>Three</div>
+          </fx-viewstack>
+        </div>
       </div>
     </div>
   </template>
