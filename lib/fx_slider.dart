@@ -3,6 +3,7 @@ import 'dart:html';
 import 'dart:async';
 import 'package:flex_components/fx_base.dart';
 import 'dart:js';
+import 'package:animation/animation.dart' as anim;
 
 /**
  * A Polymer fx-slider element.
@@ -31,11 +32,14 @@ class FxSlider extends FxBase {
   
   int _mainDivOffsetX = 0;
   
+  bool _flgAnimate = false;
+  
   /// Constructor used to create instance of FxSlider.
   FxSlider.created() : super.created() {
   }
   
   void valueChanged (num oldValue) {
+    _flgAnimate = true;
     invalidateProperties();
   }
   
@@ -65,6 +69,15 @@ class FxSlider extends FxBase {
       String leftStr = _thumb.style.left;
       dragInitX = num.parse(leftStr.substring(0, leftStr.length -2)).toInt();
     }
+  }
+  
+  void trackClickHandler (MouseEvent e) {
+    /*
+    print ("TrackClick: ${e.offset.x}, ${e.offset.y}");
+    anim.animate(_thumb, duration:200, properties: {'left': 0});
+    anim.animate(_sliderFill, duration:200, properties: {'width': 0});
+    */
+    value = minValue + (e.offset.x / _pixelWidth) * (maxValue - minValue);
   }
   
   void trackStartHandler (Event e) {
@@ -105,8 +118,15 @@ class FxSlider extends FxBase {
   void updateDisplay () {
     super.updateDisplay();
     _pixelValue = _restrictToMaxMin(_pixelValue);
-    _thumb.style.left = "${_pixelValue}px"; 
-    _sliderFill.style.width = "${_pixelValue}px";
+    if (_flgAnimate) {
+      anim.animate(_thumb, duration:200, properties: {'left': _pixelValue});
+      anim.animate(_sliderFill, duration:200, properties: {'width': _pixelValue});
+      _flgAnimate = false;
+    }
+    else {
+      _thumb.style.left = "${_pixelValue}px"; 
+      _sliderFill.style.width = "${_pixelValue}px";
+    }
   }
   
 }

@@ -94,7 +94,7 @@
     </style>
     <div id="main-div" on-trackstart="{{trackStartHandler}}"
         on-trackend="{{trackEndHandler}}" on-track="{{trackHandler}}">
-      <div id="slider-track">
+      <div id="slider-track" on-click="{{trackClickHandler}}">
         <div id="slider-fill"></div>
       </div>
       <div id="slider-thumb">
