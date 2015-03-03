@@ -21,9 +21,9 @@
 <link rel="import" href="../../packages/flex_components/fx_item_renderer.html">
 <link rel="import" href="../../packages/flex_components/my_item_renderer.html">
 
-<!-- THEME -->
+<!-- THEME 
 <link rel="import" href="../../packages/flex_components/themes/fx_components_blue_theme.html">
-
+-->
 
 <polymer-element name="main-app">
   <template>
@@ -157,12 +157,12 @@
         </p>
       </div>
       <div class="form-item">
-        <fx-slider></fx-slider>
+        <fx-slider value="400" minValue="200" maxValue="1000"></fx-slider>
       </div>
     </div>
     <div id="right-panel">
       <div class="form-item">
-        <fx-textarea text="{{textAreaText}}"></fx-textarea>
+        <fx-textarea text="{{textAreaText}}" readonly="true"></fx-textarea>
       </div>
       <div class="form-item">
         {{textAreaText}}
@@ -177,6 +177,11 @@
             <div>Three</div>
           </fx-viewstack>
         </div>
+      </div>
+      <div horizontal layout>
+        <div>Hola</div>
+        <div flex>Flex</div>
+        <div>Box</div>
       </div>
     </div>
   </template>

@@ -11,8 +11,11 @@ import 'dart:js';
 
 class FxSlider extends FxBase {
 
-  @observable num pixelValue = 30;
+  num _pixelValue = 30;
+  num _pixelWidth = 0;
   @published num value = 0;
+  @published num maxValue = 100;
+  @published num minValue = 0;
   
   @observable bool dragging = false;
   
@@ -23,6 +26,7 @@ class FxSlider extends FxBase {
   
   Element _thumbGraph;
   Element _thumb;
+  Element _sliderFill;
   Element _mainDiv;
   
   int _mainDivOffsetX = 0;
@@ -31,34 +35,29 @@ class FxSlider extends FxBase {
   FxSlider.created() : super.created() {
   }
   
+  void valueChanged (num oldValue) {
+    invalidateProperties();
+  }
+  
+  void maxValueChanged (num oldValue) {
+    invalidateProperties ();
+  }
+  
+  void minValueChanged ( num oldValue) {
+    invalidateProperties();
+  }
+  
   @override
   void attached () {
     _thumbGraph = $['slider-thumb-graphic'];
     _thumb = $['slider-thumb'];
+    _sliderFill = $['slider-fill'];
     _mainDiv = $['main-div'];
+    _pixelWidth = _mainDiv.client.width;
     
     this.onMouseDown.listen((_) {
       _updateDragInitX();
     });
-    
-    /*
-    _thumbGraph.onMouseDown.listen((_) {
-      dragging = true;
-      windowMouseUpSubs = window.onMouseUp.listen((_) {
-        dragging = false;
-        windowMouseUpSubs.cancel();
-        windowMouseMoveSubs.cancel();
-      });
-      windowMouseMoveSubs = this.onMouseMove.listen((MouseEvent event) {
-        if (dragging) {
-          if (event.currentTarget == this) {
-            pixelValue = event.offset.x;
-            _thumb.style.transform = "translate(${pixelValue}px, 0px)";
-          }
-        }
-      });
-    });
-    */
   }
   
   void _updateDragInitX () {
@@ -76,18 +75,38 @@ class FxSlider extends FxBase {
   void trackEndHandler (Event e) {
     dragging =  false;
     _updateDragInitX();
+    value = (_pixelValue / _pixelWidth) * (maxValue - minValue) + minValue;
+    invalidateProperties();
   }
   
   void trackHandler (Event e, var detail, Node target) {
     var touchEvent = new JsObject.fromBrowserObject(e);
-    pixelValue = dragInitX + touchEvent['dx'];
+    _pixelValue = dragInitX + touchEvent['dx'];
+    invalidateDisplay();
+  }
+  
+  num _restrictToMaxMin (num pixelValue) {
+    if (pixelValue < 0) 
+      return 0;
+    else if (pixelValue > _pixelWidth) 
+      return _pixelWidth;
+    else 
+      return pixelValue;
+  }
+  
+  @override commitProperties () {
+    super.commitProperties();
+    _pixelValue = ((value - minValue) / (maxValue - minValue)) * _pixelWidth;
+    _pixelValue = _restrictToMaxMin (_pixelValue);
     invalidateDisplay();
   }
   
   @override
   void updateDisplay () {
     super.updateDisplay();
-    _thumb.style.left = "${pixelValue}px"; 
+    _pixelValue = _restrictToMaxMin(_pixelValue);
+    _thumb.style.left = "${_pixelValue}px"; 
+    _sliderFill.style.width = "${_pixelValue}px";
   }
   
 }

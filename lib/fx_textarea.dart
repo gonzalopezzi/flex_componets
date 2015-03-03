@@ -9,6 +9,7 @@ import 'dart:html';
 class FxTextarea extends PolymerElement {
 
   @published String text;
+  @published bool readonly;
   @observable bool focused = false;
   
   /// Constructor used to create instance of FxTextarea.

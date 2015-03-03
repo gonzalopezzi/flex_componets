@@ -1,5 +1,4 @@
 import 'package:polymer/polymer.dart';
-import 'package:flex_components/flex_components.dart';
 import 'dart:html';
 import 'dart:async';
 
