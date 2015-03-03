@@ -15,6 +15,7 @@ class FxSlider extends FxBase {
   num _pixelValue = 30;
   num _pixelWidth = 0;
   @published num value = 0;
+  @observable String datatipValue = "";
   @published num maxValue = 100;
   @published num minValue = 0;
   
@@ -28,6 +29,7 @@ class FxSlider extends FxBase {
   Element _thumbGraph;
   Element _thumb;
   Element _sliderFill;
+  Element _sliderDataTip;
   Element _mainDiv;
   
   int _mainDivOffsetX = 0;
@@ -40,6 +42,7 @@ class FxSlider extends FxBase {
   
   void valueChanged (num oldValue) {
     _flgAnimate = true;
+    _updateDataTipValue();
     invalidateProperties();
   }
   
@@ -56,6 +59,7 @@ class FxSlider extends FxBase {
     _thumbGraph = $['slider-thumb-graphic'];
     _thumb = $['slider-thumb'];
     _sliderFill = $['slider-fill'];
+    _sliderDataTip = $['slider-datatip'];
     _mainDiv = $['main-div'];
     _pixelWidth = _mainDiv.client.width;
     
@@ -72,24 +76,33 @@ class FxSlider extends FxBase {
   }
   
   void trackClickHandler (MouseEvent e) {
-    /*
-    print ("TrackClick: ${e.offset.x}, ${e.offset.y}");
-    anim.animate(_thumb, duration:200, properties: {'left': 0});
-    anim.animate(_sliderFill, duration:200, properties: {'width': 0});
-    */
     value = minValue + (e.offset.x / _pixelWidth) * (maxValue - minValue);
+  }
+  
+  void _showDatatip () {
+    _sliderDataTip.style.opacity = "1";
+  }
+  
+  void _hideDatatip () {
+    _sliderDataTip.style.opacity = "0";
   }
   
   void trackStartHandler (Event e) {
     dragging = true;
+    _showDatatip();
     _updateDragInitX ();
   }
   
   void trackEndHandler (Event e) {
     dragging =  false;
+    _hideDatatip();
     _updateDragInitX();
     value = (_pixelValue / _pixelWidth) * (maxValue - minValue) + minValue;
     invalidateProperties();
+  }
+  
+  void _updateDataTipValue () {
+    datatipValue = "${((_pixelValue / _pixelWidth) * (maxValue - minValue) + minValue).round()}";
   }
   
   void trackHandler (Event e, var detail, Node target) {
@@ -118,6 +131,7 @@ class FxSlider extends FxBase {
   void updateDisplay () {
     super.updateDisplay();
     _pixelValue = _restrictToMaxMin(_pixelValue);
+    _updateDataTipValue();
     if (_flgAnimate) {
       anim.animate(_thumb, duration:200, properties: {'left': _pixelValue});
       anim.animate(_sliderFill, duration:200, properties: {'width': _pixelValue});

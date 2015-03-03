@@ -40,22 +40,6 @@
         /*transition: all 0.1s ease-in-out;*/
       }
       
-      #slider-thumb svg {
-        position:absolute;
-      }
-      
-      /*
-      #slider-thumb:hover {
-        transform: scale(1.2,1.2);
-        transform-origin:50% 50%;
-      }
-      */
-      
-      /*
-      #slider-thumb:hover #slider-datatip {
-        opacity:1;
-      }
-      */
       
       #slider-thumb-graphic {
         position:absolute;
@@ -66,7 +50,8 @@
       #slider-datatip {
         position:absolute;
         display:inline-block;
-        background-color: #fff;
+        background-color: #444;
+        color:white;
         text-align:center;
         width:60px;
         height:30px;
@@ -105,9 +90,9 @@
             <circle cx="10" cy="10" r="10" fill="blue" />
           </svg>-->
         </div>
-        <!--<div id="slider-datatip">
-          99.99
-        </div>-->
+        <div id="slider-datatip">
+          {{datatipValue}}
+        </div>
       </div>
     </div>
     <div id="debug">
