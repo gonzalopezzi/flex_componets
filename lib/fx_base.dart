@@ -8,6 +8,8 @@ class FxBase extends PolymerElement {
   bool _propertiesDirty = false;
   bool _displayDirty = false;
   
+  
+  
   FxBase.created() : super.created() {
   }
   
