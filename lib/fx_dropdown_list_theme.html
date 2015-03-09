@@ -3,6 +3,7 @@
 <script>
   CoreStyle.g.fxDropdownListTheme = {
     placeHolderFontSize: '11pt',
+    placeHolderFontFamily: 'RobotoDraft, sans-serif',
     placeHolderTextAlign: 'left',
     placeHolderBackground: '#fff url("packages/flex_components/icon/arrow-down.png") no-repeat right center',
     placeHolderBorder: '1px solid #CCC',
@@ -27,6 +28,7 @@
     display:block;
     outline: 0;
     width:100%;
+    font-family: {{g.fxDropdownListTheme.placeHolderFontFamily}};
     font-size: {{g.fxDropdownListTheme.placeHolderFontSize}};
     text-align: {{g.fxDropdownListTheme.placeHolderTextAlign}};
     box-sizing: border-box;
