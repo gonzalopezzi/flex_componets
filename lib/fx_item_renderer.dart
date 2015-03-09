@@ -50,6 +50,8 @@ class FxItemRenderer extends PolymerElement {
       _tagAdded = true;
     }
     if (_tagAdded && _dataHasChanged) {
+      ($['mainFxItemRendererContent'] as DivElement).children.clear();
+      ($['mainFxItemRendererContent'] as DivElement).children.add(attachedPolymerElement);
       (attachedPolymerElement as DataRenderer).data = data;
       _dataHasChanged = false;
     }

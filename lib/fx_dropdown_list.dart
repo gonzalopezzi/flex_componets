@@ -35,7 +35,8 @@ class FxDropdownList extends FxBase {
   factory FxDropdownList () => new Element.tag('fx-dropdown-list');
 
   void dataProviderChanged (List oldValue) {
-    invalidateProperties;
+    selectedItem = null;
+    invalidateProperties();
   }
   
   void selectedIndexChanged (int oldValue) {
