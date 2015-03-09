@@ -15,6 +15,9 @@
 <link rel="import" href="../../packages/flex_components/fx_panel_content.html">
 <link rel="import" href="../../packages/flex_components/fx_date_chooser.html">
 <link rel="import" href="../../packages/flex_components/fx_textarea.html">
+<link rel="import" href="../../packages/flex_components/fx_tab_bar.html">
+<link rel="import" href="../../packages/flex_components/fx_tab_navigator.html">
+<link rel="import" href="../../packages/flex_components/internal/fx_overlay.html">
 <link rel="import" href="../../packages/flex_components/sample/fx_sample_panel.html">
 <link rel="import" href="../../packages/flex_components/fx_slider.html">
 <link rel="import" href="../../packages/flex_components/fx_viewstack.html">
@@ -167,21 +170,35 @@
       <div class="form-item">
         {{textAreaText}}
       </div>
-      <div class="form-item">
-        View: 
-        <fx-dropdown-list id="viewSelector" dataProvider="[0,1,2]" selectedItem="0"></fx-dropdown-list>
-        <div class="border">
-          <fx-viewstack selectedIndex="{{$['viewSelector'].selectedItem}}">
-            <div>One</div>
-            <div>Two</div>
-            <div>Three</div>
-          </fx-viewstack>
-        </div>
-      </div>
-      <div horizontal layout>
-        <div>Hola</div>
-        <div flex>Flex</div>
-        <div>Box</div>
+      <div>
+        <fx-tab-navigator>
+          <div data-label="Drop Down" style="min-height:200px">
+            This is a <strong>Drop Down List</strong>
+            <fx-dropdown-list
+              prompt="Select a category" 
+              dataProvider="{{productCategoriesObject}}"
+              selectedItem="{{selectedProductCategory}}"
+              listHeight="150"
+              labelField="name" on-selection-change="{{alertChange}}"></fx-dropdown-list>
+          </div>
+          <div data-label="List" style="min-height:200px">
+            This is a <strong>List</strong>
+            <fx-list
+              dataProvider="{{productCategoriesObject}}"
+              selectedItem="{{selectedProductCategory}}"
+              listHeight="150"
+              labelField="name" on-selection-change="{{alertChange}}"></fx-list>
+          </div>
+          <div data-label="Multiselect List" style="min-height:200px">
+            This is a <strong>List</strong> that allows multiple selection
+            <fx-list
+              dataProvider="{{productCategoriesObject}}"
+              selectedItems="{{selectedProductCategories}}"
+              listHeight="150"
+              allowMultipleSelection="true"
+              labelField="name" on-selection-change="{{alertChange}}"></fx-list>
+          </div>
+        </fx-tab-navigator>
       </div>
     </div>
   </template>

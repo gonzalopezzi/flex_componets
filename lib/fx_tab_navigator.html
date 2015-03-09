@@ -1,0 +1,43 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/flex_components/fx_tab_bar.html">
+<link rel="import" href="../../packages/flex_components/fx_viewstack.html">
+
+<polymer-element name="fx-tab-navigator">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position:relative;
+      }
+      
+      #tabBar {
+        position:absolute;
+        display:inline-block;
+        width:100%;
+        top:0;
+        left:0;
+      }
+      
+      #spacer-div {
+        padding:39px 0 0 0;
+      }
+      
+      #content-box {
+        border: solid 1px #ccc;
+        border-radius: 0 5px 5px 5px;
+        padding: 10px 10px 10px 10px;
+      }
+      
+    </style>
+    <fx-tab-bar id="tabBar" dataProvider="{{$['viewStack']}}"  selectedIndex="{{selectedIndex}}"></fx-tab-bar>
+    <div id="spacer-div">
+      <div id="content-box">
+        <fx-viewstack id="viewStack" selectedIndex="{{selectedIndex}}">
+          <content></content>
+        </fx-viewstack>
+      </div>
+    </div>
+  </template>
+  <script type="application/dart" src="fx_tab_navigator.dart"></script>
+</polymer-element>

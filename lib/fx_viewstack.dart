@@ -1,13 +1,17 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'package:flex_components/fx_base.dart';
+import 'dart:async';
 
 @CustomTag('fx-viewstack')
 class FxViewstack extends FxBase {
 
-  List<Element> children;
+  List<Element> currentChildren;
   
   @published int selectedIndex = 0;
+  
+  StreamController _contentReadyDispatcher = new StreamController.broadcast();
+  Stream get onContentReady => _contentReadyDispatcher.stream;
   
   FxViewstack.created() : super.created() {
   }
@@ -15,29 +19,56 @@ class FxViewstack extends FxBase {
   void selectedIndexChanged (int oldValue) {
     invalidateProperties();
   }
-
-  attached() {
-    super.attached();
-    NodeList nodeList = (this.shadowRoot.querySelector('content') as ContentElement).getDistributedNodes();
+  
+  void _syncChildren () {
     List<Element> elements = new List<Element> ();
+    NodeList nodeList = (this.shadowRoot.querySelector('content') as ContentElement).getDistributedNodes();
     nodeList.forEach ((dynamic el) {
       if (!(el is Text)) {
         elements.add(el);
       }
     });
-    this.children = elements;
+    this.currentChildren = elements;    
+  }
+  
+  @override
+  void bindFinished () {
+    super.bindFinished();
+    _syncChildren();
+    invalidateProperties();
+  }
+
+  attached() {
+    super.attached();
+    _syncChildren ();
     invalidateProperties ();
+  }
+  
+  List<String> getChildrenList () {
+    List<String> childrenList = [];
+    currentChildren.forEach((Element element) {
+      childrenList.add(element.dataset['label']);
+    });
+    return childrenList;
   }
   
   @override
   void commitProperties () {
-    super.commitProperties();
-    if (children != null && children.length > 0) {
-      children.forEach((Element e) {
-        e.style.display = "none";
-      });
-      if (selectedIndex >= 0 && selectedIndex < children.length)
-        children[selectedIndex].style.display = "block";
+    try {
+      super.commitProperties();
+      if (currentChildren != null && currentChildren.length > 0) {
+        currentChildren.forEach((Element e) {
+          print ("Elemento: ${e.className}");
+          e.style.display = "none";
+        });
+        if (selectedIndex != null && selectedIndex >= 0 && selectedIndex < currentChildren.length)
+          currentChildren[selectedIndex].style.display = "block";
+      }
+      _contentReadyDispatcher.add(null);
+    }
+    catch (e, stacktrace) {
+      print (e);
+      print (stacktrace);
     }
   }
 }
