@@ -14,10 +14,11 @@ class FxSlider extends FxBase {
 
   num _pixelValue = 30;
   num _pixelWidth = 0;
-  @published num value = 0;
+  @published dynamic value = 0;
   @observable String datatipValue = "";
   @published num maxValue = 100;
   @published num minValue = 0;
+  @published num stepSize = 0;
   
   @observable bool dragging = false;
   
@@ -40,7 +41,10 @@ class FxSlider extends FxBase {
   FxSlider.created() : super.created() {
   }
   
-  void valueChanged (num oldValue) {
+  void valueChanged (dynamic oldValue) {
+    if (value is String) {
+      value = num.parse(value);
+    }
     _flgAnimate = true;
     _updateDataTipValue();
     invalidateProperties();
@@ -77,6 +81,9 @@ class FxSlider extends FxBase {
   
   void trackClickHandler (MouseEvent e) {
     value = minValue + (e.offset.x / _pixelWidth) * (maxValue - minValue);
+    if (stepSize > 0) {
+      value = minValue + ((value - minValue) / stepSize).round() * stepSize;
+    }
   }
   
   void _showDatatip () {
@@ -93,11 +100,19 @@ class FxSlider extends FxBase {
     _updateDragInitX ();
   }
   
+  num _convertPixelValueToValue (num pixelValue) {
+    return (pixelValue / _pixelWidth) * (maxValue - minValue) + minValue;
+  }
+  
+  num _convertValueToPixelValue (num val) {
+    return ((val - minValue) / (maxValue - minValue)) * _pixelWidth;
+  }
+  
   void trackEndHandler (Event e) {
     dragging =  false;
     _hideDatatip();
     _updateDragInitX();
-    value = (_pixelValue / _pixelWidth) * (maxValue - minValue) + minValue;
+    value = _convertPixelValueToValue (_pixelValue);
     invalidateProperties();
   }
   
@@ -107,8 +122,22 @@ class FxSlider extends FxBase {
   
   void trackHandler (Event e, var detail, Node target) {
     var touchEvent = new JsObject.fromBrowserObject(e);
-    _pixelValue = dragInitX + touchEvent['dx'];
-    invalidateDisplay();
+    if (stepSize > 0) {
+      _flgAnimate = true;
+      num prevPixelValue = _pixelValue;
+      
+      _pixelValue = dragInitX + touchEvent['dx'];
+      num val = _convertPixelValueToValue(_pixelValue);
+      val = minValue + ((val - minValue) / stepSize).round() * stepSize;
+      _pixelValue = _convertValueToPixelValue(val);
+      if (prevPixelValue != _pixelValue) {
+        invalidateDisplay();
+      }
+    }
+    else {
+      _pixelValue = dragInitX + touchEvent['dx'];
+      invalidateDisplay();
+    }
   }
   
   num _restrictToMaxMin (num pixelValue) {
@@ -122,7 +151,7 @@ class FxSlider extends FxBase {
   
   @override commitProperties () {
     super.commitProperties();
-    _pixelValue = ((value - minValue) / (maxValue - minValue)) * _pixelWidth;
+    _pixelValue = _convertValueToPixelValue (value);
     _pixelValue = _restrictToMaxMin (_pixelValue);
     invalidateDisplay();
   }
@@ -133,8 +162,8 @@ class FxSlider extends FxBase {
     _pixelValue = _restrictToMaxMin(_pixelValue);
     _updateDataTipValue();
     if (_flgAnimate) {
-      anim.animate(_thumb, duration:200, properties: {'left': _pixelValue});
-      anim.animate(_sliderFill, duration:200, properties: {'width': _pixelValue});
+      anim.animate(_thumb, duration:100, properties: {'left': _pixelValue});
+      anim.animate(_sliderFill, duration:100, properties: {'width': _pixelValue});
       _flgAnimate = false;
     }
     else {

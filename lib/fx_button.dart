@@ -1,11 +1,7 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 
-/**
- * A Polymer fx-button element.
- */
 @CustomTag('fx-button')
-
 class FxButton extends PolymerElement {
 
   @published String label;
