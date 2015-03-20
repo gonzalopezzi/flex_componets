@@ -60,6 +60,9 @@ class MainApp extends PolymerElement {
   
   @observable dynamic selectedTreeItem;
   
+  @observable List<num> sliderValue = [300,500];
+  @observable Function sliderDataTipFormatter = (num val) => "${val}";
+  
   @observable String textAreaText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend dignissim sodales. Donec id ex ut sapien egestas dictum. In finibus tristique risus et rhoncus. Suspendisse potenti. Aenean tristique felis ut lectus porta, eu tincidunt erat commodo. Maecenas laoreet metus ac mattis eleifend. Duis nisi sem, maximus in nisl at, vestibulum tincidunt odio. Aliquam non leo ut ligula feugiat facilisis. Donec hendrerit rutrum elit. In hac habitasse platea dictumst.";
   
   @observable int viewStackSelectedIndex = 0;

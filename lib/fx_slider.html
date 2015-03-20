@@ -6,6 +6,7 @@
     <style>
       :host {
         display: block;
+        margin: 10px 0 10px 0;
       }
       
       #main-div {
@@ -23,6 +24,8 @@
       }
       
       #slider-fill {
+        box-sizing: border-box;
+        margin-left: 0;
         width: 0;
         height: 10px;
         border-radius:5px;
@@ -33,13 +36,11 @@
         box-shadow:         inset 0px -1px 6px 0px rgba(50, 50, 50, 0.75);
       }
       
-      #slider-thumb {
+      #slider-thumb-0,#slider-thumb-1 {
         position:absolute;
         top: 5px;
         left: 0;
-        /*transition: all 0.1s ease-in-out;*/
       }
-      
       
       #slider-thumb-graphic {
         position:absolute;
@@ -47,21 +48,48 @@
         left:-10px;
       }
       
-      #slider-datatip {
+      #slider-datatip-0,#slider-datatip-1 {
         position:absolute;
         display:inline-block;
-        background-color: #444;
-        color:white;
+        pointer-events:none;
         text-align:center;
-        width:60px;
-        height:30px;
+        width:200px;
+        left:-100px;
+        height:40px;
         top: -50px;
-        left: -30px;
         opacity:0;
         transition: all 0.2s ease-in-out;
       }
       
-      #circle {
+      .slider-datatip-text {
+        display:inline-block;
+        position:relative;
+        width:auto;
+        box-sizing:border-box;
+        padding:5px;
+        border-radius:5px;
+        background-color: #ddd;
+        text-align:center;
+        color:#000;
+        font-size: 10pt;
+        height:30px;
+        
+        -webkit-box-shadow: 1px 1px 3px 0px rgba(50, 50, 50, 0.75);
+        -moz-box-shadow:    1px 1px 3px 0px rgba(50, 50, 50, 0.75);
+        box-shadow:         1px 1px 3px 0px rgba(50, 50, 50, 0.75);
+      }
+      
+      .slider-datatip-text .bubble-arrow {
+        display:inline-block;
+        position:absolute;
+        background: transparent url("icon/bubble_arrow_bottom.png") no-repeat center bottom;
+        left:0;
+        right:0;
+        top:30px;
+        height:10px;
+      }
+      
+      #circle-0,#circle-1 {
         display:inline-block;
         background-color: white;
         border-radius:10px;
@@ -82,21 +110,30 @@
       <div id="slider-track" on-click="{{trackClickHandler}}">
         <div id="slider-fill"></div>
       </div>
-      <div id="slider-thumb">
+      <div id="slider-thumb-0" hidden?="{{!doubleThumb}}">
         <div id="slider-thumb-graphic">
-          <div id="circle">
+          <div id="circle-0">
           </div>
-          <!--<svg height="20" width="20">
-            <circle cx="10" cy="10" r="10" fill="blue" />
-          </svg>-->
         </div>
-        <div id="slider-datatip">
-          {{datatipValue}}
+        <div id="slider-datatip-0">
+          <div class="slider-datatip-text">
+            {{datatipValue[0]}}
+            <div class="bubble-arrow"></div>
+          </div>
         </div>
       </div>
-    </div>
-    <div id="debug">
-      <input type="text" value="{{value}}">
+      <div id="slider-thumb-1">
+        <div id="slider-thumb-graphic">
+          <div id="circle-1">
+          </div>
+        </div>
+        <div id="slider-datatip-1">
+          <div class="slider-datatip-text">
+            {{datatipValue[1]}}
+            <div class="bubble-arrow"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </template>
   <script type="application/dart" src="fx_slider.dart"></script>

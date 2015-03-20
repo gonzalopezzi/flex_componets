@@ -12,15 +12,19 @@ import 'package:animation/animation.dart' as anim;
 
 class FxSlider extends FxBase {
 
-  num _pixelValue = 30;
-  num _pixelWidth = 0;
-  @published dynamic value = 0;
-  @observable String datatipValue = "";
+  List<num> _pixelValue = toObservable([0, 0]);
+  @published dynamic value; /* The user can set a String, int or List (with two items) */
+  @observable List<num> computedValue = toObservable([0, 0]);
+  @observable List<String> datatipValue = toObservable(["", ""]);
   @published num maxValue = 100;
   @published num minValue = 0;
   @published num stepSize = 0;
+  @published bool animateStepSize = true;
+  @published bool doubleThumb = false;
   
-  @observable bool dragging = false;
+  @published Function dataTipFormatter = (num dataTipValue) => "$dataTipValue";
+  
+  @observable List<bool> dragging = toObservable([false, false]);
   
   @observable int dragInitX = 0;
   
@@ -28,26 +32,55 @@ class FxSlider extends FxBase {
   StreamSubscription windowMouseMoveSubs;
   
   Element _thumbGraph;
-  Element _thumb;
+  Element _thumb0;
+  Element _thumb1;
   Element _sliderFill;
-  Element _sliderDataTip;
+  Element _sliderDataTip0;
+  Element _sliderDataTip1;
   Element _mainDiv;
   
   int _mainDivOffsetX = 0;
   
   bool _flgAnimate = false;
   
-  /// Constructor used to create instance of FxSlider.
   FxSlider.created() : super.created() {
   }
   
+  num parseValue (dynamic val) {
+    if (val is String) {
+      return num.parse(val);
+    }
+    return (val as num);
+  }
+  
   void valueChanged (dynamic oldValue) {
-    if (value is String) {
-      value = num.parse(value);
+    if (value is List) {
+      if (!doubleThumb) {
+        throw new ArgumentError("If doubleThumb is false, value should be a num");
+      }
+      computedValue[0] = parseValue(value[0]);
+      computedValue[1] = parseValue(value[1]);
+    }
+    else {
+      if (doubleThumb) {
+        throw new ArgumentError("If doubleThumb is true, value should be a List<num> with two elements. Example: [120, 240]");
+      }
+      dynamic newValue = value;
+      computedValue = toObservable([minValue, minValue]);
+      computedValue[1] = parseValue(newValue);
     }
     _flgAnimate = true;
     _updateDataTipValue();
     invalidateProperties();
+  }
+  
+  void computedValueChanged (List oldValue) {
+    if (doubleThumb) {
+      value = computedValue;
+    }
+    else {
+      value = computedValue[1];
+    }
   }
   
   void maxValueChanged (num oldValue) {
@@ -61,43 +94,86 @@ class FxSlider extends FxBase {
   @override
   void attached () {
     _thumbGraph = $['slider-thumb-graphic'];
-    _thumb = $['slider-thumb'];
+    _thumb0 = $['slider-thumb-0'];
+    _thumb1 = $['slider-thumb-1'];
     _sliderFill = $['slider-fill'];
-    _sliderDataTip = $['slider-datatip'];
+    _sliderDataTip0 = $['slider-datatip-0'];
+    _sliderDataTip1 = $['slider-datatip-1'];
     _mainDiv = $['main-div'];
-    _pixelWidth = _mainDiv.client.width;
     
-    this.onMouseDown.listen((_) {
+    _thumb0.onMouseDown.listen(mouseDownHandler);
+    _thumb1.onMouseDown.listen(mouseDownHandler);
+  }
+  
+  num get _pixelWidth => _mainDiv.client.width;
+  
+  void mouseDownHandler (Event e) {
+    int index = _dragIndexByTarget(e.target);
+    if (index >= 0) {
+      dragging[index] = true;
       _updateDragInitX();
-    });
+    }
   }
   
   void _updateDragInitX () {
-    if (_thumb.style.left != null && _thumb.style.left != "") { 
-      String leftStr = _thumb.style.left;
-      dragInitX = num.parse(leftStr.substring(0, leftStr.length -2)).toInt();
+    Element thumb = _dragIndex == 0 ? _thumb0 : _thumb1;
+    if (thumb.style.left != null && thumb.style.left != "") { 
+      String leftStr = thumb.style.left;
+      dragInitX = (num.parse(leftStr.substring(0, leftStr.length - "%".length)) / 100 * _pixelWidth).round();
+    }
+  }
+  
+  int _findClosestThumb (num mouseX) {
+    if (!doubleThumb) {
+      return 1;
+    }
+    else {
+      num dist0 = (mouseX - _pixelValue[0]).abs();
+      num dist1 = (mouseX - _pixelValue[1]).abs();
+          
+      if (dist0 < dist1) 
+        return 0;
+      else 
+        return 1;
     }
   }
   
   void trackClickHandler (MouseEvent e) {
-    value = minValue + (e.offset.x / _pixelWidth) * (maxValue - minValue);
+    num mouseX = (e.offset.x + (e.target as Element).offsetLeft);
+    int index = _findClosestThumb (mouseX);
+    num val = minValue + (mouseX / _pixelWidth) * (maxValue - minValue);
     if (stepSize > 0) {
-      value = minValue + ((value - minValue) / stepSize).round() * stepSize;
+      val = minValue + ((val - minValue) / stepSize).round() * stepSize;
     }
+    computedValue[index] = val;
   }
   
   void _showDatatip () {
-    _sliderDataTip.style.opacity = "1";
+    Element sliderDataTip = _dragIndex == 0 ? _sliderDataTip0 : _sliderDataTip1;
+    sliderDataTip.style.opacity = "1";
   }
   
   void _hideDatatip () {
-    _sliderDataTip.style.opacity = "0";
+    Element sliderDataTip = _dragIndex == 0 ? _sliderDataTip0 : _sliderDataTip1;
+    sliderDataTip.style.opacity = "0";
+  }
+  
+  int _dragIndexByTarget (Element target) {
+    if (target.id == "circle-0")
+      return 0;
+    else if (target.id == "circle-1")
+      return 1;
+    else 
+      return -1;
   }
   
   void trackStartHandler (Event e) {
-    dragging = true;
-    _showDatatip();
-    _updateDragInitX ();
+    int index = _dragIndexByTarget(e.target);
+    if (index >= 0) {
+      dragging[_dragIndexByTarget(e.target)] = true;
+      _showDatatip();
+      _updateDragInitX ();
+    }
   }
   
   num _convertPixelValueToValue (num pixelValue) {
@@ -109,66 +185,121 @@ class FxSlider extends FxBase {
   }
   
   void trackEndHandler (Event e) {
-    dragging =  false;
-    _hideDatatip();
-    _updateDragInitX();
-    value = _convertPixelValueToValue (_pixelValue);
-    invalidateProperties();
+    if (_dragIndex >= 0) {
+      _hideDatatip();
+      _updateDragInitX();
+      computedValue[_dragIndex] = _convertPixelValueToValue (_pixelValue[_dragIndex]);
+      dragging[0] =  false;
+      dragging[1] =  false;
+      invalidateProperties();
+    }
   }
   
   void _updateDataTipValue () {
-    datatipValue = "${((_pixelValue / _pixelWidth) * (maxValue - minValue) + minValue).round()}";
+    datatipValue[0] = dataTipFormatter(((_pixelValue[0] / _pixelWidth) * (maxValue - minValue) + minValue).round());
+    datatipValue[1] = dataTipFormatter(((_pixelValue[1] / _pixelWidth) * (maxValue - minValue) + minValue).round());
   }
   
-  void trackHandler (Event e, var detail, Node target) {
-    var touchEvent = new JsObject.fromBrowserObject(e);
-    if (stepSize > 0) {
+  int get _dragIndex => dragging[0] ? 0 : dragging[1] ? 1 : -1;
+  
+  void _doTrackHandlerByStepSize(num dx) {
+    if (animateStepSize)
       _flgAnimate = true;
-      num prevPixelValue = _pixelValue;
-      
-      _pixelValue = dragInitX + touchEvent['dx'];
-      num val = _convertPixelValueToValue(_pixelValue);
-      val = minValue + ((val - minValue) / stepSize).round() * stepSize;
-      _pixelValue = _convertValueToPixelValue(val);
-      if (prevPixelValue != _pixelValue) {
-        invalidateDisplay();
-      }
-    }
-    else {
-      _pixelValue = dragInitX + touchEvent['dx'];
+    
+    num prevPixelValue = _pixelValue[_dragIndex];
+    
+    _pixelValue[_dragIndex] = dragInitX + dx;
+    num val = _convertPixelValueToValue(_pixelValue[_dragIndex]);
+    val = minValue + ((val - minValue) / stepSize).round() * stepSize;
+    _pixelValue[_dragIndex] = _convertValueToPixelValue(val);
+    if (prevPixelValue != _pixelValue[_dragIndex]) {
       invalidateDisplay();
     }
   }
   
-  num _restrictToMaxMin (num pixelValue) {
-    if (pixelValue < 0) 
-      return 0;
-    else if (pixelValue > _pixelWidth) 
-      return _pixelWidth;
+  void _doTrackHandlerNormal (num dx) {
+    _pixelValue[_dragIndex] = dragInitX + dx;
+    invalidateDisplay();
+  }
+  
+  bool _trackHandlerTargetOk () => _dragIndex >= 0; 
+  
+  void trackHandler (Event e, var detail, Node target) {
+    var touchEvent = new JsObject.fromBrowserObject(e);
+    num dx = touchEvent['dx'];
+    if (_trackHandlerTargetOk ()) {
+      if (stepSize > 0) {
+        _doTrackHandlerByStepSize (dx);
+      }
+      else {
+        _doTrackHandlerNormal (dx);
+      }
+    }
+  }
+  
+  List<num> _calculatePixelRestrictions (int index) {
+    num restrictMin = 0;
+    num restrictMax = _pixelWidth;
+    if (index == 1) {
+      restrictMin = _pixelValue[0];
+    }
+    if (index == 0) {
+      restrictMax = _pixelValue[1];
+    }
+    return [restrictMin, restrictMax];
+  }
+  
+  num _restrictToMaxMin (num pixelValue, int index) {
+    List<num> restrictions = _calculatePixelRestrictions (index);
+    num restrictMin = restrictions[0];
+    num restrictMax = restrictions[1];
+    
+    if (pixelValue < restrictMin) 
+        return restrictMin;
+    else if (pixelValue > restrictMax)  
+      return restrictMax;
     else 
       return pixelValue;
   }
   
   @override commitProperties () {
     super.commitProperties();
-    _pixelValue = _convertValueToPixelValue (value);
-    _pixelValue = _restrictToMaxMin (_pixelValue);
+    _pixelValue[0] = _convertValueToPixelValue (computedValue[0]);
+    _pixelValue[1] = _convertValueToPixelValue (computedValue[1]);
+    _pixelValue[0] = _restrictToMaxMin (_pixelValue[0], 0);
+    _pixelValue[1] = _restrictToMaxMin (_pixelValue[1], 1);
     invalidateDisplay();
+  }
+  
+  void _applyPixelValueRestrictions (int dragIndex) {
+    if (dragIndex == 0) {
+      _pixelValue[0] = _restrictToMaxMin(_pixelValue[0], 0);
+      _pixelValue[1] = _restrictToMaxMin(_pixelValue[1], 1);
+    }
+    else {
+      _pixelValue[1] = _restrictToMaxMin(_pixelValue[1], 1);
+      _pixelValue[0] = _restrictToMaxMin(_pixelValue[0], 0);
+    }
   }
   
   @override
   void updateDisplay () {
     super.updateDisplay();
-    _pixelValue = _restrictToMaxMin(_pixelValue);
+    _applyPixelValueRestrictions (_dragIndex);
     _updateDataTipValue();
     if (_flgAnimate) {
-      anim.animate(_thumb, duration:100, properties: {'left': _pixelValue});
-      anim.animate(_sliderFill, duration:100, properties: {'width': _pixelValue});
+      anim.animate(_thumb0, duration:100, properties: {'left': "${_pixelValue[0]/_pixelWidth*100}%"});
+      anim.animate(_thumb1, duration:100, properties: {'left': "${_pixelValue[1]/_pixelWidth*100}%"});
+      anim.animate(_sliderFill, duration:100, properties: {'margin-left': "${_pixelValue[0]/_pixelWidth*100}%"});
+      anim.animate(_sliderFill, duration:100, properties: {'width': "${(_pixelValue[1] - _pixelValue[0])/_pixelWidth*100}%"});
       _flgAnimate = false;
+      
     }
     else {
-      _thumb.style.left = "${_pixelValue}px"; 
-      _sliderFill.style.width = "${_pixelValue}px";
+      _thumb0.style.left = "${_pixelValue[0]/_pixelWidth*100}%";
+      _thumb1.style.left = "${_pixelValue[1]/_pixelWidth*100}%"; 
+      _sliderFill.style.marginLeft = "${_pixelValue[0]/_pixelWidth*100}%";
+      _sliderFill.style.width = "${(_pixelValue[1] - _pixelValue[0])/_pixelWidth*100}%";
     }
   }
   

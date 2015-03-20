@@ -160,7 +160,19 @@
         </p>
       </div>
       <div class="form-item">
-        <fx-slider value="400" minValue="200" maxValue="1000" stepSize="50"></fx-slider>
+        <div>Slider with double thumb and stepSize=100</div>
+        <fx-slider id="slider1" value="{{sliderValue}}" 
+          minValue="200" maxValue="1000" stepSize="100" animateStepSize="false"
+          doubleThumb="true" dataTipFormatter="{{sliderDataTipFormatter}}"></fx-slider>
+        {{sliderValue[0]}}, {{sliderValue[1]}}
+        <div>Slider with double thumb without stepSize</div>
+        <fx-slider id="slider2" value="{{sliderValue}}" 
+          minValue="200" maxValue="1000"
+          doubleThumb="true" dataTipFormatter="{{sliderDataTipFormatter}}"></fx-slider>
+        <div>Slider with single thumb and no stepSize</div>
+        <fx-slider id="slider3" value="{{sliderValue[1]}}" 
+          minValue="200" maxValue="1000"
+          dataTipFormatter="{{sliderDataTipFormatter}}"></fx-slider>
       </div>
     </div>
     <div id="right-panel">
