@@ -1,0 +1,21 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+
+<polymer-element name="fx-label">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        box-sizing:border-box;
+        margin:0;
+        padding:0;
+        line-height:30px;
+        height:30px;
+        overflow-y:hidden;
+        cursor:default;
+      }
+    </style>
+    {{text}}
+  </template>
+  <script type="application/dart" src="fx_label.dart"></script>
+</polymer-element>

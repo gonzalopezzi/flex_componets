@@ -14,4 +14,6 @@ dependencies:
   paper_elements: '>=0.6.0 <0.7.0'
 transformers:
 - polymer:
-    entry_points: web/index.html
+    entry_points: 
+    - web/index.html
+    - web/index_layout.html

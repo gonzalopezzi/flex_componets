@@ -23,6 +23,10 @@
 <link rel="import" href="../../packages/flex_components/fx_hbox.html">
 <link rel="import" href="../../packages/flex_components/fx_vbox.html">
 
+<link rel="import" href="../../packages/flex_components/fx_row.html">
+<link rel="import" href="../../packages/flex_components/fx_block.html">
+<link rel="import" href="../../packages/flex_components/fx_label.html">
+
 <!-- THEME 
 <link rel="import" href="../../packages/flex_components/themes/fx_components_blue_theme.html">
 -->
@@ -43,8 +47,36 @@
           Left Panel
         </div>
         <div flex style="background-color: white">
-          Main Panel<br>
-          <iframe width='100%' height='520' frameborder='0' src='http://gonzalopezzi.cartodb.com/viz/e81e7474-c5e1-11e4-a092-0e853d047bba/embed_map' allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+          <strong>Main Panel</strong>
+          <fx-row>
+            <fx-block lgCols="4" mdCols="4" smCols="6" xsCols="6" style="text-align:right">
+              <fx-label text="This is the first field:"></fx-label>
+            </fx-block>
+            <fx-block lgCols="8" mdCols="8" smCols="6" xsCols="6">
+              <fx-dropdown-list 
+                prompt="Select" 
+                dataProvider="['One', 'Two', 'Three']"></fx-dropdown-list>
+            </fx-block>
+          </fx-row>
+          
+          <fx-row>
+            <fx-block lgCols="4" mdCols="4" smCols="6" xsCols="6" style="text-align:right">
+              <fx-label text="This is the second field:"></fx-label>
+            </fx-block>
+            <fx-block lgCols="8" mdCols="8" smCols="6" xsCols="6">
+              <fx-list 
+                dataProvider="['First Item', 'Second Item', 'Third Item']"></fx-list>
+            </fx-block>
+          </fx-row>
+          
+          <fx-row>
+            <fx-block mdCols="8" smCols="6" xsCols="0">
+            </fx-block>
+            <fx-block mdCols="4" smCols="6" xsCols="12">
+              <fx-button label="Ok" style="width:100%"></fx-button>
+            </fx-block>
+          </fx-row>
+          
         </div>
       </div>
       <div style="background-color:green">Footer</div>

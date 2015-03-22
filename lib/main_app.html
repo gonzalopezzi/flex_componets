@@ -20,6 +20,8 @@
 <link rel="import" href="../../packages/flex_components/internal/fx_overlay.html">
 <link rel="import" href="../../packages/flex_components/sample/fx_sample_panel.html">
 <link rel="import" href="../../packages/flex_components/fx_slider.html">
+<link rel="import" href="../../packages/flex_components/fx_accordion.html">
+<link rel="import" href="../../packages/flex_components/fx_accordion_element.html">
 <link rel="import" href="../../packages/flex_components/fx_viewstack.html">
 <link rel="import" href="../../packages/flex_components/fx_item_renderer.html">
 <link rel="import" href="../../packages/flex_components/my_item_renderer.html">
@@ -211,6 +213,34 @@
               labelField="name" on-selection-change="{{alertChange}}"></fx-list>
           </div>
         </fx-tab-navigator>
+        <fx-accordion style="height:100%; border: solid 1px #ccc; margin-top:10px" layout vertical>
+          <fx-accordion-element label="One">
+            <div style="padding:10px">
+              Some text here.
+              And a button here: 
+              <fx-button label="Button"></fx-button>
+            </div>
+          </fx-accordion-element>
+          <fx-accordion-element label="Two">
+            <div>Two</div>
+            <div>Two</div>
+            <div>Two</div>
+            <div>Two</div>
+            <div>Two</div>
+            <div>Two</div>
+            <div>Two</div>
+            <div>Two</div>
+            <div>Two</div>
+            <div>Two</div>
+            <div>Two</div>
+            <div>Two</div>
+            <div>Two</div>
+            <div>Two</div>
+          </fx-accordion-element>
+          <fx-accordion-element label="Three">
+            Three
+          </fx-accordion-element>
+        </fx-accordion>
       </div>
     </div>
   </template>

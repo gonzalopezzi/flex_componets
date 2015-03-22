@@ -1,0 +1,63 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+
+<polymer-element name="fx-accordion-element">
+  <template>
+    <style>
+      :host {
+        box-sizing:border-box;
+        display: block;
+        position:relative;
+        transition: all 0.4s ease-in-out;
+        border-bottom: solid 1px #ccc;
+      }
+      
+      #fx-accordion-header {
+        box-sizing: border-box;
+        background: #ccc;
+        color:#000;
+        height:40px;
+        line-height:40px;
+        padding-left:10px;
+        
+        cursor:default;
+        
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-touch-callout: none;
+        
+        border-bottom: solid 1px #ccc;
+        background-color: #ddd;
+
+        background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(221,221,221,1) 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(100%,rgba(221,221,221,1)));
+        background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(221,221,221,1) 100%);
+        background: -o-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(221,221,221,1) 100%);
+        background: -ms-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(221,221,221,1) 100%);
+        background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(221,221,221,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#dddddd',GradientType=0 );
+        
+      }
+      
+      #fx-accordion-content {
+        position:absolute;
+        top:40px;
+        left:0;
+        right:0;
+        bottom:0;
+        overflow-y: auto;
+      }
+      
+    </style>
+    <div id="fx-accordion-header" on-click="{{headerClickHandler}}">
+      {{label}}
+    </div>
+    <div id="fx-accordion-content">
+      <content></content>
+    </div>
+  </template>
+  <script type="application/dart" src="fx_accordion_element.dart"></script>
+</polymer-element>
