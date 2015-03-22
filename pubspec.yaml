@@ -17,3 +17,4 @@ transformers:
     entry_points: 
     - web/index.html
     - web/index_layout.html
+    - web/index_gmail_settings.html

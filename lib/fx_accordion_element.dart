@@ -7,6 +7,7 @@ import 'dart:async';
 class FxAccordionElement extends FxBase {
   
   @published bool showScroller = true;
+  @observable bool displayScroller = true;
   @published String label = "";
   
   StreamController _accordionElementSelectDispatcher = new StreamController.broadcast();
@@ -18,6 +19,7 @@ class FxAccordionElement extends FxBase {
   Stream get onAccordionElementSelect => _accordionElementSelectDispatcher.stream;
   
   void showScrollerChanged (bool oldValue) {
+    displayScroller = showScroller;
     invalidateProperties();
   }
   
@@ -28,11 +30,17 @@ class FxAccordionElement extends FxBase {
   @override
   void commitProperties () {
     super.commitProperties();
-    if (showScroller) {
-      ($['fx-accordion-content'] as Element).style.overflowY = 'auto';
+    
+    if (!showScroller) {
+      ($['fx-accordion-content'] as Element).style.overflowY = 'hidden';
     }
     else {
-      ($['fx-accordion-content'] as Element).style.overflowY = 'hidden';
+      if (displayScroller) {
+        ($['fx-accordion-content'] as Element).style.overflowY = 'auto';
+      }
+      else {
+        ($['fx-accordion-content'] as Element).style.overflowY = 'hidden';
+      }
     }
   }
   

@@ -27,6 +27,10 @@
 <link rel="import" href="../../packages/flex_components/fx_block.html">
 <link rel="import" href="../../packages/flex_components/fx_label.html">
 
+<link rel="import" href="../../packages/flex_components/fx_accordion.html">
+<link rel="import" href="../../packages/flex_components/fx_accordion_element.html">
+<link rel="import" href="../../packages/flex_components/fx_label.html">
+
 <!-- THEME 
 <link rel="import" href="../../packages/flex_components/themes/fx_components_blue_theme.html">
 -->
@@ -40,13 +44,24 @@
       }
     </style>
     
-    <div vertical layout style="height:100%">
-      <div style="background-color:red">Header</div>
-      <div style="background-color:blue" flex horizontal layout>
-        <div style="width: 300px; background-color: #ABC">
-          Left Panel
-        </div>
-        <div flex style="background-color: white">
+    <fx-row>
+      <fx-row>
+        <fx-block style="background-color: red">
+          <fx-label text="Header"></fx-label>
+        </fx-block>
+      </fx-row>
+      <fx-row style="min-height:400px">
+        <fx-block xsCols="12" smCols="4" mdCols="3">
+          <div class="menu-title">
+            Brands
+          </div>
+          <fx-list dataProvider="['Sinopec Group', 'Wal-mart Stores', 'China National Petroleoum', 'Royal Dutch Shell', 'ExxonMobil', 'BP', 'Saudi Aramco', 'State Grid Corporation of China']"></fx-list>
+          <div class="menu-title">
+            Countries
+          </div>
+          <fx-list dataProvider="['Afghanistan', 'Argentina', 'Australia', 'Austria', 'Azerbaijan', 'Bangladesh', 'Belarus', 'Belgium', 'Botswana', 'Bhutan', 'Brazil']"></fx-list>
+        </fx-block>
+        <fx-block xsCols="12" smCols="8" mdCols="9">
           <strong>Main Panel</strong>
           <fx-row>
             <fx-block lgCols="4" mdCols="4" smCols="6" xsCols="6" style="text-align:right">
@@ -76,12 +91,9 @@
               <fx-button label="Ok" style="width:100%"></fx-button>
             </fx-block>
           </fx-row>
-          
-        </div>
-      </div>
-      <div style="background-color:green">Footer</div>
-    </div>
-    
+        </fx-block>
+      </fx-row>
+    </fx-row>
   </template>
   <script type="application/dart" src="main_app_layout.dart"></script>
 </polymer-element>

@@ -68,7 +68,7 @@ class FxAccordion  extends FxBase {
     invalidateProperties();
     new Timer(new Duration(milliseconds: 400), () {
       currentChildren.forEach((Element e) {
-        (e as FxAccordionElement).showScroller = true;
+        (e as FxAccordionElement).displayScroller = true;
       });
     });
   }
@@ -86,7 +86,7 @@ class FxAccordion  extends FxBase {
       if (currentChildren != null && currentChildren.length > 0) {
         for (int i = 0; i < currentChildren.length; i++) {
           Element e = currentChildren[i];
-          (e as FxAccordionElement).showScroller = false;
+          (e as FxAccordionElement).displayScroller = false;
           if (i == selectedIndex) {
             e.style.height = "${this.clientHeight - 40 * (currentChildren.length - 1)}px";
           }

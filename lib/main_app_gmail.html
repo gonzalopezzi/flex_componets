@@ -1,0 +1,192 @@
+<!--
+  Copyright (c) 2015, <your name>. All rights reserved. Use of this source code
+  is governed by a BSD-style license that can be found in the LICENSE file.
+-->
+
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/flex_components/fx_list.html">
+<link rel="import" href="../../packages/flex_components/fx_dropdown_list.html">
+<link rel="import" href="../../packages/flex_components/fx_tree.html">
+<link rel="import" href="../../packages/flex_components/fx_button.html">
+<link rel="import" href="../../packages/flex_components/fx_panel.html">
+<link rel="import" href="../../packages/flex_components/fx_panel_title.html">
+<link rel="import" href="../../packages/flex_components/fx_panel_footer.html">
+<link rel="import" href="../../packages/flex_components/fx_panel_content.html">
+<link rel="import" href="../../packages/flex_components/fx_date_chooser.html">
+<link rel="import" href="../../packages/flex_components/fx_textarea.html">
+<link rel="import" href="../../packages/flex_components/fx_tab_bar.html">
+<link rel="import" href="../../packages/flex_components/fx_tab_navigator.html">
+<link rel="import" href="../../packages/flex_components/fx_slider.html">
+<link rel="import" href="../../packages/flex_components/fx_viewstack.html">
+
+<link rel="import" href="../../packages/flex_components/fx_hbox.html">
+<link rel="import" href="../../packages/flex_components/fx_vbox.html">
+
+<link rel="import" href="../../packages/flex_components/fx_row.html">
+<link rel="import" href="../../packages/flex_components/fx_block.html">
+<link rel="import" href="../../packages/flex_components/fx_label.html">
+
+<link rel="import" href="../../packages/flex_components/fx_accordion.html">
+<link rel="import" href="../../packages/flex_components/fx_accordion_element.html">
+<link rel="import" href="../../packages/flex_components/fx_label.html">
+<link rel="import" href="../../packages/flex_components/fx_radio_button.html">
+<link rel="import" href="../../packages/flex_components/fx_radio_group.html">
+
+<!-- THEME 
+<link rel="import" href="../../packages/flex_components/themes/fx_components_blue_theme.html">
+-->
+
+<polymer-element name="main-app-gmail">
+  <template>
+    <style>
+      :host {
+        display: block;
+        height: 100%;
+      }
+      
+      .link {
+        color:blue;
+        vertical-align:top;
+        height:30px;
+        text-decoration:underline;
+        cursor:pointer;
+      }
+      
+      .line {
+        margin-top:10px;
+        height:10px;
+        margin-bottom:10px;
+        border-bottom:solid 1px #ccc;
+      }
+      
+    </style>
+    <fx-row>
+      <fx-block xsCols="12">
+        Header
+      </fx-block>
+    </fx-row>
+    <fx-row>
+      <fx-block xsCols="3">
+        Left menu
+      </fx-block>
+      <fx-block xsCols="9">
+        <fx-tab-navigator>
+          <div data-label="General">
+            <fx-row>
+              <fx-block xsCols="3">
+                <fx-label text="Language:"></fx-label>
+              </fx-block>
+              <fx-block xsCols="6" horizontal layout>
+                <fx-label text="Gmail display Language:" style="margin-right:10px"></fx-label>
+                <fx-dropdown-list
+                  flex 
+                  dataProvider="['English US', 'Afrikaans', 'Catalá', 'Dansk']">
+                </fx-dropdown-list>               
+              </fx-block>
+              <fx-block xsCols="3">
+                <span class="link">Change language settings for other Google products</span>
+              </fx-block>
+            </fx-row>
+            <fx-row>
+              <fx-block xsCols="3">
+              </fx-block>
+              <fx-block xsCols="9">
+                <span class="link">Show all language options</span>
+              </fx-block>
+            </fx-row>
+            <div class="line"></div>
+            <fx-row>
+              <fx-block xsCols="3">
+                <fx-label text="Phone numbers:"></fx-label>
+              </fx-block>
+              <fx-block xsCols="9" horizontal layout>
+                <fx-label text="Default Country Code:" style="margin-right:10px"></fx-label>
+                <fx-dropdown-list flex dataProvider="['Afghanistan', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola', 'Anguilla', 'Antigua And Barbuda', 'Argentina', 'Aruba', 'Ascension Island', 'Australia', 'Azerbaijan']">
+                </fx-dropdown-list>
+              </fx-block>
+            </fx-row>
+            <div class="line"></div>
+            <fx-row>
+              <fx-block xsCols="3">
+                <fx-label text="Maximum page size:"></fx-label> 
+              </fx-block>
+              <fx-block xsCols="9">
+                <fx-label text="Show "></fx-label>
+                <fx-dropdown-list style="width:60px"
+                  dataProvider="['10', '15', '20', '25', '50', '100']">
+                </fx-dropdown-list>
+                <fx-label text=" conversations per page"></fx-label>
+              </fx-block>
+            </fx-row>
+            <fx-row>
+              <fx-block xsCols="3">
+              </fx-block>
+              <fx-block xsCols="9">
+                <fx-label text="Show "></fx-label>
+                <fx-dropdown-list style="width:60px"
+                  dataProvider="['10', '15', '20', '25', '50', '100']">
+                </fx-dropdown-list>
+                <fx-label text=" contacts per page"></fx-label>
+              </fx-block>
+            </fx-row>
+            <div class="line"></div>
+            <fx-row>
+              <fx-block xsCols="3">
+                <fx-label text="Images:"></fx-label>
+              </fx-block>
+              <fx-block xsCols="9">
+                <fx-radio-group value="{{imagesManagement}}">
+                  <fx-radio-button value="always" text="Always display external images"></fx-radio-button>
+                  <fx-radio-button value="ask" text="Ask before displaying external images"></fx-radio-button>
+                </fx-radio-group>
+              </fx-block>
+            </fx-row>
+            <div class="line"></div>
+            <fx-row>
+              <fx-block xsCols="3">
+                <fx-label text="Default reply behaviour:"></fx-label> 
+              </fx-block>
+              <fx-block xsCols="9">
+                <fx-radio-group value="{{replyManagement}}">
+                  <fx-radio-button value="reply" text="Reply"></fx-radio-button>
+                  <fx-radio-button value="replyAll" text="Reply All"></fx-radio-button>
+                </fx-radio-group>
+              </fx-block>
+            </fx-row>
+            <div class="line"></div>
+            <fx-row>
+              <fx-block xsCols="3">
+                <fx-label text="Default text style:"></fx-label><br>
+                <fx-label text="(Use the 'Remove Formatting' button on the toolbar to reset the default text style)"
+                  style="font-size:8pt">
+                </fx-label>
+              </fx-block>
+              <fx-block xsCols="9">
+              </fx-block>
+            </fx-row>
+            <div class="line"></div>
+            <fx-row>
+              <fx-block xsCols="3">
+                <fx-label text="Conversation View:"></fx-label><br>
+                <fx-label text="(sets whether emails of the same topic are grouped together)"
+                  style="font-size:8pt">
+                </fx-label>
+              </fx-block>
+              <fx-block xsCols="9">
+                <fx-radio-group>
+                  <fx-radio-button value="conversationOn" text="Conversation view on"></fx-radio-button>
+                  <fx-radio-button value="conversationOff" text="Conversation view off"></fx-radio-button>
+                </fx-radio-group>
+              </fx-block>
+            </fx-row>
+          </div>
+          <div data-label="Labels">
+            Labels
+          </div>
+        </fx-tab-navigator>
+      </fx-block>
+    </fx-row>
+  </template>
+  <script type="application/dart" src="main_app_gmail.dart"></script>
+</polymer-element>
