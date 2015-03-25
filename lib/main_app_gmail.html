@@ -32,6 +32,7 @@
 <link rel="import" href="../../packages/flex_components/fx_label.html">
 <link rel="import" href="../../packages/flex_components/fx_radio_button.html">
 <link rel="import" href="../../packages/flex_components/fx_radio_group.html">
+<link rel="import" href="../../packages/flex_components/fx_collapse.html">
 
 <!-- THEME 
 <link rel="import" href="../../packages/flex_components/themes/fx_components_blue_theme.html">
@@ -42,6 +43,7 @@
     <style>
       :host {
         display: block;
+        position:relative;
         height: 100%;
       }
       
@@ -61,132 +63,185 @@
       }
       
     </style>
-    <fx-row>
-      <fx-block xsCols="12">
-        Header
-      </fx-block>
-    </fx-row>
-    <fx-row>
-      <fx-block xsCols="3">
-        Left menu
-      </fx-block>
-      <fx-block xsCols="9">
-        <fx-tab-navigator>
-          <div data-label="General">
-            <fx-row>
-              <fx-block xsCols="3">
-                <fx-label text="Language:"></fx-label>
-              </fx-block>
-              <fx-block xsCols="6" horizontal layout>
-                <fx-label text="Gmail display Language:" style="margin-right:10px"></fx-label>
-                <fx-dropdown-list
-                  flex 
-                  dataProvider="['English US', 'Afrikaans', 'Catalá', 'Dansk']">
-                </fx-dropdown-list>               
-              </fx-block>
-              <fx-block xsCols="3">
-                <span class="link">Change language settings for other Google products</span>
-              </fx-block>
-            </fx-row>
-            <fx-row>
-              <fx-block xsCols="3">
-              </fx-block>
-              <fx-block xsCols="9">
-                <span class="link">Show all language options</span>
-              </fx-block>
-            </fx-row>
-            <div class="line"></div>
-            <fx-row>
-              <fx-block xsCols="3">
-                <fx-label text="Phone numbers:"></fx-label>
-              </fx-block>
-              <fx-block xsCols="9" horizontal layout>
-                <fx-label text="Default Country Code:" style="margin-right:10px"></fx-label>
-                <fx-dropdown-list flex dataProvider="['Afghanistan', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola', 'Anguilla', 'Antigua And Barbuda', 'Argentina', 'Aruba', 'Ascension Island', 'Australia', 'Azerbaijan']">
-                </fx-dropdown-list>
-              </fx-block>
-            </fx-row>
-            <div class="line"></div>
-            <fx-row>
-              <fx-block xsCols="3">
-                <fx-label text="Maximum page size:"></fx-label> 
-              </fx-block>
-              <fx-block xsCols="9">
-                <fx-label text="Show "></fx-label>
-                <fx-dropdown-list style="width:60px"
-                  dataProvider="['10', '15', '20', '25', '50', '100']">
-                </fx-dropdown-list>
-                <fx-label text=" conversations per page"></fx-label>
-              </fx-block>
-            </fx-row>
-            <fx-row>
-              <fx-block xsCols="3">
-              </fx-block>
-              <fx-block xsCols="9">
-                <fx-label text="Show "></fx-label>
-                <fx-dropdown-list style="width:60px"
-                  dataProvider="['10', '15', '20', '25', '50', '100']">
-                </fx-dropdown-list>
-                <fx-label text=" contacts per page"></fx-label>
-              </fx-block>
-            </fx-row>
-            <div class="line"></div>
-            <fx-row>
-              <fx-block xsCols="3">
-                <fx-label text="Images:"></fx-label>
-              </fx-block>
-              <fx-block xsCols="9">
-                <fx-radio-group value="{{imagesManagement}}">
-                  <fx-radio-button value="always" text="Always display external images"></fx-radio-button>
-                  <fx-radio-button value="ask" text="Ask before displaying external images"></fx-radio-button>
-                </fx-radio-group>
-              </fx-block>
-            </fx-row>
-            <div class="line"></div>
-            <fx-row>
-              <fx-block xsCols="3">
-                <fx-label text="Default reply behaviour:"></fx-label> 
-              </fx-block>
-              <fx-block xsCols="9">
-                <fx-radio-group value="{{replyManagement}}">
-                  <fx-radio-button value="reply" text="Reply"></fx-radio-button>
-                  <fx-radio-button value="replyAll" text="Reply All"></fx-radio-button>
-                </fx-radio-group>
-              </fx-block>
-            </fx-row>
-            <div class="line"></div>
-            <fx-row>
-              <fx-block xsCols="3">
-                <fx-label text="Default text style:"></fx-label><br>
-                <fx-label text="(Use the 'Remove Formatting' button on the toolbar to reset the default text style)"
-                  style="font-size:8pt">
-                </fx-label>
-              </fx-block>
-              <fx-block xsCols="9">
-              </fx-block>
-            </fx-row>
-            <div class="line"></div>
-            <fx-row>
-              <fx-block xsCols="3">
-                <fx-label text="Conversation View:"></fx-label><br>
-                <fx-label text="(sets whether emails of the same topic are grouped together)"
-                  style="font-size:8pt">
-                </fx-label>
-              </fx-block>
-              <fx-block xsCols="9">
-                <fx-radio-group>
-                  <fx-radio-button value="conversationOn" text="Conversation view on"></fx-radio-button>
-                  <fx-radio-button value="conversationOff" text="Conversation view off"></fx-radio-button>
-                </fx-radio-group>
-              </fx-block>
-            </fx-row>
-          </div>
-          <div data-label="Labels">
-            Labels
-          </div>
-        </fx-tab-navigator>
-      </fx-block>
-    </fx-row>
+    <div fit layout vertical>
+      <fx-row>
+        <fx-block xsCols="12">
+          Header
+        </fx-block>
+      </fx-row>
+      <fx-row flex verticalFit="true">
+        <fx-block xsCols="12" smCols="3">
+          Left menu
+        </fx-block>
+        <fx-block xsCols="12" smCols="9">
+          <fx-tab-navigator fit style="min-height:500px">
+            <div data-label="General">
+              <fx-row>
+                <fx-block xsCols="3">
+                  <fx-label text="Language:"></fx-label>
+                </fx-block>
+                <fx-block xsCols="6" horizontal layout>
+                  <fx-label text="Gmail display Language:" style="margin-right:10px"></fx-label>
+                  <fx-dropdown-list
+                    flex
+                    dataProvider="['English US', 'Afrikaans', 'Catalá', 'Dansk']">
+                  </fx-dropdown-list>               
+                </fx-block>
+                <fx-block xsCols="3">
+                  <span class="link">Change language settings for other Google products</span>
+                </fx-block>
+              </fx-row>
+              <fx-row>
+                <fx-block xsCols="3">
+                </fx-block>
+                <fx-block xsCols="9">
+                  <span class="link" on-click="{{toggleLanguageOptions}}" hidden?="{{languageOptionsVisible}}">Show all language options</span>
+                  <span class="link" on-click="{{toggleLanguageOptions}}" hidden?="{{!languageOptionsVisible}}">Hide language options</span>
+                </fx-block>
+              </fx-row>
+              <fx-row>
+                <fx-block xsCols="3">
+                </fx-block>
+                <fx-block xsCols="9">
+                  <fx-collapse collapsed="{{!languageOptionsVisible}}">
+                    <div>
+                      <fx-label text="Enable input tools"></fx-label>
+                      <fx-radio-group value="{{rightToLeft}}">
+                        <fx-radio-button value="rightToLeftOff" text="Right-to-left editing support off"></fx-radio-button>
+                        <fx-radio-button value="rightToLeftOn" text="Right-to-left editing support on"></fx-radio-button>
+                      </fx-radio-group>
+                    </div>
+                  </fx-collapse>                  
+                </fx-block>
+              </fx-row>
+              <div class="line"></div>
+              <fx-row>
+                <fx-block xsCols="3">
+                  <fx-label text="Phone numbers:"></fx-label> 
+                </fx-block>
+                <fx-block xsCols="9" lgCols="6" horizontal layout>
+                  <fx-label text="Default Country Code:" style="margin-right:10px"></fx-label>
+                  <fx-dropdown-list flex dataProvider="['Afghanistan', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola', 'Anguilla', 'Antigua And Barbuda', 'Argentina', 'Aruba', 'Ascension Island', 'Australia', 'Azerbaijan']">
+                  </fx-dropdown-list>
+                </fx-block>
+              </fx-row>
+              <div class="line"></div>
+              <fx-row>
+                <fx-block xsCols="3">
+                  <fx-label text="Maximum page size:"></fx-label> 
+                </fx-block>
+                <fx-block xsCols="9">
+                  <fx-label text="Show "></fx-label>
+                  <fx-dropdown-list style="width:60px"
+                    dataProvider="['10', '15', '20', '25', '50', '100']">
+                  </fx-dropdown-list>
+                  <fx-label text=" conversations per page"></fx-label>
+                </fx-block>
+              </fx-row>
+              <fx-row>
+                <fx-block xsCols="3">
+                </fx-block>
+                <fx-block xsCols="9">
+                  <fx-label text="Show "></fx-label>
+                  <fx-dropdown-list style="width:60px"
+                    dataProvider="['10', '15', '20', '25', '50', '100']">
+                  </fx-dropdown-list>
+                  <fx-label text=" contacts per page"></fx-label>
+                </fx-block>
+              </fx-row>
+              <div class="line"></div>
+              <fx-row>
+                <fx-block xsCols="3">
+                  <fx-label text="Images:"></fx-label>
+                </fx-block>
+                <fx-block xsCols="9">
+                  <fx-radio-group value="{{imagesManagement}}">
+                    <fx-radio-button value="always" text="Always display external images"></fx-radio-button>
+                    <fx-radio-button value="ask" text="Ask before displaying external images"></fx-radio-button>
+                  </fx-radio-group>
+                </fx-block>
+              </fx-row>
+              <div class="line"></div>
+              <fx-row>
+                <fx-block xsCols="3">
+                  <fx-label text="Default reply behaviour:"></fx-label> 
+                </fx-block>
+                <fx-block xsCols="9">
+                  <fx-radio-group value="{{replyManagement}}">
+                    <fx-radio-button value="reply" text="Reply"></fx-radio-button>
+                    <fx-radio-button value="replyAll" text="Reply All"></fx-radio-button>
+                  </fx-radio-group>
+                </fx-block>
+              </fx-row>
+              <div class="line"></div>
+              <fx-row>
+                <fx-block xsCols="3">
+                  <fx-label text="Default text style:"></fx-label><br>
+                  <fx-label text="(Use the 'Remove Formatting' button on the toolbar to reset the default text style)"
+                    style="font-size:8pt">
+                  </fx-label>
+                </fx-block>
+                <fx-block xsCols="9">
+                </fx-block>
+              </fx-row>
+              <div class="line"></div>
+              <fx-row>
+                <fx-block xsCols="3">
+                  <fx-label text="Conversation View:"></fx-label><br>
+                  <fx-label text="(sets whether emails of the same topic are grouped together)"
+                    style="font-size:8pt">
+                  </fx-label>
+                </fx-block>
+                <fx-block xsCols="9">
+                  <fx-radio-group>
+                    <fx-radio-button value="conversationOn" text="Conversation view on"></fx-radio-button>
+                    <fx-radio-button value="conversationOff" text="Conversation view off"></fx-radio-button>
+                  </fx-radio-group>
+                </fx-block>
+              </fx-row>
+              <div class="line"></div>
+              <fx-row>
+                <fx-block xsCols="3">
+                  <fx-label text="Email via Google+:"></fx-label><br>
+                  <span class="link">Learn more</span>
+                </fx-block>
+                <fx-block xsCols="9" lgCols="6" horizontal layout>
+                  <fx-label text="Who can e-mail  you  via your Google+ profile?" style="margin-right:10px"></fx-label>
+                  <fx-dropdown-list flex dataProvider="['Anyone on Google +', 'Extended Circles', 'Circles', 'No one']" selectedItem="Circles"></fx-dropdown-list>
+                </fx-block>
+              </fx-row>
+            </div>
+            <div data-label="Labels">
+              Labels
+            </div>
+            <div data-label="Inbox">
+              Inbox
+            </div>
+            <div data-label="Accounts and Import">
+              Accounts and Import
+            </div>
+            <div data-label="Filters">
+              Filters
+            </div>
+            <div data-label="Forwarding and POP/IMAP">
+              Forwarding and POP/IMAP
+            </div>
+            <div data-label="Chat">
+              Chat
+            </div>
+            <div data-label="Labs">
+              Labs
+            </div>
+            <div data-label="Offline">
+              Offline
+            </div>
+            <div data-label="Themes">
+              Themes
+            </div>
+          </fx-tab-navigator>
+        </fx-block>
+      </fx-row>
+    </div>
   </template>
   <script type="application/dart" src="main_app_gmail.dart"></script>
 </polymer-element>

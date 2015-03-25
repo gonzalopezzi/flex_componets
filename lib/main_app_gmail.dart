@@ -1,11 +1,17 @@
-// Copyright (c) 2015, <your name>. All rights reserved. Use of this source code
-// is governed by a BSD-style license that can be found in the LICENSE file.
-
 import 'package:polymer/polymer.dart';
+import 'dart:html';
 
 @CustomTag('main-app-gmail')
 class MainAppLayout extends PolymerElement {
   @observable String imagesManagement = 'always';
   @observable String replyManagement = 'replyAll';
+  @observable String rightToLeft = 'rightToLeftOff';
+  
+  @observable bool languageOptionsVisible = false;
+  
   MainAppLayout.created() : super.created();
+  
+  void toggleLanguageOptions (MouseEvent e) {
+    languageOptionsVisible = !languageOptionsVisible;
+  }
 }

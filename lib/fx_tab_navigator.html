@@ -9,6 +9,7 @@
       :host {
         display: block;
         position:relative;
+        min-height:200px;
       }
       
       #tabBar {
@@ -17,28 +18,44 @@
         width:100%;
         top:0;
         left:0;
+        z-index:9;
       }
       
       #spacer-div {
         padding:39px 0 0 0;
       }
       
-      #content-box {
+      #border-and-scroller {
+        display:block;
+        position:absolute;
+        z-index:5;
+        top:39px;
+        bottom:0;
+        left:0;
+        right:0;
+        padding:0;
+        margin:0;
+        overflow-y:auto;
         border: solid 1px #ccc;
         background-color:white;
         border-radius: 0 5px 5px 5px;
-        padding: 10px 10px 10px 10px;
+      }
+      
+      #content-box {
+        padding: 10px;
       }
       
     </style>
     <fx-tab-bar id="tabBar" dataProvider="{{$['viewStack']}}"  selectedIndex="{{selectedIndex}}"></fx-tab-bar>
-    <div id="spacer-div">
-      <div id="content-box">
-        <fx-viewstack id="viewStack" selectedIndex="{{selectedIndex}}">
-          <content></content>
-        </fx-viewstack>
+    <!--<div id="spacer-div">-->
+      <div id="border-and-scroller">
+        <div id="content-box">
+          <fx-viewstack id="viewStack" selectedIndex="{{selectedIndex}}">
+            <content></content>
+          </fx-viewstack>
+        </div>
       </div>
-    </div>
+    <!--</div>-->
   </template>
   <script type="application/dart" src="fx_tab_navigator.dart"></script>
 </polymer-element>

@@ -1,0 +1,33 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+
+<polymer-element name="fx-collapse">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      
+      #fx-collapse-container {
+        display:block;
+        padding:0;
+        margin:0;
+        height:0;
+        overflow:hidden;
+        transition: all 0.2s ease-in-out;
+      }
+      
+      #fx-collapse-content {
+        display:block;
+        height:auto;
+      }
+      
+    </style>
+    <div id="fx-collapse-container">
+      <div id="fx-collapse-content">
+        <content></content>
+      </div>
+    </div>
+  </template>
+  <script type="application/dart" src="fx_collapse.dart"></script>
+</polymer-element>
