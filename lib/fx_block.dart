@@ -63,11 +63,14 @@ class FxBlock extends FxBase {
     this.style.position = "relative";
     this.style.top     = "0";
     this.style.bottom  = "0";
-    $['fx-block-content'].style.position = "relative";
-    $['fx-block-content'].style.top     = "0";
-    $['fx-block-content'].style.bottom  = "0";
-    $['fx-block-content'].style.left    = "0";
-    $['fx-block-content'].style.right   = "0";
+    
+    Element fxBlockContent = this.shadowRoot.querySelector("#fx-block-content");
+    
+    fxBlockContent.style..position = "relative"
+                        ..top     = "0"
+                        ..bottom  = "0"
+                        ..left    = "0"
+                        ..right   = "0";
   }
   
   @override
