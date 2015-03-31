@@ -21,14 +21,14 @@
         </button>
       </template>
       <div id="lst" class="{{ {focused:focused } }}">
-        <template repeat="{{item in wrappedDataProvider | enumerate}}">
-          <div class="item-holder {{ {selected: item.value.selected, focused:item.index==focusedIndex } }}" data-index="{{item.index}}" 
+        <template repeat="{{item in wrappedDataProvider}}">
+          <div class="item-holder {{ {selected: item.selected, focused:item.index==focusedIndex } }}" data-index="{{item.index}}" 
                 on-click="{{clickItem}}">
               <template if="{{itemRenderer == null}}">
-                {{render(item.value.listItem)}}
+                {{render(item.listItem)}}
               </template>
               <template if="{{itemRenderer != null}}">
-                <fx-item-renderer tag="{{itemRenderer}}" data="{{item.value.listItem}}" data-index="{{item.index}}"></fx-item-renderer>
+                <fx-item-renderer tag="{{itemRenderer}}" data="{{item.listItem}}" data-index="{{item.index}}"></fx-item-renderer>
               </template>
           </div>
         </template>

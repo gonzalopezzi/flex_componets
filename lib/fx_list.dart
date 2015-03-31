@@ -79,9 +79,11 @@ class FxList extends FxBase {
   
   void _wrapDataProvider () {
     List<WrappedItem> wrapped = new List<WrappedItem> ();
-    dataProvider.forEach((dynamic item) {
-      wrapped.add(new WrappedItem (item)..selected = false);
-    });
+    for (int i = 0; i < dataProvider.length; i++) {
+      dynamic item = dataProvider[i];
+      wrapped.add(new WrappedItem (item)..selected = false
+                                        ..index = i);
+    }
     _setSelectionsInWrappedDataProvider(wrapped);
     wrappedDataProvider = wrapped;
   }
@@ -305,6 +307,7 @@ class FxList extends FxBase {
 
 class WrappedItem extends Observable {
   dynamic listItem;
+  @observable int index;
   @observable bool selected;
   WrappedItem (this.listItem);
 }
