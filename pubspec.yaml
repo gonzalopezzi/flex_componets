@@ -10,6 +10,7 @@ dependencies:
   browser: any
   browser_detect: any
   animation: any
+  intl: any
   polymer: '0.15.5'
   paper_elements: '>=0.6.0 <0.7.0'
 transformers:

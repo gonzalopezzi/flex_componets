@@ -5,6 +5,8 @@
   <template>
     <style>
       :host {
+        overflow: hidden;
+        position:relative;
         display: inline-block;
         box-sizing:border-box;
         margin:0;
@@ -12,8 +14,17 @@
         height:30px;
         cursor:default;
       }
+      
+      .label-div {
+        width:100%;
+        height:30px;
+      }
+      
     </style>
-    {{text}}
+    <div id="label-commited-value">
+    </div>
+    <div id="label-new-value">
+    </div>
   </template>
   <script type="application/dart" src="fx_label.dart"></script>
 </polymer-element>
