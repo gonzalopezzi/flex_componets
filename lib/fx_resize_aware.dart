@@ -1,7 +1,6 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'dart:js';
-import 'dart:async';
 import 'package:browser_detect/browser_detect.dart';
 
 @CustomTag('fx-resize-aware')
@@ -19,7 +18,7 @@ class FxResizeAware extends PolymerElement {
   attached() {
     super.attached();
     var resizeDetectorObject = new JsObject.fromBrowserObject($['resize-detector']);
-    if (browser.isIe) {
+    if (browser.isIe || browser.isFirefox) {
       async ((_) {
         resizeDetectorObject['data'] = 'about:blank';
       });
