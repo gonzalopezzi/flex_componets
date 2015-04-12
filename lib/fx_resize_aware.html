@@ -1,0 +1,34 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+
+<polymer-element name="fx-resize-aware">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+      }
+      
+      #resize-detector {
+        display:block;
+        position:absolute;
+        top:0;
+        left:0;
+        border:0;
+        height:100%;
+        width:100%;
+        overflow:hidden;
+        pointer-events:none;
+        z-index:-1;
+      }
+      
+    </style>
+    <object id="resize-detector" type="text/html" on-load="{{loaded}}">
+    </object>
+  </template>
+  <script type="application/dart" src="fx_resize_aware.dart"></script>
+</polymer-element>

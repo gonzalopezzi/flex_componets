@@ -5,6 +5,7 @@ import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'package:flex_components/flex_components.dart';
 import 'package:flex_components/sample/fx_sample_panel.dart';
+import 'package:quiver/core.dart';
 
 /// A Polymer `<main-app>` element.
 @CustomTag('main-app')
@@ -67,8 +68,42 @@ class MainApp extends PolymerElement {
   
   @observable int viewStackSelectedIndex = 0;
   
+  @observable List<Album> albums = toObservable([
+              new Album("12 x 5", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/615F/84D5/EA9C/843D_medium_front.jpg?cid=12102912"),
+              new Album("England's newest hit makers", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/3727/8931/13A9/094E_medium_front.jpg?cid=12102912"),
+              new Album("The Rolling Stones", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/0152/A0F0/1611/E72D_medium_front.jpg?cid=12102912"),
+              new Album("December's Children", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/9ED9/DFD6/CE0D/564F_medium_front.jpg?cid=12102912"),
+              new Album("Out of our heads", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/4C15/4899/3F51/CB33_medium_front.jpg?cid=12102912"),
+              new Album("The Rolling Stones, Now!", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/7D9C/4267/17B2/58E8_medium_front.jpg?cid=12102912"),
+              new Album("Aftermath", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/D7E4/45CB/ACAB/0D8A_medium_front.jpg?cid=12102912"),
+              new Album("Between the Buttons", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/A49B/705A/5411/1EA0_medium_front.jpg?cid=12102912"),
+              new Album("Their Satanic Majesties Request", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/2637/A032/1D20/C231_medium_front.jpg?cid=12102912"),
+              new Album("Beggars Banquet", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/BB70/AF1E/47D2/C0D9_medium_front.jpg?cid=12102912"),
+              new Album("Let It Bleed", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/7791/73F6/D9CA/9FE3_medium_front.jpg?cid=12102912")
+            ]);
+  @observable List<Album> albumsFiltered = toObservable([
+              new Album("12 x 5", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/615F/84D5/EA9C/843D_medium_front.jpg?cid=12102912"),
+              new Album("The Rolling Stones", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/0152/A0F0/1611/E72D_medium_front.jpg?cid=12102912"),
+              new Album("December's Children", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/9ED9/DFD6/CE0D/564F_medium_front.jpg?cid=12102912"),
+              new Album("The Rolling Stones, Now!", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/7D9C/4267/17B2/58E8_medium_front.jpg?cid=12102912"),
+              new Album("Aftermath", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/D7E4/45CB/ACAB/0D8A_medium_front.jpg?cid=12102912"),
+              new Album("Beggars Banquet", "http://akamai-b.cdn.cddbp.net/cds/2.0/cover/BB70/AF1E/47D2/C0D9_medium_front.jpg?cid=12102912")
+            ]);
+  
+  @observable List<Album> currentAlbums;
+  
+  void switchAlbumsDataProvider () {
+    currentAlbums = currentAlbums == albums ? albumsFiltered : albums;
+  }
+  
   /// Constructor used to create instance of MainApp.
   MainApp.created() : super.created();
+  
+  @override
+  void attached () {
+    super.attached();
+    currentAlbums = albums;
+  }
   
   void alertChange (CustomEvent e) {
     //window.alert("Change: ${e.detail}");
@@ -137,4 +172,19 @@ class ProductCategory {
   String toString () {
     return "$name";
   }
+}
+
+
+class Album {
+  String name;
+  String cover;
+  
+  Album (this.name, this.cover);
+  
+  bool operator ==(o) => o is Album && 
+                         o.name == this.name && 
+                         o.cover == this.cover;
+  
+  int get hashCode => hash2(name, cover);
+  
 }
