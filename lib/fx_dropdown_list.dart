@@ -83,10 +83,13 @@ class FxDropdownList extends FxBase {
   
   void blurHandler (Event e) {
     focused = false;
-    if (deployed && !browser.isIe) {
+    /*
+     * TODO: This has stopped working. The list shuts down if the user scrolls down with mouse click 
+     * 
+     * if (deployed && !browser.isIe) {
       deployed = false;
       invalidateProperties();
-    }
+    }*/
     keyboardStreamSubs.cancel();
   }
   
