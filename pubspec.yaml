@@ -14,9 +14,12 @@ dependencies:
   quiver: any
   polymer: '0.15.5'
   paper_elements: '>=0.6.0 <0.7.0'
+dev_dependencies:
+  unittest: '>=0.10.0 <0.11.0'
 transformers:
 - polymer:
     entry_points: 
     - web/index.html
     - web/index_layout.html
     - web/index_gmail_settings.html
+    - test/flex_components_test.html
