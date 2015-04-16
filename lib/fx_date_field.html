@@ -1,0 +1,46 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/flex_components/fx_button.html">
+<link rel="import" href="../../packages/flex_components/fx_block.html">
+<link rel="import" href="../../packages/flex_components/fx_date_chooser.html">
+
+<polymer-element name="fx-date-field">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        position:relative;
+      }
+      
+      #date-field-button  {
+        box-sizing: border-box;
+        height:36px;
+      }
+      
+      #date-field-button /deep/ #btnContent {
+        padding:8px;
+      }
+      
+      #date-field-text {
+        box-sizing: border-box;
+        height:36px;
+        width:80px;
+        color: #888;
+        text-align:center;
+      }
+      
+      #date-field-date-chooser {
+        position:absolute;
+        z-index: 500;
+        visibility:hidden;
+        opacity:0;
+        transition: all 0.4s ease-in-out;
+      }
+      
+    </style>
+    <input id="date-field-text" type="text" readonly="true" value="{{format(selectedDate)}}"><fx-button id="date-field-button" label="..." on-click="{{toggleDateChooser}}"></fx-button>
+    <fx-date-chooser id="date-field-date-chooser" selectedDate="{{selectedDate}}"></fx-date-chooser>
+    
+  </template>
+  <script type="application/dart" src="fx_date_field.dart"></script>
+</polymer-element>
