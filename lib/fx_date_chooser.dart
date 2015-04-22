@@ -32,6 +32,7 @@ class FxDateChooser extends FxBase {
       if (_changeCallback != null) {
         _changeCallback({'selectedDate':selectedDate});
       }
+      invalidateProperties();
       invalidateDisplay();
     } 
   }
