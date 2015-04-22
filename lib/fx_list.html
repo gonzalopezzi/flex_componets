@@ -1,96 +1,34 @@
 <!-- import polymer-element's definition -->
 <link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/core_elements/core_style.html">
 <link rel="import" href="../../packages/flex_components/fx_item_renderer.html">
+<link rel="import" href="../../packages/flex_components/fx_list_theme.html">
 
 <polymer-element name="fx-list">
   <template>
     <style>
       :host {
-        display: inline-block;
+        display: block;
         position: relative;
       }
-      
-      #mainDiv {
-        position:relative;
-        cursor:default;
-      }
-      
-      button.focus-manager {
-        display:block;
-        opacity:0;
-        position:absolute;
-      }
-      
-      #lst {
-        display:block;
-        text-align:left;
-        box-sizing: border-box;
-        background-color: #FFF;
-        top: 0;
-        width: 100%;
-        padding:0;
-        border: 1px solid #CCC;
-        border-radius: 3px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        transition: all 0.2s ease-in-out;
-      }
-      
-      #lst.focused {
-        -webkit-box-shadow: 0px 0px 4px 0px rgba(86, 182, 255, 0.75);
-        -moz-box-shadow:    0px 0px 4px 0px rgba(86, 182, 255, 0.75);
-        box-shadow:         0px 0px 4px 0px rgba(86, 182, 255, 0.75);
-      }
-      
-      .item-holder {
-        box-sizing: border-box;
-        margin: 0px;
-        padding: 8px;
-        transition: all 0.2s ease-in-out;
-      }
-      
-      .item-holder.selected {
-        background-color: #009fb2;
-        color:white;
-      }
-      
-      .item-holder.focused {
-        background-color: #eee;
-        color: #000;
-      }
-      
-      .item-holder.selected.focused {
-        background-color: #009fb2;
-        color:white;
-      }
-      
-      .item-holder:hover {
-        background-color: #ddd;
-        color: #000;
-      }
-      
-      .item-holder.selected:hover {
-        background-color: #009fb2;
-        color: #fff;
-      }
-      
-      
     </style>
+    <core-style ref="fxListTheme"></core-style>
+    
     <div id="mainDiv">
       <template if="{{focusEnabled}}">
         <button class="focus-manager"
             on-focus="{{focusHandler}}" on-blur="{{blurHandler}}">
         </button>
       </template>
-      <div id="lst" class="{{ {focused:focused } }}" style="height:{{listHeight}}px">
-        <template repeat="{{item in dataProvider | enumerate}}">
-          <div class="item-holder {{ {selected:item.index==selectedIndex, focused:item.index==focusedIndex } }}" data-index="{{item.index}}" 
+      <div id="lst" class="{{ {focused:focused } }}">
+        <template repeat="{{item in wrappedDataProvider}}">
+          <div class="item-holder {{ {selected: item.selected, focused:item.index==focusedIndex } }}" data-index="{{item.index}}" 
                 on-click="{{clickItem}}">
               <template if="{{itemRenderer == null}}">
-                {{render(item.value)}}
+                {{render(item.listItem)}}
               </template>
               <template if="{{itemRenderer != null}}">
-                <fx-item-renderer tag="{{itemRenderer}}" data="{{item.value}}" data-index="{{item.index}}"></fx-item-renderer>
+                <fx-item-renderer tag="{{itemRenderer}}" data="{{item.listItem}}" data-index="{{item.index}}"></fx-item-renderer>
               </template>
           </div>
         </template>

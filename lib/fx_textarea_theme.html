@@ -1,0 +1,82 @@
+<link rel="import" href="../../packages/core_elements/core_style.html">
+<link rel="import" href="../../packages/flex_components/fx_scrollbars_theme.html">
+
+<script>
+  CoreStyle.g.fxTextareaTheme = {
+    height: '120px',
+    resize: 'vertical',
+    padding: '5px',
+    fontFamily: 'RobotoDraft, sans-serif',
+    fontSize: '11pt',
+    fontColor: '#333',
+    lineHeight: '20px',
+    shadow: '0', 
+    focusedShadow: '0',
+    borderWidth: '1px',
+    borderColor: '#ccc',
+    borderRadius: '3px',
+    borderStyle: 'solid'
+  };
+</script>
+
+<core-style ref="fxScrollbarsTheme"></core-style>
+
+<core-style id="fxTextareaTheme">
+  #txtArea {
+    box-sizing: border-box;
+    margin:0;
+    display:block;
+    outline:0;
+    width: 100%;
+    height: {{g.fxTextareaTheme.height}};
+    resize: {{g.fxTextareaTheme.resize}};
+    padding: {{g.fxTextareaTheme.padding}};
+    
+    font-family: {{g.fxTextareaTheme.fontFamily}};
+    font-size: {{g.fxTextareaTheme.fontSize}};
+    color: {{g.fxTextareaTheme.fontColor}};
+    line-height: {{g.fxTextareaTheme.lineHeight}};
+    
+    -webkit-box-shadow: {{g.fxTextareaTheme.shadow}};
+    -moz-box-shadow:    {{g.fxTextareaTheme.shadow}};
+    box-shadow:         {{g.fxTextareaTheme.shadow}};
+    
+    border-width: {{g.fxTextareaTheme.borderWidth}};
+    border-color: {{g.fxTextareaTheme.borderColor}};
+    border-radius: {{g.fxTextareaTheme.borderRadius}};
+    border-style: {{g.fxTextareaTheme.borderStyle}};
+  }
+  
+  #txtArea.focused {
+    -webkit-box-shadow: {{g.fxTextareaTheme.focusedShadow}};
+    -moz-box-shadow:    {{g.fxTextareaTheme.focusedShadow}};
+    box-shadow:         {{g.fxTextareaTheme.focusedShadow}};
+  }
+  
+  #txtArea::-webkit-scrollbar-track
+  {
+    -webkit-box-shadow: {{g.fxScrollbarsTheme.trackShadow}};
+    background-color: {{g.fxScrollbarsTheme.trackColor}};
+    border-radius: {{g.fxScrollbarsTheme.trackBorderRadius}};
+  }
+  
+  #txtArea::-webkit-scrollbar
+  {
+    width: {{g.fxScrollbarsTheme.scrollbarWidth}};
+    background-color: {{g.fxScrollbarsTheme.scrollbarBackgroundColor}};
+  }
+  
+  #txtArea::-webkit-scrollbar-thumb
+  {
+    border-radius: {{g.fxScrollbarsTheme.scrollbarThumbWidth}};
+    background-color: {{g.fxScrollbarsTheme.scrollbarThumbColor}};
+  }
+  
+  #txtArea {
+    scrollbar-face-color: {{g.fxScrollbarsTheme.scrollbarThumbColor}};  
+    scrollbar-shadow-color: {{g.fxScrollbarsTheme.scrollbarThumbColor}};  
+    scrollbar-track-color: {{g.fxScrollbarsTheme.trackColor}};  
+    scrollbar-arrow-color: {{g.fxScrollbarsTheme.arrowColor}};
+  }
+  
+</core-style>

@@ -11,6 +11,9 @@ class FxItemRenderer extends PolymerElement {
 
   @published String tag;
   @published dynamic data;
+  
+  bool _tagAdded = false;
+  bool _dataHasChanged = true;
 
   PolymerElement attachedPolymerElement;
   
@@ -19,16 +22,38 @@ class FxItemRenderer extends PolymerElement {
   }
   
   void dataChanged (dynamic oldValue) {
-    (attachedPolymerElement as DataRenderer).data = data;
+    _dataHasChanged = true;
+    _render ();
+  }
+  
+  void tagChanged (String oldValue) {
+    _saveTag();
+    _render ();
   }
 
   
-  @override
-  void attached () {
+  void _saveTag() {
     if (tag != null && tag != "") {
       attachedPolymerElement = new Element.tag(tag);
+    }
+  }
+  
+  @override
+  void attached () {
+    _saveTag();
+    _render();
+  }
+  
+  void _render () {
+    if (!_tagAdded && attachedPolymerElement != null) {
+      ($['mainFxItemRendererContent'] as DivElement).children.add(attachedPolymerElement);
+      _tagAdded = true;
+    }
+    if (_tagAdded && _dataHasChanged) {
+      ($['mainFxItemRendererContent'] as DivElement).children.clear();
+      ($['mainFxItemRendererContent'] as DivElement).children.add(attachedPolymerElement);
       (attachedPolymerElement as DataRenderer).data = data;
-      ($['mainContent'] as DivElement).children.add(attachedPolymerElement);
+      _dataHasChanged = false;
     }
   }
   

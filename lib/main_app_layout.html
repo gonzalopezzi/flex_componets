@@ -1,0 +1,99 @@
+<!--
+  Copyright (c) 2015, <your name>. All rights reserved. Use of this source code
+  is governed by a BSD-style license that can be found in the LICENSE file.
+-->
+
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/flex_components/fx_list.html">
+<link rel="import" href="../../packages/flex_components/fx_dropdown_list.html">
+<link rel="import" href="../../packages/flex_components/fx_tree.html">
+<link rel="import" href="../../packages/flex_components/fx_button.html">
+<link rel="import" href="../../packages/flex_components/fx_panel.html">
+<link rel="import" href="../../packages/flex_components/fx_panel_title.html">
+<link rel="import" href="../../packages/flex_components/fx_panel_footer.html">
+<link rel="import" href="../../packages/flex_components/fx_panel_content.html">
+<link rel="import" href="../../packages/flex_components/fx_date_chooser.html">
+<link rel="import" href="../../packages/flex_components/fx_textarea.html">
+<link rel="import" href="../../packages/flex_components/fx_tab_bar.html">
+<link rel="import" href="../../packages/flex_components/fx_tab_navigator.html">
+<link rel="import" href="../../packages/flex_components/fx_slider.html">
+<link rel="import" href="../../packages/flex_components/fx_viewstack.html">
+
+<link rel="import" href="../../packages/flex_components/fx_hbox.html">
+<link rel="import" href="../../packages/flex_components/fx_vbox.html">
+
+<link rel="import" href="../../packages/flex_components/fx_row.html">
+<link rel="import" href="../../packages/flex_components/fx_block.html">
+<link rel="import" href="../../packages/flex_components/fx_label.html">
+
+<link rel="import" href="../../packages/flex_components/fx_accordion.html">
+<link rel="import" href="../../packages/flex_components/fx_accordion_element.html">
+<link rel="import" href="../../packages/flex_components/fx_label.html">
+
+<!-- THEME 
+<link rel="import" href="../../packages/flex_components/themes/fx_components_blue_theme.html">
+-->
+
+<polymer-element name="main-app-layout">
+  <template>
+    <style>
+      :host {
+        display: block;
+        height: 100%;
+      }
+    </style>
+    
+    <fx-row>
+      <fx-row>
+        <fx-block style="background-color: red">
+          <fx-label text="Header"></fx-label>
+        </fx-block>
+      </fx-row>
+      <fx-row style="min-height:400px">
+        <fx-block xsCols="12" smCols="4" mdCols="3">
+          <div class="menu-title">
+            Brands
+          </div>
+          <fx-list dataProvider="['Sinopec Group', 'Wal-mart Stores', 'China National Petroleoum', 'Royal Dutch Shell', 'ExxonMobil', 'BP', 'Saudi Aramco', 'State Grid Corporation of China']"></fx-list>
+          <div class="menu-title">
+            Countries
+          </div>
+          <fx-list dataProvider="['Afghanistan', 'Argentina', 'Australia', 'Austria', 'Azerbaijan', 'Bangladesh', 'Belarus', 'Belgium', 'Botswana', 'Bhutan', 'Brazil']"></fx-list>
+        </fx-block>
+        <fx-block xsCols="12" smCols="8" mdCols="9">
+          <strong>Main Panel</strong>
+          <fx-row>
+            <fx-block lgCols="4" mdCols="4" smCols="6" xsCols="6" style="text-align:right">
+              <fx-label text="This is the first field:"></fx-label>
+            </fx-block>
+            <fx-block lgCols="8" mdCols="8" smCols="6" xsCols="6">
+              <fx-dropdown-list 
+                prompt="Select" 
+                dataProvider="['One', 'Two', 'Three']"></fx-dropdown-list>
+            </fx-block>
+          </fx-row>
+          
+          <fx-row>
+            <fx-block lgCols="4" mdCols="4" smCols="6" xsCols="6" style="text-align:right">
+              <fx-label text="This is the second field:"></fx-label>
+            </fx-block>
+            <fx-block lgCols="8" mdCols="8" smCols="6" xsCols="6">
+              <fx-list 
+                dataProvider="['First Item', 'Second Item', 'Third Item']"></fx-list>
+            </fx-block>
+          </fx-row>
+          
+          <fx-row>
+            <fx-block mdCols="8" smCols="6" xsCols="0">
+            </fx-block>
+            <fx-block mdCols="4" smCols="6" xsCols="12">
+              <fx-button label="Ok" style="width:100%"></fx-button>
+            </fx-block>
+          </fx-row>
+        </fx-block>
+      </fx-row>
+    </fx-row>
+  </template>
+  <script type="application/dart" src="main_app_layout.dart"></script>
+</polymer-element>

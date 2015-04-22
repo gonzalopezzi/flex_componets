@@ -10,11 +10,28 @@
 <link rel="import" href="../../packages/flex_components/fx_tree.html">
 <link rel="import" href="../../packages/flex_components/fx_button.html">
 <link rel="import" href="../../packages/flex_components/fx_panel.html">
-<link rel="import" href="../../packages/flex_components/sample/fx_sample_panel.html">
+<link rel="import" href="../../packages/flex_components/fx_panel_title.html">
+<link rel="import" href="../../packages/flex_components/fx_panel_footer.html">
+<link rel="import" href="../../packages/flex_components/fx_panel_content.html">
+<link rel="import" href="../../packages/flex_components/fx_date_chooser.html">
+<link rel="import" href="../../packages/flex_components/fx_date_field.html">
+<link rel="import" href="../../packages/flex_components/fx_textarea.html">
+<link rel="import" href="../../packages/flex_components/fx_tab_bar.html">
+<link rel="import" href="../../packages/flex_components/fx_tab_navigator.html">
 <link rel="import" href="../../packages/flex_components/internal/fx_overlay.html">
+<link rel="import" href="../../packages/flex_components/sample/fx_sample_panel.html">
+<link rel="import" href="../../packages/flex_components/fx_slider.html">
+<link rel="import" href="../../packages/flex_components/fx_accordion.html">
+<link rel="import" href="../../packages/flex_components/fx_accordion_element.html">
+<link rel="import" href="../../packages/flex_components/fx_viewstack.html">
+<link rel="import" href="../../packages/flex_components/fx_resize_aware.html">
+<link rel="import" href="../../packages/flex_components/fx_tile_list.html">
 <link rel="import" href="../../packages/flex_components/fx_item_renderer.html">
 <link rel="import" href="../../packages/flex_components/my_item_renderer.html">
-
+<link rel="import" href="../../packages/flex_components/sample/my_album_renderer.html">
+<!-- THEME 
+<link rel="import" href="../../packages/flex_components/themes/fx_components_blue_theme.html">
+-->
 
 <polymer-element name="main-app">
   <template>
@@ -31,6 +48,13 @@
       }
       
       #center-panel {
+        display: inline-block;
+        float:left;
+        width:30%;
+        min-width:300px;
+      }
+      
+      #right-panel {
         display: inline-block;
         float:left;
         width:30%;
@@ -54,66 +78,185 @@
         margin: 25px;
       }
       
+      .border {
+        border: solid 1px #ccc;
+        border-radius: 5px;
+        margin: 10px 0 10px 0;
+        padding: 10px;
+      }
+      
+      #viewSelector {
+        display:inline-block;
+        width: 80px;
+      }
+      
     </style>
-    <div id="left-panel">
-      <div class="form-item">
-        <fx-dropdown-list
-          prompt="Select a category" 
-          dataProvider="{{productCategoriesObject}}"
-          selectedItem="{{selectedProductCategory}}"
-          labelField="name" on-selection-change="{{alertChange}}"></fx-dropdown-list>
-        {{selectedProductCategory}}
+    <div>
+      <div class="form-item" style="text-align:right; height:50px">
+        <fx-button label="Filter Albums" 
+          on-click="{{switchAlbumsDataProvider}}"
+          style="width:180px"></fx-button>
       </div>
-      <div class="form-item">
-        <fx-dropdown-list
-          prompt="Select a category (item rend)" 
-          dataProvider="{{productCategoriesObject}}"
-          selectedItem="{{selectedProductCategory}}"
-          itemRenderer="my-item-renderer"
-          labelField="name" on-selection-change="{{alertChange}}"></fx-dropdown-list>
-      </div>
-      <!--
-      <div class="form-item">
-        <fx-dropdown-list
-          prompt="Select a category (item rend)" 
-          dataProvider="{{productCategoriesObject}}"
-          selectedItem="{{selectedProductCategory}}"
-          itemRenderer="my-item-renderer"
-          labelField="name" on-selection-change="{{alertChange}}"></fx-dropdown-list>
-      </div>-->
-      <div class="form-item">
-        <fx-list
-          dataProvider="{{productCategoriesObject}}"
-          selectedItem="{{selectedProductCategory}}"
-          itemRenderer="my-item-renderer"
-          labelField="name" on-selection-change="{{alertChange}}"></fx-list>
-      </div>
-      
-      <div class="form-item">
-        <fx-tree
-          dataProvider="{{stores}}"
-          selectedItem="{{selectedTreeItem}}"
-          labelField="name"
-          listHeight="800" 
-          on-selection-change="{{alertChange}}"></fx-tree>
-          {{selectedTreeItem}}
-      </div>
-      
-      <div class="form-item">
-        <fx-button id="btnPrimary" label="Modal Popup" type="primary" 
-          on-click="{{openModalPopup}}"></fx-button>
-        <fx-button id="btnSecondary" label="Popup" type="secondary"
-          on-click="{{openPopup}}"></fx-button>
-      </div>
+      <fx-tile-list dataProvider="{{currentAlbums}}" style="background-color: #eee;"
+        itemRenderer="my-album-renderer" rowHeight="200" columnWidth="180">
+      </fx-tile-list>
     </div>
-    <div id="center-panel">
-      <div class="form-item">
-        <fx-panel title="Title" footer="Footer">
-          This is a panel
+    <div>
+      <div id="left-panel">
+        <div class="form-item">
+          <fx-dropdown-list
+            prompt="Select a category" 
+            dataProvider="{{productCategoriesObject}}"
+            selectedItem="{{selectedProductCategory}}"
+            listHeight="150"
+            labelField="name" on-selection-change="{{alertChange}}"></fx-dropdown-list>
+          {{selectedProductCategory}}
+        </div>
+        <div class="form-item">
+          <fx-dropdown-list
+            prompt="Select a category (item rend)" 
+            dataProvider="{{productCategoriesObject}}"
+            selectedItem="{{selectedProductCategory}}"
+            listHeight="150"
+            itemRenderer="my-item-renderer"
+            labelField="name" on-selection-change="{{alertChange}}"></fx-dropdown-list>
+        </div>
+        <div class="form-item">
+          <fx-list
+            dataProvider="{{productCategoriesObject}}"
+            selectedItem="{{selectedProductCategory}}"
+            listHeight="150"
+            itemRenderer="my-item-renderer"
+            labelField="name" on-selection-change="{{alertChange}}"></fx-list>
+        </div>
+        <div class="form-item">
+          <fx-list
+            dataProvider="{{productCategoriesObject}}"
+            selectedItems="{{selectedProductCategories}}"
+            allowMultipleSelection="true"
+            listHeight="150"
+            itemRenderer="my-item-renderer"
+            labelField="name" on-selection-change="{{alertChange}}"></fx-list>
+        </div>
+        <div class="form-item">
+          <fx-tree
+            dataProvider="{{stores}}"
+            selectedItem="{{selectedTreeItem}}"
+            labelField="name"
+            listHeight="250" 
+            on-selection-change="{{alertChange}}"></fx-tree>
+            {{selectedTreeItem}}
+        </div>
+        
+        <div class="form-item">
+          <fx-button id="btnPrimary" label="Modal Popup" type="primary" 
+            on-click="{{openModalPopup}}"></fx-button>
+          <fx-button id="btnSecondary" label="Popup" type="secondary"
+            on-click="{{openPopup}}"></fx-button>
+        </div>
+      </div>
+      <div id="center-panel">
+        <div class="form-item">
+          <fx-panel>
+            <fx-panel-title>Title</fx-panel-title>
+            <fx-panel-content>
+              This is a panel
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis diam est. Maecenas dictum, velit eget laoreet facilisis, dolor lacus sagittis lacus, ut tincidunt risus lacus suscipit tellus. Nullam vitae varius diam, vel facilisis risus. Quisque eget justo ac ante euismod viverra. Suspendisse rhoncus nibh nulla, ut elementum diam mattis eget. Pellentesque sit amet sem dui. Aliquam erat volutpat. Vestibulum vehicula leo lorem, hendrerit pellentesque dui malesuada eu.
+              </p>
+            </fx-panel-content>
+            <fx-panel-footer>Footer</fx-panel-footer>
+          </fx-panel>
+        </div>
+        <div class="form-item">
+          <fx-date-chooser selectedDate="{{selectedDate}}"
+            firstDayOfWeek="1"></fx-date-chooser>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis diam est. Maecenas dictum, velit eget laoreet facilisis, dolor lacus sagittis lacus, ut tincidunt risus lacus suscipit tellus. Nullam vitae varius diam, vel facilisis risus. Quisque eget justo ac ante euismod viverra. Suspendisse rhoncus nibh nulla, ut elementum diam mattis eget. Pellentesque sit amet sem dui. Aliquam erat volutpat. Vestibulum vehicula leo lorem, hendrerit pellentesque dui malesuada eu.
+            {{selectedDate}}
           </p>
-        </fx-panel>
+          <fx-date-field formatString="dd/MM/yyyy" selectedDate="{{selectedDate}}"></fx-date-field>
+        </div>
+        <div class="form-item">
+          <div>Slider with double thumb and stepSize=100</div>
+          <fx-slider id="slider1" value="{{sliderValue}}" 
+            minValue="200" maxValue="1000" stepSize="100" animateStepSize="false"
+            doubleThumb="true" dataTipFormatter="{{sliderDataTipFormatter}}"></fx-slider>
+          {{sliderValue[0]}}, {{sliderValue[1]}}
+          <div>Slider with double thumb without stepSize</div>
+          <fx-slider id="slider2" value="{{sliderValue}}" 
+            minValue="200" maxValue="1000"
+            doubleThumb="true" dataTipFormatter="{{sliderDataTipFormatter}}"></fx-slider>
+          <div>Slider with single thumb and no stepSize</div>
+          <fx-slider id="slider3" value="{{sliderValue[1]}}" 
+            minValue="200" maxValue="1000"
+            dataTipFormatter="{{sliderDataTipFormatter}}"></fx-slider>
+        </div>
+      </div>
+      <div id="right-panel">
+        <div class="form-item">
+          <fx-textarea text="{{textAreaText}}" readonly="true"></fx-textarea>
+        </div>
+        <div class="form-item">
+          {{textAreaText}}
+        </div>
+        <div>
+          <fx-tab-navigator>
+            <div data-label="Drop Down" style="min-height:200px">
+              This is a <strong>Drop Down List</strong>
+              <fx-dropdown-list
+                prompt="Select a category" 
+                dataProvider="{{productCategoriesObject}}"
+                selectedItem="{{selectedProductCategory}}"
+                listHeight="150"
+                labelField="name" on-selection-change="{{alertChange}}"></fx-dropdown-list>
+            </div>
+            <div data-label="List" style="min-height:200px">
+              This is a <strong>List</strong>
+              <fx-list
+                dataProvider="{{productCategoriesObject}}"
+                selectedItem="{{selectedProductCategory}}"
+                listHeight="150"
+                labelField="name" on-selection-change="{{alertChange}}"></fx-list>
+            </div>
+            <div data-label="Multiselect List" style="min-height:200px">
+              This is a <strong>List</strong> that allows multiple selection
+              <fx-list
+                dataProvider="{{productCategoriesObject}}"
+                selectedItems="{{selectedProductCategories}}"
+                listHeight="150"
+                allowMultipleSelection="true"
+                labelField="name" on-selection-change="{{alertChange}}"></fx-list>
+            </div>
+          </fx-tab-navigator>
+          <fx-accordion style="height:100%;" layout vertical>
+            <fx-accordion-element label="One">
+              <div style="padding:10px">
+                Some text here.
+                And a button here: 
+                <fx-button label="Button"></fx-button>
+              </div>
+            </fx-accordion-element>
+            <fx-accordion-element label="Two">
+              <div>Two</div>
+              <div>Two</div>
+              <div>Two</div>
+              <div>Two</div>
+              <div>Two</div>
+              <div>Two</div>
+              <div>Two</div>
+              <div>Two</div>
+              <div>Two</div>
+              <div>Two</div>
+              <div>Two</div>
+              <div>Two</div>
+              <div>Two</div>
+              <div>Two</div>
+            </fx-accordion-element>
+            <fx-accordion-element label="Three">
+              Three
+            </fx-accordion-element>
+          </fx-accordion>
+        </div>
       </div>
     </div>
   </template>

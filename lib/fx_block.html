@@ -1,0 +1,35 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/core_elements/core_media_query.html">
+
+<polymer-element name="fx-block">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position:relative;
+        float:left;
+        padding: 10px 10px 10px 10px;
+        box-sizing:border-box;
+        margin:0;
+      }
+      
+      #fx-block-content {
+        padding:10px 10px 10px 10px;
+      }
+      
+    </style>
+    <core-media-query query="min-width: 768px" queryMatches="{{small}}"></core-media-query>
+    <core-media-query query="min-width: 992px" queryMatches="{{medium}}"></core-media-query>
+    <core-media-query query="min-width: 1200px" queryMatches="{{large}}"></core-media-query>
+    <template if="{{verticalFit}}">
+      <div id="fx-block-content">
+        <content></content>
+      </div>
+    </template>
+    <template if="{{!verticalFit}}">
+      <content></content>
+    </template>
+  </template>
+  <script type="application/dart" src="fx_block.dart"></script>
+</polymer-element>

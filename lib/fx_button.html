@@ -1,5 +1,8 @@
 <!-- import polymer-element's definition -->
 <link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/core_elements/core_style.html">
+<link rel="import" href="../../packages/flex_components/fx_button_theme.html">
+
 
 <polymer-element name="fx-button">
   <template>
@@ -7,100 +10,9 @@
       :host {
         display: inline-block;
       }
-      #mainButton {
-        display:block;
-        position:relative;
-        width:100%;
-        background:#009fb2;
-        padding: 0px;
-        font-size: 11pt;
-        border: 1px solid #009fb2;
-        border-radius: 3px;
-        color:white;
-        cursor:pointer;
-      }
-      #mainButton:focus {
-        outline:0;
-      }
-      
-      
-      /*
-      009fb2 - primary
-      9537a5 - secondary
-      265cbc - tertiary
-      7fab1c - success
-      ffaa1c - warn
-      db3b3b - error*/
-      
-      #mainButton.primary {
-        background-color: #009fb2;
-        border: 1px solid #009fb2;
-      }
-      
-      #mainButton.secondary {
-        background-color: #9537a5;
-        border: 1px solid #9537a5;
-      }
-      
-      #mainButton.tertiary {
-        background-color: #265cbc;
-        border: 1px solid #265cbc;
-      }
-      
-      #mainButton.success {
-        background-color: #7fab1c;
-        border: 1px solid #7fab1c;
-      }
-      
-      #mainButton.warn {
-        background-color: #ffaa1c;
-        border: 1px solid #ffaa1c;
-      }
-      
-      #mainButton.error {
-        background-color: #db3b3b;
-        border: 1px solid #db3b3b;
-      }
-      
-      #btnContent {
-        display:block;
-        padding:10px;
-      }
-      
-      #btnContent.pressed {
-        padding-top:11px;
-        padding-bottom:9px;
-      }
-      
-      #gradient {
-        display:block;
-        position:absolute;
-        top:0;
-        right:0;
-        bottom:0;
-        left:0;
-        
-        opacity: 0.7;
-        
-        background: -moz-linear-gradient(top,  rgba(255,255,255,0.65) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.65)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top,  rgba(255,255,255,0.65) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(top,  rgba(255,255,255,0.65) 0%,rgba(255,255,255,0) 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(top,  rgba(255,255,255,0.65) 0%,rgba(255,255,255,0) 100%); /* IE10+ */
-        background: linear-gradient(to bottom,  rgba(255,255,255,0.65) 0%,rgba(255,255,255,0) 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
-      }
-      
-      #gradient.pressed {
-        opacity:0.4;
-        
-        /* inset shadow */
-        -webkit-box-shadow: inset 0px 2px 6px 0px rgba(50, 50, 50, 0.75);
-        -moz-box-shadow:    inset 0px 2px 6px 0px rgba(50, 50, 50, 0.75);
-        box-shadow:         inset 0px 2px 6px 0px rgba(50, 50, 50, 0.75);
-      }
-      
     </style>
+    <core-style ref="fxButtonTheme"></core-style>
+    
     <button id="mainButton" on-mousedown="{{mouseDownHandler}}"
       on-mouseup="{{mouseUpHandler}}" class="{{type}}">
       <div id="btnContent" class="{{ {pressed:pressed} }}">

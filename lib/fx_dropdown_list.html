@@ -1,7 +1,9 @@
 <!-- import polymer-element's definition -->
 <link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/core_elements/core_style.html">
 <link rel="import" href="../../packages/flex_components/fx_item_renderer.html">
 <link rel="import" href="../../packages/flex_components/fx_list.html">
+<link rel="import" href="../../packages/flex_components/fx_dropdown_list_theme.html">
 
 <polymer-element name="fx-dropdown-list">
   <template>
@@ -9,52 +11,12 @@
       :host {
         display: inline-block;
         position: relative;
+        min-width:100px;
+        vertical-align:top;
       }
-      
-      #placeholder {
-        display:block;
-        outline: 0;
-        width:100%;
-        font-size: 11pt;
-        text-align:left;
-        box-sizing: border-box;
-        background: #fff url("icon/arrow-down.png") no-repeat right center;
-        border: 1px solid #CCC;
-        border-radius: 3px;
-        height: 30px;
-        padding: 4px 24px 4px 4px;
-        transition: all 0.2s ease-in-out;
-      }
-      
-      #placeholder:hover {
-        background-color: #ddd;
-      }
-      
-      #placeholder.focused {
-        -webkit-box-shadow: 0px 0px 4px 0px rgba(86, 182, 255, 0.75);
-        -moz-box-shadow:    0px 0px 4px 0px rgba(86, 182, 255, 0.75);
-        box-shadow:         0px 0px 4px 0px rgba(86, 182, 255, 0.75);
-      }
-      
-      #lst {
-        visibility: hidden;
-        position: absolute;
-        z-index: 990;
-        top: 16px;
-        width: 100%;
-        height: 120px;
-        margin-top: 2px;
-        transition: all 0.2s ease-in-out;
-        opacity: 0;
-      }
-      
-      #lst.deployed {
-        visibility: visible;
-        opacity: 1;
-        top: 32px;
-      }
-      
     </style>
+    <core-style ref="fxDropdownListTheme"></core-style>
+    
     <button id="placeholder" on-click="{{toggleDeployed}}"
         on-focus="{{focusHandler}}" on-blur="{{blurHandler}}"
         class="{{ {focused:focused } }}">
@@ -70,27 +32,15 @@
         </template>
       </template>
     </button>
-    <fx-list id="lst" 
+    <fx-list id="fxlst" 
         focusEnabled="false"
         focused="{{focused}}"
         dataProvider="{{dataProvider}}"
         selectedItem="{{selectedItem}}"
         itemRenderer="{{itemRenderer}}"
         labelField="{{labelField}}" 
+        listHeight="{{listHeight}}"
         on-selection-change="{{onSelectionChangeHandler}}" ></fx-list>
-    <!--<div id="list">
-      <template repeat="{{item in dataProvider | enumerate}}">
-        <div class="item-holder {{ {selected:item.index==selectedIndex, focused:item.index==focusedIndex } }}" data-index="{{item.index}}" 
-              on-click="{{clickItem}}">
-            <template if="{{itemRenderer == null}}">
-              {{render(item.value)}}
-            </template>
-            <template if="{{itemRenderer != null}}">
-              <fx-item-renderer tag="{{itemRenderer}}" data="{{item.value}}" data-index="{{item.index}}"></fx-item-renderer>
-            </template>
-        </div>
-      </template>
-    </div>-->
   </template>
   <script type="application/dart" src="fx_dropdown_list.dart"></script>
 </polymer-element>

@@ -1,0 +1,21 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/flex_components/fx_resize_aware.html">
+
+<polymer-element name="fx-tile-list">
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+        position:relative;
+        min-width:200px;
+        min-height:200px;
+        margin:10px;
+        padding:0;
+      }
+    </style>
+    <fx-resize-aware on-resize="{{resizeHandler}}"></fx-resize-aware>
+  </template>
+  <script type="application/dart" src="fx_tile_list.dart"></script>
+</polymer-element>

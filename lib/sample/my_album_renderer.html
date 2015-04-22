@@ -1,0 +1,23 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+<polymer-element name="my-album-renderer">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding:10px;
+        box-sizing: border-box;
+      }
+      img { 
+        display:block;
+        width:150px;
+        height:134px;
+      }
+      
+    </style>
+    <img _src="{{data.cover}}">
+    Name: {{data.name}}
+  </template>
+  <script type="application/dart" src="my_album_renderer.dart"></script>
+</polymer-element>

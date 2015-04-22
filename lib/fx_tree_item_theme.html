@@ -1,0 +1,69 @@
+<link rel="import" href="../../packages/core_elements/core_style.html">
+
+<script>
+  CoreStyle.g.fxTreeItemTheme = {
+    padding: '8px',
+    lineHeight: '24px',
+    selectedColor: '#009fb2',
+    selectedFontColor: '#fff',
+    hoverColor: '#ddd',
+    hoverFontColor: '#000',
+    fontSize: '11pt'
+  };
+</script>
+
+<core-style id="fxTreeItemTheme">
+  #treeItemLst {
+    padding: 0;
+    height: 0px;
+    overflow:hidden;
+  }
+  
+  #main-item {
+    font-size: {{g.fxTreeItemTheme.fontSize}};
+    padding: {{g.fxTreeItemTheme.padding}};
+    line-height: {{g.fxTreeItemTheme.lineHeight}};
+    transition: all 0.2s ease-in-out;
+  }
+  
+  #main-item.selected, #main-item.selected:hover {
+    background-color: {{g.fxTreeItemTheme.selectedColor}};
+    color: {{g.fxTreeItemTheme.selectedFontColor}};
+  }
+  
+  #main-item:hover {
+    background-color: {{g.fxTreeItemTheme.hoverColor}};
+    color: {{g.fxTreeItemTheme.hoverFontColor}};
+  }
+  
+  #spacer {
+    display:inline-block;
+    float:left;
+    width:0;
+    height:24px;
+  }
+  
+  #expand-button {
+    display:inline-block;
+    float:left;
+    background: transparent url("packages/flex_components/icon/arrow-down.png") no-repeat right center;
+    width:24px;
+    height:24px;
+    transform: rotate(-90deg);
+    transform-origin: 12px 12px;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  #expand-button.deployed {
+    transform:rotate(0deg);
+  }
+  
+  #text {
+    display: inline-block;
+    float: left;
+  }
+  
+  .clear {
+    clear:left;
+  }
+</core-style>

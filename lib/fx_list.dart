@@ -12,13 +12,17 @@ import 'package:animation/animation.dart' as anim;
 class FxList extends FxBase {
   
   @published List dataProvider;
+  @observable List wrappedDataProvider;
   @published String labelField;
   @published String prompt = "";
+  @published bool allowMultipleSelection = false;
   
   @published bool focusEnabled = true;
   
   @published dynamic selectedItem;
+  @published List selectedItems = toObservable ([]);
   @published int selectedIndex = -1;
+  @published List<int> selectedIndices = toObservable ([]);
   bool _selectedItemDirty = false;
   
   @published String itemRenderer;
@@ -30,11 +34,37 @@ class FxList extends FxBase {
   
   StreamSubscription keyboardStreamSubs;
   
+  DivElement lstDiv;
+  int scrollPosition;
+  
   /// Constructor used to create instance of FxDropdownList.
   FxList.created() : super.created() {
   }
   factory FxList () => new Element.tag('fx-list');
 
+  @override
+  void attached () {
+    queryLstDiv();
+    lstDiv.onScroll.listen((Event event) {
+      scrollPosition = lstDiv.scrollTop;
+    });
+    _setLstHeight();
+  }
+  
+  void queryLstDiv () {
+    lstDiv = $['lst'] as DivElement;
+  }
+  
+  void listHeightChanged (int oldValue) {
+    _setLstHeight();
+  }
+  
+  void _setLstHeight() {
+    if (lstDiv != null) {
+      lstDiv.style.height = "${listHeight}px";
+    }
+  }
+  
   void focusedChanged (bool oldValue) {
     if (!focusEnabled) {
       if (focused) {
@@ -47,8 +77,40 @@ class FxList extends FxBase {
     invalidateProperties();
   }
   
+  void _wrapDataProvider () {
+    List<WrappedItem> wrapped = new List<WrappedItem> ();
+    for (int i = 0; i < dataProvider.length; i++) {
+      dynamic item = dataProvider[i];
+      wrapped.add(new WrappedItem (item)..selected = false
+                                        ..index = i);
+    }
+    _setSelectionsInWrappedDataProvider(wrapped);
+    wrappedDataProvider = wrapped;
+  }
+  
+  
+  void _updateSelectedInDataProvider() {
+    wrappedDataProvider.forEach((WrappedItem item) {
+      item.selected = false;
+    });
+    _setSelectionsInWrappedDataProvider (wrappedDataProvider);
+  }
+  
+  void _setSelectionsInWrappedDataProvider (List<WrappedItem> wrapped) {
+    if (allowMultipleSelection) {
+      selectedIndices.forEach((int i) {
+        wrapped[i].selected = true;
+      });
+    }
+    else {
+      if (selectedIndex >= 0) 
+        wrapped[selectedIndex].selected = true;
+    }
+  }
+  
   void dataProviderChanged (List oldValue) {
-    invalidateProperties;
+    _wrapDataProvider();
+    invalidateProperties();
   }
   
   void selectedIndexChanged (int oldValue) {
@@ -57,6 +119,11 @@ class FxList extends FxBase {
   }
   
   void selectedItemChanged (dynamic oldValue) {
+    _selectedItemDirty = true;
+    invalidateProperties();
+  }
+  
+  void selectedItemsChanged (List oldValue) {
     _selectedItemDirty = true;
     invalidateProperties();
   }
@@ -145,9 +212,32 @@ class FxList extends FxBase {
   void clickItem (Event e) {
     print ("clickItem");
     int index = int.parse((e.target as Element).dataset['index']);
-    selectedIndex = index;
-    selectedItem = dataProvider[index];
+    if (allowMultipleSelection) {
+      if (selectedIndices.contains(index)) {
+        selectedIndices.remove(index);
+        selectedItems.remove(dataProvider[index]);
+      }
+      else {
+        selectedIndices.add(index);
+        selectedItems.add(dataProvider[index]);
+      }
+    }
+    else {
+      if (selectedIndex == index) {
+        selectedIndex = -1;
+        selectedItem = null;
+      }
+      else {
+        selectedIndex = index;
+        selectedItem = dataProvider[index];
+      }
+    }
+    
     fire("selection-change", detail: selectedItem);
+  }
+  
+  bool isIndexSelected (int index, List<int> selectedIndices) {
+    return selectedIndices.contains(index);
   }
   
   @override 
@@ -156,12 +246,26 @@ class FxList extends FxBase {
     Element listDiv = $['lst'] as Element;
     if (_selectedItemDirty) {
       List<Element> lst = this.shadowRoot.querySelectorAll(".item-holder");
+      if (allowMultipleSelection) {
+        selectedIndices.clear();
+      }
+      else {
+        selectedIndex = -1;
+      }
       for (int i = 0; i < dataProvider.length; i++) {
         dynamic item = dataProvider[i];
-        if (item == selectedItem) {
-          selectedIndex = i;
+        if (allowMultipleSelection) {
+          if (selectedItems.contains(item)) {
+            selectedIndices.add(i);
+          }
+        }
+        else {
+          if (item == selectedItem) {
+            selectedIndex = i;
+          }  
         }
       }
+      _updateSelectedInDataProvider();
       _selectedItemDirty = false;
     }
   }
@@ -199,4 +303,11 @@ class FxList extends FxBase {
     return "$value";
   }
   
+}
+
+class WrappedItem extends Observable {
+  dynamic listItem;
+  @observable int index;
+  @observable bool selected;
+  WrappedItem (this.listItem);
 }

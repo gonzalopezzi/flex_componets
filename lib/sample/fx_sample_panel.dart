@@ -11,12 +11,11 @@ import 'package:flex_components/flex_components.dart';
 
 class FxSamplePanel extends PolymerElement {
 
-  /// Constructor used to create instance of FxSamplePanel.
   FxSamplePanel.created() : super.created() {
   }
   factory FxSamplePanel () => new Element.tag("fx-sample-panel");
 
-  void close() {
+  void closeThisPanel (Event e) {
     PopUpManager.removePopUp (this);
   }
 }

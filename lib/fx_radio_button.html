@@ -1,0 +1,53 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/flex_components/fx_label.html">
+
+<polymer-element name="fx-radio-button">
+  <template>
+    <style>
+      :host {
+        display: block;
+        height: 30px;
+        line-height:30px;
+        overflow:hidden;
+        margin:0;
+        padding:0;
+      }
+      
+      #fx-radio-border {
+        display:inline-block;
+        position:relative;
+        cursor:pointer;
+        vertical-align:top;
+        width:30px;
+        height:30px;
+        background: transparent url("icon/radio_border.png") top left;
+      }
+      
+      #fx-radio-selection {
+        display:inline-block;
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        background: transparent url("icon/radio_selection.png") top left;
+      }
+      
+      #fx-radio-button-label {
+        cursor:pointer;
+        padding: 0;
+      }
+      
+      .fx-radio-button-selected-label {
+        color: #009fb2;
+      }
+      
+    </style>
+    <div id="fx-radio-border" on-click="{{clickHandler}}">
+      <div id="fx-radio-selection"></div>
+    </div>
+    <fx-label id="fx-radio-button-label" text="{{text}}" on-click="{{clickHandler}}"></fx-label>
+  </template>
+  <script type="application/dart" src="fx_radio_button.dart"></script>
+</polymer-element>

@@ -1,0 +1,43 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/core_elements/core_style.html">
+<link rel="import" href="../../packages/flex_components/fx_slider_theme.html">
+
+<polymer-element name="fx-slider">
+  <template>
+    <style>
+    </style>
+    <core-style ref="fxSliderTheme"></core-style>
+    <div id="main-div" on-trackstart="{{trackStartHandler}}"
+        on-trackend="{{trackEndHandler}}" on-track="{{trackHandler}}">
+      <div id="slider-track" on-click="{{trackClickHandler}}">
+        <div id="slider-fill"></div>
+      </div>
+      <div id="slider-thumb-0" hidden?="{{!doubleThumb}}">
+        <div id="slider-thumb-graphic">
+          <div id="circle-0">
+          </div>
+        </div>
+        <div id="slider-datatip-0">
+          <div class="slider-datatip-text">
+            {{datatipValue[0]}}
+            <div class="bubble-arrow"></div>
+          </div>
+        </div>
+      </div>
+      <div id="slider-thumb-1">
+        <div id="slider-thumb-graphic">
+          <div id="circle-1">
+          </div>
+        </div>
+        <div id="slider-datatip-1">
+          <div class="slider-datatip-text">
+            {{datatipValue[1]}}
+            <div class="bubble-arrow"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <script type="application/dart" src="fx_slider.dart"></script>
+</polymer-element>

@@ -46,7 +46,10 @@ class PopUpManager {
     popUpContainer..style.setProperty("display", "block")
                   ..style.setProperty("position", "fixed")
                   ..style.setProperty("width", "100%")
-                  ..style.setProperty("height", "100%");
+                  ..style.setProperty("height", "100%")
+                  ..style.zIndex='999'
+                  ..style.top='0'
+                  ..style.left='0';
     
     element.style..setProperty("display", "inline-block")
                   ..setProperty("margin", "5% 5% 5% 5%");

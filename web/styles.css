@@ -20,16 +20,11 @@ body {
     -webkit-touch-callout: none;
 }
 
-
-/**
-COLORES CONENTO:
- 
-009fb2 - primary
-9537a5 - secondary
-265cbc - tertiary
-7fab1c - success
-ffaa1c - warn
-db3b3b - error
-
-
-**/
+* /deep/ fx-row:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}

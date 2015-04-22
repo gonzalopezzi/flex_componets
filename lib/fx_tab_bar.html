@@ -1,0 +1,79 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+
+<polymer-element name="fx-tab-bar">
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+      
+      button.fx-tab {
+        position:relative;
+        border-radius: 5px 5px 0 0;
+        padding-left: 16px;
+        padding-right: 16px;
+        border: solid 1px #ccc;
+        background-color: #fff;
+        border-right: 0;
+        border-bottom: 0;
+        height: 40px;
+        
+        background: rgb(232,232,232); /* Old browsers */
+        background: -moz-linear-gradient(top,  rgba(232,232,232,1) 0%, rgba(255,255,255,1) 40%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(232,232,232,1)), color-stop(40%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  rgba(232,232,232,1) 0%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  rgba(232,232,232,1) 0%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  rgba(232,232,232,1) 0%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  rgba(232,232,232,1) 0%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e8e8', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+      }
+      
+      button.fx-tab:focus{
+        outline: 0;
+      }
+      
+      :host > button.fx-tab:last-child {
+        border-right: solid 1px #ccc;
+      }
+      
+      button.fx-tab.inactive {
+        cursor:pointer;
+      }
+      
+      button.fx-tab > .inactive-shadow {
+        opacity:0;
+        transition: all 0.2s ease-in-out;
+      }
+      
+      button.fx-tab.inactive > .inactive-shadow {
+        display:block;
+        left:0;
+        top:0;
+        position:absolute;
+        width:100%;
+        height:100%;
+        border-radius: 5px 5px 0 0;
+        
+        opacity:1;
+        
+        background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(0,0,0,0.25) 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(0,0,0,0.25))); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.25) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.25) 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.25) 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.25) 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#40000000',GradientType=0 ); /* IE6-9 */
+      }
+      
+      button.fx-tab.inactive:hover > .inactive-shadow {
+        opacity: 0.6;
+      } 
+      
+    </style>
+    <template repeat="{{item in computedDataProvider | enumerate}}"><button class="fx-tab inactive" data-index="{{item.index}}" on-click="{{tabClickHandler}}">{{item.value}}<div class="inactive-shadow"></div></button></template>
+  </template>
+  <script type="application/dart" src="fx_tab_bar.dart"></script>
+</polymer-element>

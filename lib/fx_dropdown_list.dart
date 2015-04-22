@@ -14,6 +14,7 @@ class FxDropdownList extends FxBase {
   @published List dataProvider;
   @published String labelField;
   @published String prompt = "";
+  @published int listHeight = 150;
   
   @observable bool deployed = false;
   
@@ -34,7 +35,8 @@ class FxDropdownList extends FxBase {
   factory FxDropdownList () => new Element.tag('fx-dropdown-list');
 
   void dataProviderChanged (List oldValue) {
-    invalidateProperties;
+    selectedItem = null;
+    invalidateProperties();
   }
   
   void selectedIndexChanged (int oldValue) {
@@ -81,10 +83,13 @@ class FxDropdownList extends FxBase {
   
   void blurHandler (Event e) {
     focused = false;
-    if (deployed && !browser.isIe) {
+    /*
+     * TODO: This has stopped working. The list shuts down if the user scrolls down with mouse click 
+     * 
+     * if (deployed && !browser.isIe) {
       deployed = false;
       invalidateProperties();
-    }
+    }*/
     keyboardStreamSubs.cancel();
   }
   
@@ -108,24 +113,32 @@ class FxDropdownList extends FxBase {
   
   @override 
   void commitProperties () {
+    print ("CommitProperties Dropdown");
     super.commitProperties();
-    Element listDiv = $['lst'] as Element;
+    Element listDiv = $['fxlst'] as Element;
     if (_selectedItemDirty) {
       List<Element> lst = this.shadowRoot.querySelectorAll(".item-holder");
-      for (int i = 0; i < dataProvider.length; i++) {
-        dynamic item = dataProvider[i];
-        if (item == selectedItem) {
-          selectedIndex = i;
+      if (selectedItem == null) {
+        selectedIndex = -1;
+      }
+      else {
+        for (int i = 0; i < dataProvider.length; i++) {
+          dynamic item = dataProvider[i];
+          if (item == selectedItem) {
+            selectedIndex = i;
+          }
         }
       }
       _selectedItemDirty = false;
     }
     if (deployed) {
+      print ("Deployed!");
       listDiv.classes.add('deployed');
       listDiv.scrollTop = 0;
       window.addEventListener("click", windowClickHandler);
     }
     else {
+      print ("Undeployed!");
       listDiv.classes.remove('deployed');
       window.removeEventListener("click", windowClickHandler);
     }

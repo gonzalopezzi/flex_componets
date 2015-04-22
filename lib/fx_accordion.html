@@ -1,14 +1,17 @@
 <!-- import polymer-element's definition -->
 <link rel="import" href="../../packages/polymer/polymer.html">
 
-<polymer-element name="fx-borrame">
+<polymer-element name="fx-accordion">
   <template>
     <style>
       :host {
         display: block;
+        min-height:300px;
+        border: solid 1px #ccc; 
+        margin-top:10px;
       }
     </style>
-    <!-- Template content here -->
+    <content></content>
   </template>
-  <script type="application/dart" src="fx_borrame.dart"></script>
+  <script type="application/dart" src="fx_accordion.dart"></script>
 </polymer-element>

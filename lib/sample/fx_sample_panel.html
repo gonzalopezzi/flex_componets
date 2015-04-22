@@ -1,6 +1,9 @@
 <!-- import polymer-element's definition -->
 <link rel="import" href="../../../packages/polymer/polymer.html">
 <link rel="import" href="../../../packages/flex_components/fx_panel.html">
+<link rel="import" href="../../../packages/flex_components/fx_panel_title.html">
+<link rel="import" href="../../../packages/flex_components/fx_panel_content.html">
+<link rel="import" href="../../../packages/flex_components/fx_panel_footer.html">
 <link rel="import" href="../../../packages/flex_components/fx_button.html">
 
 <polymer-element name="fx-sample-panel">
@@ -10,17 +13,20 @@
         display: block;
       }
       
-      .buttonBar {
-        text-align:center;
+      fx-panel-footer {
+        text-align: center;
       }
       
     </style>
-    <fx-panel title="Popup Panel">
-      Popup Sample Panel
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis diam est. Maecenas dictum, velit eget laoreet facilisis, dolor lacus sagittis lacus, ut tincidunt risus lacus suscipit tellus. Nullam vitae varius diam, vel facilisis risus. Quisque eget justo ac ante euismod viverra. Suspendisse rhoncus nibh nulla, ut elementum diam mattis eget. Pellentesque sit amet sem dui. Aliquam erat volutpat. Vestibulum vehicula leo lorem, hendrerit pellentesque dui malesuada eu.
-      <div class="buttonBar">
-        <fx-button label="Close" type="error" on-click="{{close}}"></fx-button>
-      </div>
+    <fx-panel>
+      <fx-panel-title>Popup Panel</fx-panel-title>
+      <fx-panel-content>
+        Popup Sample Panel
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis diam est. Maecenas dictum, velit eget laoreet facilisis, dolor lacus sagittis lacus, ut tincidunt risus lacus suscipit tellus. Nullam vitae varius diam, vel facilisis risus. Quisque eget justo ac ante euismod viverra. Suspendisse rhoncus nibh nulla, ut elementum diam mattis eget. Pellentesque sit amet sem dui. Aliquam erat volutpat. Vestibulum vehicula leo lorem, hendrerit pellentesque dui malesuada eu.
+      </fx-panel-content>
+      <fx-panel-footer>
+        <fx-button label="Close" type="error" on-click="{{closeThisPanel}}"></fx-button>
+      </fx-panel-footer>
     </fx-panel>
   </template>
   <script type="application/dart" src="fx_sample_panel.dart"></script>

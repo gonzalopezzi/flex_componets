@@ -1,0 +1,22 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/core_elements/core_style.html">
+<link rel="import" href="../../packages/flex_components/fx_textarea_theme.html">
+
+<polymer-element name="fx-textarea">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <core-style ref="fxTextareaTheme"></core-style>
+    
+    <textarea id="txtArea" value="{{text}}" 
+      class="{{ {focused:focused } }}"
+      readonly?="{{readonly}}"
+      on-focus="{{focusHandler}}" on-blur="{{blurHandler}}">
+    </textarea>
+  </template>
+  <script type="application/dart" src="fx_textarea.dart"></script>
+</polymer-element>

@@ -1,0 +1,126 @@
+<link rel="import" href="../../packages/core_elements/core_style.html">
+<link rel="import" href="../../packages/flex_components/fx_scrollbars_theme.html">
+
+<script>
+  CoreStyle.g.fxListTheme = {
+    textAlign: 'left',
+    backgroundColor: '#FFF',
+    border: '1px solid #CCC',
+    borderRadius: '3px',
+    shadow: 0,
+    focusedShadow: '0px 0px 4px 0px rgba(86, 182, 255, 0.75)', 
+    fontSize: '11pt',
+    itemPadding: '8px', 
+    selectedColor: '#009fb2', 
+    focusedColor: '#eee',
+    selectedFocusedColor: '#009fb2', 
+    hoverColor: '#ddd',
+    selectedHoverColor: '#009fb2',
+    selectedFontColor: 'white',
+    focusedFontColor: '#000',
+    selectedFocusedFontColor: 'white', 
+    hoverFontColor: '#000',
+    selectedHoverFontColor: '#fff'
+  };
+</script>
+
+<core-style ref="fxScrollbarsTheme"></core-style>
+
+<core-style id="fxListTheme">
+
+  #mainDiv {
+    position:relative;
+    cursor:default;
+  }
+  
+  button.focus-manager {
+    display:block;
+    opacity:0;
+    position:absolute;
+  }
+  
+  #lst {
+    display:block;
+    text-align: {{g.fxListTheme.textAlign}};
+    box-sizing: border-box;
+    background-color: {{g.fxListTheme.backgroundColor}};
+    top: 0;
+    width: 100%;
+    padding:0;
+    border: {{g.fxListTheme.border}};
+    border-radius: {{g.fxListTheme.borderRadius}};
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: all 0.2s ease-in-out;
+    
+    -webkit-box-shadow: {{g.fxListTheme.shadow}};
+    -moz-box-shadow:    {{g.fxListTheme.shadow}};
+    box-shadow:         {{g.fxListTheme.shadow}};
+  }
+  
+  #lst.focused {
+    -webkit-box-shadow: {{g.fxListTheme.focusedShadow}};
+    -moz-box-shadow:    {{g.fxListTheme.focusedShadow}};
+    box-shadow:         {{g.fxListTheme.focusedShadow}};
+  }
+  
+  #lst::-webkit-scrollbar-track
+  {
+    -webkit-box-shadow: {{g.fxScrollbarsTheme.trackShadow}};
+    background-color: {{g.fxScrollbarsTheme.trackColor}};
+    border-radius: {{g.fxScrollbarsTheme.trackBorderRadius}};
+  }
+  
+  #lst::-webkit-scrollbar
+  {
+    width: {{g.fxScrollbarsTheme.scrollbarWidth}};
+    background-color: {{g.fxScrollbarsTheme.scrollbarBackgroundColor}};
+  }
+  
+  #lst::-webkit-scrollbar-thumb
+  {
+    border-radius: {{g.fxScrollbarsTheme.scrollbarThumbWidth}};
+    background-color: {{g.fxScrollbarsTheme.scrollbarThumbColor}};
+  }
+  
+  #lst {
+    scrollbar-face-color: {{g.fxScrollbarsTheme.scrollbarThumbColor}};  
+    scrollbar-shadow-color: {{g.fxScrollbarsTheme.scrollbarThumbColor}};  
+    scrollbar-track-color: {{g.fxScrollbarsTheme.trackColor}};  
+    scrollbar-arrow-color: {{g.fxScrollbarsTheme.arrowColor}};
+  }
+  
+  .item-holder {
+    box-sizing: border-box;
+    font-size: {{g.fxListTheme.fontSize}};
+    margin: 0px;
+    padding: {{g.fxListTheme.itemPadding}};
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .item-holder.selected {
+    background-color: {{g.fxListTheme.selectedColor}};
+    color: {{g.fxListTheme.selectedFontColor}};
+  }
+  
+  .item-holder.focused {
+    background-color: {{g.fxListTheme.focusedColor}};
+    color: {{g.fxListTheme.focusedFontColor}};
+  }
+  
+  .item-holder.selected.focused {
+    background-color: {{g.fxListTheme.selectedFocusedColor}};
+    color:{{g.fxListTheme.selectedFocusedFontColor}};
+  }
+  
+  .item-holder:hover {
+    background-color: {{g.fxListTheme.hoverColor}};
+    color: {{g.fxListTheme.hoverFontColor}};
+  }
+  
+  .item-holder.selected:hover {
+    background-color: {{g.fxListTheme.selectedHoverColor}};
+    color: {{g.fxListTheme.selectedHoverFontColor}};
+  }
+  
+</core-style>
