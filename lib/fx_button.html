@@ -14,7 +14,7 @@
     <core-style ref="fxButtonTheme"></core-style>
     
     <button id="mainButton" on-mousedown="{{mouseDownHandler}}"
-      on-mouseup="{{mouseUpHandler}}" class="{{type}}">
+      on-mouseup="{{mouseUpHandler}}" class="{{enabled ? type : 'disabled'}}">
       <div id="btnContent" class="{{ {pressed:pressed} }}">
         {{label}}
       </div>
