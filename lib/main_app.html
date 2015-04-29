@@ -28,6 +28,7 @@
 <link rel="import" href="../../packages/flex_components/fx_tile_list.html">
 <link rel="import" href="../../packages/flex_components/fx_item_renderer.html">
 <link rel="import" href="../../packages/flex_components/my_item_renderer.html">
+<link rel="import" href="../../packages/flex_components/fx_label.html">
 <link rel="import" href="../../packages/flex_components/sample/my_album_renderer.html">
 <!-- THEME 
 <link rel="import" href="../../packages/flex_components/themes/fx_components_blue_theme.html">
@@ -183,7 +184,7 @@
           <fx-slider id="slider1" value="{{sliderValue}}" 
             minValue="200" maxValue="1000" stepSize="100" animateStepSize="false"
             doubleThumb="true" dataTipFormatter="{{sliderDataTipFormatter}}"></fx-slider>
-          {{sliderValue[0]}}, {{sliderValue[1]}}
+          <fx-label text="{{sliderValue[0]}}" style="height:30px"></fx-label><fx-label text="{{sliderValue[1]}}" style="height:30px"></fx-label>
           <div>Slider with double thumb without stepSize</div>
           <fx-slider id="slider2" value="{{sliderValue}}" 
             minValue="200" maxValue="1000"

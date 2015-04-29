@@ -7,13 +7,15 @@ import 'package:animation/animation.dart' as anim;
 @CustomTag('fx-label')
 class FxLabel extends FxBase {
   
-  static final int HEIGHT = 30;
+  static final int DEFAULT_HEIGHT = 30;
   
   @published dynamic text;
   @published NumberFormat numberFormat;
   @observable String formattedText;
 
   bool _flgAttached;
+  
+  int _heightInPixels = DEFAULT_HEIGHT;
   
   FxLabel.created() : super.created() {
   }
@@ -26,9 +28,22 @@ class FxLabel extends FxBase {
     invalidateProperties ();
   }
   
+  int _extractHeightInPixels (String height) {
+    RegExp exp = new RegExp(r"(\d+)px"); 
+    Iterable<Match> matches = exp.allMatches(height);
+    List m = matches.toList();
+    if (m == null || m.length != 1) {
+      return DEFAULT_HEIGHT;
+    }
+    else {
+      return int.parse(m[0].group(1));
+    }
+  }
+  
   void attached () {
     _flgAttached = true;
     invalidateProperties ();
+    _heightInPixels = _extractHeightInPixels(this.style.height);
   }
   
   void commitProperties () {
@@ -44,7 +59,7 @@ class FxLabel extends FxBase {
                   ..addAll([
                     new anim.ElementAnimation (this)
                           ..duration = 200
-                          ..properties = {'scrollTop': HEIGHT}
+                          ..properties = {'scrollTop': _heightInPixels}
                           ..easing = anim.Easing.QUADRATIC_EASY_IN_OUT
                           ..onComplete.listen((_) {
                             ($['label-commited-value'] as DivElement).text = formattedText;
