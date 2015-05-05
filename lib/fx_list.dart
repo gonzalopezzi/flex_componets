@@ -214,13 +214,18 @@ class FxList extends FxBase {
     int index = int.parse((e.target as Element).dataset['index']);
     if (allowMultipleSelection) {
       if (selectedIndices.contains(index)) {
-        selectedIndices.remove(index);
+        selectedIndices.remove(index);        
         selectedItems.remove(dataProvider[index]);
       }
       else {
         selectedIndices.add(index);
+        if(selectedItems == null){
+            selectedItems = toObservable ([]);
+        }
         selectedItems.add(dataProvider[index]);
       }
+      
+      fire("selection-change", detail: selectedItems);
     }
     else {
       if (selectedIndex == index) {
@@ -231,9 +236,11 @@ class FxList extends FxBase {
         selectedIndex = index;
         selectedItem = dataProvider[index];
       }
+      
+      fire("selection-change", detail: selectedItem);
     }
     
-    fire("selection-change", detail: selectedItem);
+   
   }
   
   bool isIndexSelected (int index, List<int> selectedIndices) {
@@ -255,7 +262,7 @@ class FxList extends FxBase {
       for (int i = 0; i < dataProvider.length; i++) {
         dynamic item = dataProvider[i];
         if (allowMultipleSelection) {
-          if (selectedItems.contains(item)) {
+          if (selectedItems != null && selectedItems.contains(item)) {
             selectedIndices.add(i);
           }
         }
