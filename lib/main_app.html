@@ -26,6 +26,8 @@
 <link rel="import" href="../../packages/flex_components/fx_viewstack.html">
 <link rel="import" href="../../packages/flex_components/fx_resize_aware.html">
 <link rel="import" href="../../packages/flex_components/fx_tile_list.html">
+<link rel="import" href="../../packages/flex_components/fx_datagrid.html">
+<link rel="import" href="../../packages/flex_components/fx_datagrid_column.html">
 <link rel="import" href="../../packages/flex_components/fx_item_renderer.html">
 <link rel="import" href="../../packages/flex_components/my_item_renderer.html">
 <link rel="import" href="../../packages/flex_components/sample/my_album_renderer.html">
@@ -256,6 +258,11 @@
               Three
             </fx-accordion-element>
           </fx-accordion>
+          <fx-datagrid style="height:200px" dataProvider="{{productCategories}}">
+            <fx-datagrid-column id="column1" name="ID" field="id" sortable="true"></fx-datagrid-column>
+            <fx-datagrid-column id="column2" name="Name" field="name" minWidth="300" sortable="true"></fx-datagrid-column>
+            <fx-datagrid-column id="column3" name="Department" field="department" minWidth="300" sortable="true"></fx-datagrid-column>
+          </fx-datagrid>
         </div>
       </div>
     </div>

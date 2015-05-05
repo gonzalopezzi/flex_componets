@@ -18,8 +18,6 @@ class FxTileList extends FxBase {
   @published List dataProvider;
   @published String itemRenderer;
   
-  List _prevDataProvider;
-  
   bool _flgDataProviderDirty = true;
   
   int _columns = 0; // Number of columns that fit in this tile list
@@ -31,13 +29,13 @@ class FxTileList extends FxBase {
   
   void dataProviderChanged (List oldValue) {
     _flgDataProviderDirty = true;
-    _prevDataProvider = oldValue;
     _computeColumns();
     invalidateProperties();
   }
 
   attached() {
     _computeColumns();
+    window.onResize.listen(resizeHandler);
     super.attached();
   }
   

@@ -13,13 +13,13 @@ class MainApp extends PolymerElement {
   @observable DateTime selectedDate = new DateTime.now();
 
   @observable List productCategories = toObservable ([
-                                            {'id':1, 'name':'Appliances'},
-                                            {'id':2, 'name':'Apps & Games'},
-                                            {'id':3, 'name':'Automotive'},
-                                            {'id':4, 'name':'Baby'},
-                                            {'id':5, 'name':'Beauty'},
-                                            {'id':6, 'name':'Books'},
-                                            {'id':7, 'name':'Cellphones'}]);
+                                            {'id':1, 'name':'Appliances', 'department':'Tech'},
+                                            {'id':2, 'name':'Apps & Games', 'department':'Tech'},
+                                            {'id':3, 'name':'Automotive', 'department':'Tech'},
+                                            {'id':4, 'name':'Baby', 'department':'Home'},
+                                            {'id':5, 'name':'Beauty', 'department':'Home'},
+                                            {'id':6, 'name':'Books', 'department':'Home'},
+                                            {'id':7, 'name':'Cellphones', 'department':'Tech'}]);
   
   @observable List productCategoriesObject = toObservable ([
                                             new ProductCategory (1, 'Appliances'),
