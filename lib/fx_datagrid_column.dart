@@ -1,5 +1,4 @@
 import 'package:polymer/polymer.dart';
-import 'package:bwu_datagrid/bwu_datagrid.dart';
 import 'package:bwu_datagrid/datagrid/helpers.dart';
 
 /**

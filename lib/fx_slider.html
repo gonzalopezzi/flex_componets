@@ -11,7 +11,7 @@
     <div id="main-div" on-trackstart="{{trackStartHandler}}"
         on-trackend="{{trackEndHandler}}" on-track="{{trackHandler}}">
       <div id="slider-track" on-click="{{trackClickHandler}}">
-        <div id="slider-fill"></div>
+        <div id="slider-fill" hidden?="{{!showSliderFill}}"></div>
       </div>
       <div id="slider-thumb-0" hidden?="{{!doubleThumb}}">
         <div id="slider-thumb-graphic">

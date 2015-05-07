@@ -8,8 +8,6 @@ import 'dart:html';
 @CustomTag('fx-tree')
 class FxTree extends FxList {
 
-  String _lstId = "lst";
-  
   /// Constructor used to create instance of FxTree.
   FxTree.created() : super.created() {
   }

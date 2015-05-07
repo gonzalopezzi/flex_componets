@@ -21,6 +21,7 @@ class FxSlider extends FxBase {
   @published num stepSize = 0;
   @published bool animateStepSize = true;
   @published bool doubleThumb = false;
+  @published bool showSliderFill = true;
   
   @published Function dataTipFormatter = (num dataTipValue) => "$dataTipValue";
   
@@ -31,15 +32,12 @@ class FxSlider extends FxBase {
   StreamSubscription windowMouseUpSubs;
   StreamSubscription windowMouseMoveSubs;
   
-  Element _thumbGraph;
   Element _thumb0;
   Element _thumb1;
   Element _sliderFill;
   Element _sliderDataTip0;
   Element _sliderDataTip1;
   Element _mainDiv;
-  
-  int _mainDivOffsetX = 0;
   
   bool _flgAnimate = false;
   
@@ -93,7 +91,6 @@ class FxSlider extends FxBase {
   
   @override
   void attached () {
-    _thumbGraph = $['slider-thumb-graphic'];
     _thumb0 = $['slider-thumb-0'];
     _thumb1 = $['slider-thumb-1'];
     _sliderFill = $['slider-fill'];
