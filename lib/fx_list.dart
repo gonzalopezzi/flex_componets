@@ -32,6 +32,8 @@ class FxList extends FxBase {
   
   @published int listHeight = 250;
   
+  bool _flgDataProviderDirty = false;
+  
   StreamSubscription keyboardStreamSubs;
   
   DivElement lstDiv;
@@ -109,7 +111,7 @@ class FxList extends FxBase {
   }
   
   void dataProviderChanged (List oldValue) {
-    _wrapDataProvider();
+    _flgDataProviderDirty = true;
     invalidateProperties();
   }
   
@@ -269,11 +271,15 @@ class FxList extends FxBase {
         else {
           if (item == selectedItem) {
             selectedIndex = i;
-          }  
+          }
         }
       }
       _updateSelectedInDataProvider();
       _selectedItemDirty = false;
+    }
+    if (_flgDataProviderDirty) {
+      _wrapDataProvider();
+      _flgDataProviderDirty = true;
     }
   }
   
