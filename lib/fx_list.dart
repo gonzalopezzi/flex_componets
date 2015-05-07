@@ -25,6 +25,8 @@ class FxList extends FxBase {
   @published List<int> selectedIndices = toObservable ([]);
   bool _selectedItemDirty = false;
   
+  bool _selectedIndexAndIndicesInSync = true;
+  
   @published String itemRenderer;
   
   @published bool focused = false;
@@ -99,6 +101,7 @@ class FxList extends FxBase {
   }
   
   void _setSelectionsInWrappedDataProvider (List<WrappedItem> wrapped) {
+    _syncSelectedIndexAndIndices();
     if (allowMultipleSelection) {
       selectedIndices.forEach((int i) {
         wrapped[i].selected = true;
@@ -112,6 +115,7 @@ class FxList extends FxBase {
   
   void dataProviderChanged (List oldValue) {
     _flgDataProviderDirty = true;
+    _selectedIndexAndIndicesInSync = false;
     invalidateProperties();
   }
   
@@ -122,11 +126,13 @@ class FxList extends FxBase {
   
   void selectedItemChanged (dynamic oldValue) {
     _selectedItemDirty = true;
+    _selectedIndexAndIndicesInSync = false;
     invalidateProperties();
   }
   
   void selectedItemsChanged (List oldValue) {
     _selectedItemDirty = true;
+    _selectedIndexAndIndicesInSync = false;
     invalidateProperties();
   }
   
@@ -249,12 +255,8 @@ class FxList extends FxBase {
     return selectedIndices.contains(index);
   }
   
-  @override 
-  void commitProperties () {
-    super.commitProperties();
-    Element listDiv = $['lst'] as Element;
-    if (_selectedItemDirty) {
-      List<Element> lst = this.shadowRoot.querySelectorAll(".item-holder");
+  void _syncSelectedIndexAndIndices () {
+    if (!_selectedIndexAndIndicesInSync) {
       if (allowMultipleSelection) {
         selectedIndices.clear();
       }
@@ -274,12 +276,21 @@ class FxList extends FxBase {
           }
         }
       }
-      _updateSelectedInDataProvider();
-      _selectedItemDirty = false;
+      _selectedIndexAndIndicesInSync = true;
     }
+  }
+  
+  @override 
+  void commitProperties () {
+    super.commitProperties();
     if (_flgDataProviderDirty) {
       _wrapDataProvider();
-      _flgDataProviderDirty = true;
+      _flgDataProviderDirty = false;
+    }
+    if (_selectedItemDirty) {
+      _syncSelectedIndexAndIndices();
+      _updateSelectedInDataProvider();
+      _selectedItemDirty = false;
     }
   }
   

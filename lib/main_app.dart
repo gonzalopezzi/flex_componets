@@ -30,6 +30,18 @@ class MainApp extends PolymerElement {
                                             new ProductCategory (6, 'Books'),
                                             new ProductCategory (7, 'Cellphones')]);
   
+  @observable List otherProductCategoriesObject = toObservable ([
+                                            new ProductCategory (8,  'Garden'), 
+                                            new ProductCategory (9,  'Sports'),
+                                            new ProductCategory (10, 'Travel'),
+                                            new ProductCategory (11, 'Lifestyle'),
+                                            new ProductCategory (12, 'Toys and enterntainment')
+                                            ]);
+  
+  @observable List tabDropDownProductCategoriesObject;
+  @observable List tabSingleSelectProductCategoriesObject;
+  @observable List tabMultiSelectProductCategoriesObject;
+  
   @observable ProductCategory selectedProductCategory;
   @observable List<ProductCategory> selectedProductCategories;
   
@@ -92,6 +104,7 @@ class MainApp extends PolymerElement {
   
   @observable List<Album> currentAlbums;
   
+  
   void switchAlbumsDataProvider () {
     currentAlbums = currentAlbums == albums ? albumsFiltered : albums;
   }
@@ -103,6 +116,28 @@ class MainApp extends PolymerElement {
   void attached () {
     super.attached();
     currentAlbums = albums;
+    
+    tabDropDownProductCategoriesObject      = productCategoriesObject;
+    tabSingleSelectProductCategoriesObject  = productCategoriesObject;
+    tabMultiSelectProductCategoriesObject   = productCategoriesObject;
+  }
+  
+  void switchTabDropDown (Event e) {
+    tabDropDownProductCategoriesObject = (tabDropDownProductCategoriesObject == productCategoriesObject ? 
+                                          otherProductCategoriesObject : 
+                                          productCategoriesObject);
+  }
+  
+  void switchTabSingleSelectList (Event e) {
+    tabSingleSelectProductCategoriesObject = (tabSingleSelectProductCategoriesObject == productCategoriesObject ? 
+                                          otherProductCategoriesObject : 
+                                          productCategoriesObject);
+  }
+  
+  void switchTabMultiSelectList (Event e) {
+    tabMultiSelectProductCategoriesObject = (tabMultiSelectProductCategoriesObject == productCategoriesObject ? 
+                                          otherProductCategoriesObject : 
+                                          productCategoriesObject);
   }
   
   void alertChange (CustomEvent e) {

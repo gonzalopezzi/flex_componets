@@ -35,7 +35,8 @@ class FxDropdownList extends FxBase {
   factory FxDropdownList () => new Element.tag('fx-dropdown-list');
 
   void dataProviderChanged (List oldValue) {
-    selectedItem = null;
+    /*selectedItem = null;*/
+    _selectedItemDirty = true;
     invalidateProperties();
   }
   
@@ -123,11 +124,16 @@ class FxDropdownList extends FxBase {
         selectedIndex = -1;
       }
       else {
+        bool found = false;
         for (int i = 0; i < dataProvider.length; i++) {
           dynamic item = dataProvider[i];
           if (item == selectedItem) {
+            found = true;
             selectedIndex = i;
           }
+        }
+        if (!found) {
+          selectedIndex = -1;
         }
       }
       _selectedItemDirty = false;

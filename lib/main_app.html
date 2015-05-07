@@ -205,32 +205,41 @@
           {{textAreaText}}
         </div>
         <div>
-          <fx-tab-navigator>
+          <fx-tab-navigator style="min-height:500px">
             <div data-label="Drop Down" style="min-height:200px">
               This is a <strong>Drop Down List</strong>
               <fx-dropdown-list
                 prompt="Select a category" 
-                dataProvider="{{productCategoriesObject}}"
+                dataProvider="{{tabDropDownProductCategoriesObject}}"
                 selectedItem="{{selectedProductCategory}}"
                 listHeight="150"
                 labelField="name" on-selection-change="{{alertChange}}"></fx-dropdown-list>
+              <div>
+                <fx-button label="Switch DP" on-click="{{switchTabDropDown}}"></fx-button>
+              </div>
             </div>
             <div data-label="List" style="min-height:200px">
               This is a <strong>List</strong>
               <fx-list
-                dataProvider="{{productCategoriesObject}}"
+                dataProvider="{{tabSingleSelectProductCategoriesObject}}"
                 selectedItem="{{selectedProductCategory}}"
                 listHeight="150"
                 labelField="name" on-selection-change="{{alertChange}}"></fx-list>
+              <div>
+                <fx-button label="Switch DP" on-click="{{switchTabSingleSelectList}}"></fx-button>
+              </div>
             </div>
             <div data-label="Multiselect List" style="min-height:200px">
               This is a <strong>List</strong> that allows multiple selection
               <fx-list
-                dataProvider="{{productCategoriesObject}}"
+                dataProvider="{{tabMultiSelectProductCategoriesObject}}"
                 selectedItems="{{selectedProductCategories}}"
                 listHeight="150"
                 allowMultipleSelection="true"
                 labelField="name" on-selection-change="{{alertChange}}"></fx-list>
+              <div>
+                <fx-button label="Switch DP" on-click="{{switchTabMultiSelectList}}"></fx-button>
+              </div>
             </div>
           </fx-tab-navigator>
           <fx-accordion style="height:100%;" layout vertical>

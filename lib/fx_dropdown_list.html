@@ -20,10 +20,10 @@
     <button id="placeholder" on-click="{{toggleDeployed}}"
         on-focus="{{focusHandler}}" on-blur="{{blurHandler}}"
         class="{{ {focused:focused } }}">
-      <template if="{{selectedItem == null}}">
+      <template if="{{selectedItem == null || selectedIndex == -1}}">
         {{prompt}}
       </template>
-      <template if="{{selectedItem != null}}">
+      <template if="{{selectedItem != null && selectedIndex != -1}}">
         <template if="{{itemRenderer == null}}">
           {{render(selectedItem)}}
         </template>
