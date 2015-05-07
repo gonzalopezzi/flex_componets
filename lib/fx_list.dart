@@ -210,7 +210,7 @@ class FxList extends FxBase {
   }
   
   void clickItem (Event e) {
-    //print ("clickItem");
+    print ("clickItem");
     int index = int.parse((e.target as Element).dataset['index']);
     if (allowMultipleSelection) {
       if (selectedIndices.contains(index)) {

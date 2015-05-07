@@ -102,6 +102,7 @@ class FxDropdownList extends FxBase {
   }
   
   void onSelectionChangeHandler (Event e) {
+    e.stopPropagation();
     fire("selection-change", detail: selectedItem);
   }
   
