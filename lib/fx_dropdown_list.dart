@@ -52,12 +52,12 @@ class FxDropdownList extends FxBase {
   void toggleDeployed (Event e) {
     e.stopImmediatePropagation();
     this.deployed = !deployed;
-    print ("toggleDeployed. Deployed: $deployed");
+    //print ("toggleDeployed. Deployed: $deployed");
     invalidateProperties();
   }
   
   void focusHandler (Event e) {
-    print("focusHandler");
+    //print("focusHandler");
     focused = true;
     keyboardStreamSubs = window.onKeyDown.listen(keyDownHandler);
   }
@@ -94,7 +94,7 @@ class FxDropdownList extends FxBase {
   }
   
   void clickItem (Event e) {
-    print ("clickItem");
+    //print ("clickItem");
     int index = int.parse((e.target as Element).dataset['index']);
     selectedIndex = index;
     selectedItem = dataProvider[index];
@@ -113,7 +113,7 @@ class FxDropdownList extends FxBase {
   
   @override 
   void commitProperties () {
-    print ("CommitProperties Dropdown");
+    //print ("CommitProperties Dropdown");
     super.commitProperties();
     Element listDiv = $['fxlst'] as Element;
     if (_selectedItemDirty) {
@@ -132,13 +132,13 @@ class FxDropdownList extends FxBase {
       _selectedItemDirty = false;
     }
     if (deployed) {
-      print ("Deployed!");
+      //print ("Deployed!");
       listDiv.classes.add('deployed');
       listDiv.scrollTop = 0;
       window.addEventListener("click", windowClickHandler);
     }
     else {
-      print ("Undeployed!");
+      //print ("Undeployed!");
       listDiv.classes.remove('deployed');
       window.removeEventListener("click", windowClickHandler);
     }
@@ -146,7 +146,7 @@ class FxDropdownList extends FxBase {
   
   void windowClickHandler (Event e) {
     if (this.deployed) { 
-      print ("windowClickHandler. Deployed: $deployed");
+      //print ("windowClickHandler. Deployed: $deployed");
       this.deployed = false;
       invalidateProperties();
     }
