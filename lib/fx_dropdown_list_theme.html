@@ -4,6 +4,7 @@
   CoreStyle.g.fxDropdownListTheme = {
     placeHolderFontSize: '11pt',
     placeHolderFontFamily: 'RobotoDraft, sans-serif',
+    placeHolderFontColor: '#000',
     placeHolderTextAlign: 'left',
     placeHolderBackground: '#fff url("packages/flex_components/icon/arrow-down.png") no-repeat right center',
     placeHolderBorder: '1px solid #CCC',
@@ -13,6 +14,7 @@
     placeHolderHoverColor: '#ddd',
     placeHolderFocusShadow: '0px 0px 4px 0px rgba(86, 182, 255, 0.75)',
     placeHolderShadow: '0',
+    placeHolderTransition: 'all 0s ease-in-out 0.2s',
     
     listTop: '16px', 
     listDeployedTop: '32px', 
@@ -28,16 +30,17 @@
     display:block;
     outline: 0;
     width:100%;
-    font-family: {{g.fxDropdownListTheme.placeHolderFontFamily}};
+    /*font-family: {{g.fxDropdownListTheme.placeHolderFontFamily}};*/
     font-size: {{g.fxDropdownListTheme.placeHolderFontSize}};
     text-align: {{g.fxDropdownListTheme.placeHolderTextAlign}};
+    color: {{g.fxDropdownListTheme.placeHolderFontColor}};
     box-sizing: border-box;
     background: {{g.fxDropdownListTheme.placeHolderBackground}};
     border: {{g.fxDropdownListTheme.placeHolderBorder}};
     border-radius: {{g.fxDropdownListTheme.placeHolderBorderRadius}};
     height: {{g.fxDropdownListTheme.placeHolderHeight}};
     padding: {{g.fxDropdownListTheme.placeHolderPadding}};
-    transition: all 0.2s ease-in-out;
+    transition: {{g.fxDropdownListTheme.placeHolderTransition}};
     
     -webkit-box-shadow: {{g.fxDropdownListTheme.placeHolderShadow}};
     -moz-box-shadow:    {{g.fxDropdownListTheme.placeHolderShadow}};
