@@ -236,16 +236,13 @@ class FxList extends FxBase {
       fire("selection-change", detail: selectedItems);
     }
     else {
-      if (selectedIndex == index) {
-        selectedIndex = -1;
-        selectedItem = null;
-      }
-      else {
+      if (selectedIndex != index) {
         selectedIndex = index;
         selectedItem = dataProvider[index];
+        fire("selection-change", detail: selectedItem);
       }
       
-      fire("selection-change", detail: selectedItem);
+      
     }
     
    
