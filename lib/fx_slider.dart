@@ -174,7 +174,14 @@ class FxSlider extends FxBase {
   }
   
   num _convertPixelValueToValue (num pixelValue) {
-    return (pixelValue / _pixelWidth) * (maxValue - minValue) + minValue;
+    num newValue = (pixelValue / _pixelWidth) * (maxValue - minValue) + minValue;
+    if (newValue < minValue) {
+      newValue = minValue;
+    }
+    else if (newValue > maxValue) {
+      newValue = maxValue;
+    }
+    return newValue;
   }
   
   num _convertValueToPixelValue (num val) {
