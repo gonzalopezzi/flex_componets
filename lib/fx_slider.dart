@@ -174,7 +174,14 @@ class FxSlider extends FxBase {
   }
   
   num _convertPixelValueToValue (num pixelValue) {
-    return (pixelValue / _pixelWidth) * (maxValue - minValue) + minValue;
+    num newValue = (pixelValue / _pixelWidth) * (maxValue - minValue) + minValue;
+    if (newValue < minValue) {
+      newValue = minValue;
+    }
+    else if (newValue > maxValue) {
+      newValue = maxValue;
+    }
+    return newValue;
   }
   
   num _convertValueToPixelValue (num val) {
@@ -193,8 +200,14 @@ class FxSlider extends FxBase {
   }
   
   void _updateDataTipValue () {
-    datatipValue[0] = dataTipFormatter(((_pixelValue[0] / _pixelWidth) * (maxValue - minValue) + minValue).round());
-    datatipValue[1] = dataTipFormatter(((_pixelValue[1] / _pixelWidth) * (maxValue - minValue) + minValue).round());
+    try {
+      datatipValue[0] = dataTipFormatter(((_pixelValue[0] / _pixelWidth) * (maxValue - minValue) + minValue).round());
+      datatipValue[1] = dataTipFormatter(((_pixelValue[1] / _pixelWidth) * (maxValue - minValue) + minValue).round());
+    }
+    catch (exception, stackTrace) {
+      print(exception);
+      print(stackTrace);
+    }
   }
   
   int get _dragIndex => dragging[0] ? 0 : dragging[1] ? 1 : -1;
