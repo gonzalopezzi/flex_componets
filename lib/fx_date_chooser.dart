@@ -22,20 +22,34 @@ class FxDateChooser extends FxBase {
   
   @published DateTime selectedDate;
   DateTime truncatedSelectedDate;
+  @observable bool isPrevMonthDisabled = true;
+  @observable bool isNextMonthDisabled = true;
+  @published DateTime minDate;
+  @published DateTime maxDate;
+  
+  void maxDateChanged (DateTime oldValue) {
+    invalidateProperties();
+    invalidateDisplay();
+  }
+  
+  void minDateChanged (DateTime oldValue) {
+    invalidateProperties();
+    invalidateDisplay();
+  }
   
   void selectedDateChanged (DateTime oldValue) {
-    bool change = selectedDate != oldValue;
-    truncatedSelectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day, 0, 0, 0, 0);
-    if (selectedDate != null) 
-      _displayedDate = selectedDate;
-    if (change) {
-      if (_changeCallback != null) {
-        _changeCallback({'selectedDate':selectedDate});
-      }
-      invalidateProperties();
-      invalidateDisplay();
-    } 
-  }
+      bool change = selectedDate != oldValue;
+      truncatedSelectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day, 0, 0, 0, 0);
+      if (selectedDate != null) 
+        _displayedDate = selectedDate;
+      if (change) {
+        if (_changeCallback != null) {
+          _changeCallback({'selectedDate':selectedDate});
+        }
+        invalidateProperties();
+        invalidateDisplay();
+      } 
+    }
   
   DateTime _displayedDate = new DateTime.now();
   
@@ -62,6 +76,7 @@ class FxDateChooser extends FxBase {
     super.updateDisplay();
     displayWeekNames ();
     displayDays ();
+    checkEnabled ();
   }
   
   @published String monthLabel;
@@ -117,6 +132,11 @@ class FxDateChooser extends FxBase {
     }
   }
   
+  void checkEnabled () {
+    isPrevMonthDisabled = _displayedDate != null && minDate != null ? new DateTime(_displayedDate.year, _displayedDate.month).isAtSameMomentAs(new DateTime(minDate.year, minDate.month)) : false;
+    isNextMonthDisabled = _displayedDate != null && maxDate != null ? new DateTime(_displayedDate.year, _displayedDate.month).isAtSameMomentAs(new DateTime(maxDate.year, maxDate.month)) : false;
+  }
+  
   void dayButtonClick (MouseEvent event) {
     selectedDate = copyDateTime (buttonData[event.target]);
     invalidateDisplay();
@@ -158,6 +178,15 @@ class FxDateChooser extends FxBase {
     invalidateProperties();
     invalidateDisplay();
   }
+  
+  void refreshDisplayedDate(){
+    if(!_displayedDate.isAtSameMomentAs(selectedDate)){
+      _displayedDate = selectedDate;
+      invalidateProperties();
+      invalidateDisplay();
+    }
+  }
+  
   
   @override 
   void commitProperties () {

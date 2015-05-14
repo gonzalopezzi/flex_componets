@@ -65,9 +65,9 @@
       <table id="day-table">
         <thead>
           <tr>
-            <th><button class="nav-btn" on-click="{{prevMonth}}">&lt;</button></th>
+            <th><button class="nav-btn" on-click="{{prevMonth}}" hidden?="{{isPrevMonthDisabled}}">&lt;</button></th>
             <th colspan="5">{{monthLabel}}</th>
-            <th><button class="nav-btn" on-click="{{nextMonth}}">&gt;</button></th>
+            <th><button class="nav-btn" on-click="{{nextMonth}}" hidden?="{{isNextMonthDisabled}}">&gt;</button></th>
           </tr>
           <tr id="week-day-row"></tr>
         </thead>
