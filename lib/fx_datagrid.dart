@@ -36,6 +36,7 @@ class FxDatagrid extends FxBase {
   MapDataItemProvider _commitedData;
   
   bool _flgDataproviderDirty = false;
+  bool _flgColumnsDirty = false;
   
   bool isAsc = true;
   Column currentSortCol;
@@ -53,9 +54,18 @@ class FxDatagrid extends FxBase {
   }
   
   void attached() {
-    _columns = _findDatagridColumnsInDOM ();
+    _fetchColumns ();
     _grid = $['bwudatagrid'];
+    this.addEventListener('fx-datagrid-column-change', (_) {
+      print ("Cambio en columnas !!!");
+      _flgColumnsDirty = true;
+      invalidateProperties();
+    });
     invalidateProperties();
+  }
+  
+  void _fetchColumns () {
+    _columns = _findDatagridColumnsInDOM ();
   }
   
   List<Column> _findDatagridColumnsInDOM () {
@@ -78,7 +88,12 @@ class FxDatagrid extends FxBase {
   @override
   void commitProperties () {
     super.commitProperties();
-    if (_flgDataproviderDirty) {
+    
+    if (_flgDataproviderDirty || _flgColumnsDirty) {
+      if (_flgColumnsDirty) {
+        _fetchColumns();
+        _flgColumnsDirty = false;
+      }
       _commitDataProvider();
       _flgDataproviderDirty = false;
       _grid.setup(dataProvider: _commitedData, columns: _columns, gridOptions: gridOptions);
