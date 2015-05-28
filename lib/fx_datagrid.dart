@@ -77,11 +77,17 @@ class FxDatagrid extends FxBase {
   }
   
   void _commitDataProvider () {
-    var data = new MapDataItemProvider();
+    MapDataItemProvider data = new MapDataItemProvider();  
+    
     dataProvider.forEach((Map m) {
       data.items.add(new MapDataItem(m));
     });
-    _commitedData = data;
+    if (_commitedData == null) {
+      _commitedData = data;  
+    }
+    else {
+      _commitedData.items = data.items;
+    }
   }
   
   @override

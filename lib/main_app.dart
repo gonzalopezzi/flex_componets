@@ -12,8 +12,8 @@ import 'package:quiver/core.dart';
 class MainApp extends PolymerElement {
   @observable DateTime selectedDate = new DateTime.now();
 
-  @observable List columns = toObservable ([{'name':'Name', 'field':'name'},
-                                            {'name':'Department', 'field':'department'}]);
+  @observable List columns = toObservable ([{'name':'Name', 'field':'name', 'width':300},
+                                            {'name':'Department', 'field':'department', 'width':400}]);
   
   @observable List productCategories = toObservable ([
                                             {'id':1, 'name':'Appliances', 'department':'Tech'},
@@ -23,6 +23,13 @@ class MainApp extends PolymerElement {
                                             {'id':5, 'name':'Beauty', 'department':'Home'},
                                             {'id':6, 'name':'Books', 'department':'Home'},
                                             {'id':7, 'name':'Cellphones', 'department':'Tech'}]);
+  
+  @observable List productCategoriesFiltered = toObservable ([
+                              {'id':5, 'name':'Appliances', 'department':'Tech'},
+                              {'id':6, 'name':'Apps & Games', 'department':'Tech'},
+                              {'id':7, 'name':'Automotive', 'department':'Tech'}]);
+  
+  @observable List productCategoriesDatagrid;
   
   @observable List productCategoriesObject = toObservable ([
                                             new ProductCategory (1, 'Appliances'),
@@ -108,8 +115,17 @@ class MainApp extends PolymerElement {
   @observable List<Album> currentAlbums;
   
   void cambiarColumns () {
-    columns = toObservable ([{'name':'ID', 'field':'id'},
-                              {'name':'Name', 'field':'name'}]);
+    columns = toObservable ([{'name':'ID', 'field':'id', 'width':100},
+                              {'name':'Name', 'field':'name','width':300}]);
+  }
+  
+  void cambiarDataProvider () {
+    if (productCategoriesDatagrid == productCategories) {
+      productCategoriesDatagrid = productCategoriesFiltered;
+    }
+    else {
+      productCategoriesDatagrid = productCategories;
+    }
   }
   
   void switchAlbumsDataProvider () {
@@ -123,6 +139,7 @@ class MainApp extends PolymerElement {
   void attached () {
     super.attached();
     currentAlbums = albums;
+    productCategoriesDatagrid = productCategories;
     
     tabDropDownProductCategoriesObject      = productCategoriesObject;
     tabSingleSelectProductCategoriesObject  = productCategoriesObject;
