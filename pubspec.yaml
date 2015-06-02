@@ -12,7 +12,7 @@ dependencies:
   animation: any
   intl: any
   quiver: any
-  bwu_datagrid: any
+  bwu_datagrid: 0.0.21
   #bwu_datagrid:
   #  path: C:\Gonzalo\trabajos\dart\bwu_datagrid
   polymer: '0.15.5'

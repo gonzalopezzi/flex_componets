@@ -94,6 +94,19 @@
       }
       
     </style>
+    <fx-datagrid style="height:200px" dataProvider="{{productCategoriesDatagrid}}">
+      <!--<fx-datagrid-column id="column1" cssClass="dg-column" name="ID" field="id" sortable="true"></fx-datagrid-column>
+      <fx-datagrid-column id="column2" cssClass="dg-column" name="Name" field="name" minWidth="300" sortable="true"></fx-datagrid-column>
+      <fx-datagrid-column id="column3" cssClass="dg-column" name="Department" field="department" minWidth="300" sortable="true"></fx-datagrid-column>
+      -->
+      <template repeat="{{column in columns}}">
+        <fx-datagrid-column field="{{column['field']}}" name="{{column['name']}}" width="{{column['width']}}"></fx-datagrid-column>
+      </template>
+    </fx-datagrid>
+    <div>
+      <fx-button label="Cambiar columns" on-click="{{cambiarColumns}}" style="width:200px"></fx-button>
+      <fx-button label="Cambiar DP" on-click="{{cambiarDataProvider}}" style="width:200px"></fx-button>
+    </div>
     <div>
       <div class="form-item" style="text-align:right; height:50px">
         <fx-button label="Filter Albums" 
@@ -271,11 +284,6 @@
               Three
             </fx-accordion-element>
           </fx-accordion>
-          <fx-datagrid style="height:200px" dataProvider="{{productCategories}}">
-            <fx-datagrid-column id="column1" name="ID" field="id" sortable="true"></fx-datagrid-column>
-            <fx-datagrid-column id="column2" name="Name" field="name" minWidth="300" sortable="true"></fx-datagrid-column>
-            <fx-datagrid-column id="column3" name="Department" field="department" minWidth="300" sortable="true"></fx-datagrid-column>
-          </fx-datagrid>
         </div>
       </div>
     </div>

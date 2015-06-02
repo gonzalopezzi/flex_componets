@@ -34,6 +34,10 @@ class FxDatagridColumn extends PolymerElement {
   FxDatagridColumn.created() : super.created() {
   }
   
+  void attached () {
+    this.fire('fx-datagrid-column-change', canBubble:true);
+  }
+  
   Column get column => new Column(
                                 id:id,
                                 name:name,
