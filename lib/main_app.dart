@@ -12,9 +12,6 @@ import 'package:quiver/core.dart';
 class MainApp extends PolymerElement {
   @observable DateTime selectedDate = new DateTime.now();
 
-  @observable List columns = toObservable ([{'name':'Name', 'field':'name', 'width':300},
-                                            {'name':'Department', 'field':'department', 'width':400}]);
-  
   @observable List productCategories = toObservable ([
                                             {'id':1, 'name':'Appliances', 'department':'Tech'},
                                             {'id':2, 'name':'Apps & Games', 'department':'Tech'},
@@ -113,20 +110,6 @@ class MainApp extends PolymerElement {
             ]);
   
   @observable List<Album> currentAlbums;
-  
-  void cambiarColumns () {
-    columns = toObservable ([{'name':'ID', 'field':'id', 'width':100},
-                              {'name':'Name', 'field':'name','width':300}]);
-  }
-  
-  void cambiarDataProvider () {
-    if (productCategoriesDatagrid == productCategories) {
-      productCategoriesDatagrid = productCategoriesFiltered;
-    }
-    else {
-      productCategoriesDatagrid = productCategories;
-    }
-  }
   
   void switchAlbumsDataProvider () {
     currentAlbums = currentAlbums == albums ? albumsFiltered : albums;
