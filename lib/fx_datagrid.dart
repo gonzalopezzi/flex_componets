@@ -55,7 +55,7 @@ class FxDatagrid extends FxBase {
   
   void attached() {
     _fetchColumns ();
-    _grid = $['bwudatagrid'];
+    _grid = this.shadowRoot.querySelector('bwu-datagrid');
     this.addEventListener('fx-datagrid-column-change', (_) {
       print ("Cambio en columnas !!!");
       _flgColumnsDirty = true;
