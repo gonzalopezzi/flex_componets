@@ -111,8 +111,14 @@ class MainApp extends PolymerElement {
   
   @observable List<Album> currentAlbums;
   
+  @observable bool showDG1 = true;
+  
   void switchAlbumsDataProvider () {
     currentAlbums = currentAlbums == albums ? albumsFiltered : albums;
+  }
+  
+  void switchDG () {
+    showDG1 = !showDG1;
   }
   
   /// Constructor used to create instance of MainApp.

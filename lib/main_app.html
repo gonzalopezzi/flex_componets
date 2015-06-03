@@ -94,18 +94,22 @@
       }
       
     </style>
-    <fx-datagrid id="dg1" style="height:200px" dataProvider="{{productCategories}}">
-      <fx-datagrid-column id="column1" cssClass="dg-column" name="ID" field="id" sortable="true"></fx-datagrid-column>
-      <fx-datagrid-column id="column2" cssClass="dg-column" name="Name" field="name" minWidth="300" sortable="true"></fx-datagrid-column>
-      <fx-datagrid-column id="column3" cssClass="dg-column" name="Department" field="department" minWidth="300" sortable="true"></fx-datagrid-column>
-      <!--<template repeat="{{column in columns}}">
-        <fx-datagrid-column field="{{column['field']}}" name="{{column['name']}}"></fx-datagrid-column>
-      </template>-->
-    </fx-datagrid>
-    <fx-datagrid id="dg2" style="height:200px" dataProvider="{{productCategories}}">
-      <fx-datagrid-column cssClass="dg-column" name="Name" field="name" minWidth="300" sortable="true"></fx-datagrid-column>
-      <fx-datagrid-column cssClass="dg-column" name="Department" field="department" minWidth="300" sortable="true"></fx-datagrid-column>
-    </fx-datagrid>
+    <template if="{{showDG1}}">
+      <fx-datagrid id="dg1" style="height:200px" dataProvider="{{productCategories}}">
+        <fx-datagrid-column id="column1" cssClass="dg-column" name="ID" field="id" sortable="true"></fx-datagrid-column>
+        <fx-datagrid-column id="column2" cssClass="dg-column" name="Name" field="name" minWidth="300" sortable="true"></fx-datagrid-column>
+        <fx-datagrid-column id="column3" cssClass="dg-column" name="Department" field="department" minWidth="300" sortable="true"></fx-datagrid-column>
+      </fx-datagrid>
+    </template>
+    <template if="{{!showDG1}}">
+      <fx-datagrid id="dg2" style="height:200px" dataProvider="{{productCategories}}">
+        <fx-datagrid-column cssClass="dg-column" name="Name" field="name" minWidth="300" sortable="true"></fx-datagrid-column>
+        <fx-datagrid-column cssClass="dg-column" name="Department" field="department" minWidth="300" sortable="true"></fx-datagrid-column>
+      </fx-datagrid>
+    </template>
+    <div>
+      <fx-button label="Switch DG" on-click="{{switchDG}}"></fx-button>
+    </div>
     <div>
       <div class="form-item" style="text-align:right; height:50px">
         <fx-button label="Filter Albums" 
