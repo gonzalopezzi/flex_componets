@@ -79,9 +79,11 @@ class FxDatagrid extends FxBase {
   void _commitDataProvider () {
     MapDataItemProvider data = new MapDataItemProvider();  
     
-    dataProvider.forEach((Map m) {
-      data.items.add(new MapDataItem(m));
-    });
+    if (dataProvider != null) {
+      dataProvider.forEach((Map m) {
+        data.items.add(new MapDataItem(m));
+      });
+    }
     if (_commitedData == null) {
       _commitedData = data;  
     }
@@ -101,14 +103,16 @@ class FxDatagrid extends FxBase {
       }
       _commitDataProvider();
       _flgDataproviderDirty = false;
-      _grid.setup(dataProvider: _commitedData, columns: _columns, gridOptions: gridOptions);
-      _grid.onBwuSort.listen((core.Sort args) {
-        currentSortCol = args.sortColumn;
-        isAsc = args.sortAsc;
-        _commitedData.items.sort((core.ItemBase i1, core.ItemBase i2) => (isAsc ? 1 : -1) * i1[currentSortCol.field].compareTo(i2[currentSortCol.field]));
-        _grid.invalidateAllRows();
-        _grid.render();
-      });
+      if (dataProvider != null) {
+        _grid.setup(dataProvider: _commitedData, columns: _columns, gridOptions: gridOptions);
+        _grid.onBwuSort.listen((core.Sort args) {
+          currentSortCol = args.sortColumn;
+          isAsc = args.sortAsc;
+          _commitedData.items.sort((core.ItemBase i1, core.ItemBase i2) => (isAsc ? 1 : -1) * i1[currentSortCol.field].compareTo(i2[currentSortCol.field]));
+          _grid.invalidateAllRows();
+          _grid.render();
+        });
+      }
     }
   }
   

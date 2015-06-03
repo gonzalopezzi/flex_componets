@@ -95,16 +95,16 @@
       
     </style>
     <template if="{{showDG1}}">
-      <fx-datagrid id="dg1" style="height:200px" dataProvider="{{productCategories}}">
+      <fx-datagrid id="dg1" style="height:200px" dataProvider="{{datagridDataProvider1}}">
         <fx-datagrid-column id="column1" cssClass="dg-column" name="ID" field="id" sortable="true"></fx-datagrid-column>
-        <fx-datagrid-column id="column2" cssClass="dg-column" name="Name" field="name" minWidth="300" sortable="true"></fx-datagrid-column>
-        <fx-datagrid-column id="column3" cssClass="dg-column" name="Department" field="department" minWidth="300" sortable="true"></fx-datagrid-column>
+        <fx-datagrid-column id="column2" cssClass="dg-column" name="Name" field="name" width="200" sortable="true"></fx-datagrid-column>
+        <fx-datagrid-column id="column3" cssClass="dg-column" name="Department" field="department" width="300" sortable="true"></fx-datagrid-column>
       </fx-datagrid>
     </template>
     <template if="{{!showDG1}}">
-      <fx-datagrid id="dg2" style="height:200px" dataProvider="{{productCategories}}">
-        <fx-datagrid-column cssClass="dg-column" name="Name" field="name" minWidth="300" sortable="true"></fx-datagrid-column>
-        <fx-datagrid-column cssClass="dg-column" name="Department" field="department" minWidth="300" sortable="true"></fx-datagrid-column>
+      <fx-datagrid id="dg2" style="height:200px" dataProvider="{{datagridDataProvider2}}">
+        <fx-datagrid-column cssClass="dg-column" name="Name" field="name" width="500" sortable="true"></fx-datagrid-column>
+        <fx-datagrid-column cssClass="dg-column" name="Department" field="department" width="600" sortable="true"></fx-datagrid-column>
       </fx-datagrid>
     </template>
     <div>

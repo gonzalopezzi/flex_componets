@@ -3,6 +3,7 @@
 
 import 'package:polymer/polymer.dart';
 import 'dart:html';
+import 'dart:async';
 import 'package:flex_components/flex_components.dart';
 import 'package:flex_components/sample/fx_sample_panel.dart';
 import 'package:quiver/core.dart';
@@ -111,6 +112,8 @@ class MainApp extends PolymerElement {
   
   @observable List<Album> currentAlbums;
   
+  @observable List datagridDataProvider1;
+  @observable List datagridDataProvider2;
   @observable bool showDG1 = true;
   
   void switchAlbumsDataProvider () {
@@ -119,7 +122,30 @@ class MainApp extends PolymerElement {
   
   void switchDG () {
     showDG1 = !showDG1;
+    if (datagridDataProvider2 == null) {
+      new Timer(new Duration(milliseconds:1200), () {
+        _loadDatagridDataProvider2 ();
+      });
+    }
   }
+  
+  _loadDatagridDataProvider1 () {
+    datagridDataProvider1= toObservable ([
+             {'id':1, 'name':'Appliances', 'department':'Tech'},
+             {'id':2, 'name':'Apps & Games', 'department':'Tech'},
+             {'id':3, 'name':'Automotive', 'department':'Tech'},
+             {'id':4, 'name':'Baby', 'department':'Home'},
+             {'id':5, 'name':'Beauty', 'department':'Home'},
+             {'id':6, 'name':'Books', 'department':'Home'},
+             {'id':7, 'name':'Cellphones', 'department':'Tech'}]);
+  }
+  
+  void _loadDatagridDataProvider2 () {
+      datagridDataProvider2= toObservable ([
+               {'id':5, 'name':'Beauty', 'department':'Home'},
+               {'id':6, 'name':'Books', 'department':'Home'},
+               {'id':7, 'name':'Cellphones', 'department':'Tech'}]);
+    }
   
   /// Constructor used to create instance of MainApp.
   MainApp.created() : super.created();
@@ -133,6 +159,10 @@ class MainApp extends PolymerElement {
     tabDropDownProductCategoriesObject      = productCategoriesObject;
     tabSingleSelectProductCategoriesObject  = productCategoriesObject;
     tabMultiSelectProductCategoriesObject   = productCategoriesObject;
+    
+    new Timer(new Duration(milliseconds:1200), () {
+      _loadDatagridDataProvider1();
+    });
   }
   
   void switchTabDropDown (Event e) {
