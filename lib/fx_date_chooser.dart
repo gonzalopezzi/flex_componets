@@ -39,9 +39,10 @@ class FxDateChooser extends FxBase {
   
   void selectedDateChanged (DateTime oldValue) {
       bool change = selectedDate != oldValue;
-      truncatedSelectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day, 0, 0, 0, 0);
-      if (selectedDate != null) 
+      if (selectedDate != null) {
+        truncatedSelectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day, 0, 0, 0, 0);
         _displayedDate = selectedDate;
+      }
       if (change) {
         if (_changeCallback != null) {
           _changeCallback({'selectedDate':selectedDate});

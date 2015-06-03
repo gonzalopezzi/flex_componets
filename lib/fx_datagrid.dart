@@ -57,7 +57,6 @@ class FxDatagrid extends FxBase {
     _fetchColumns ();
     _grid = this.shadowRoot.querySelector('bwu-datagrid');
     this.addEventListener('fx-datagrid-column-change', (_) {
-      print ("Cambio en columnas !!!");
       _flgColumnsDirty = true;
       invalidateProperties();
     });
@@ -78,11 +77,17 @@ class FxDatagrid extends FxBase {
   }
   
   void _commitDataProvider () {
-    var data = new MapDataItemProvider();
+    MapDataItemProvider data = new MapDataItemProvider();  
+    
     dataProvider.forEach((Map m) {
       data.items.add(new MapDataItem(m));
     });
-    _commitedData = data;
+    if (_commitedData == null) {
+      _commitedData = data;  
+    }
+    else {
+      _commitedData.items = data.items;
+    }
   }
   
   @override
