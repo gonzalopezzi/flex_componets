@@ -6,6 +6,7 @@ import 'package:bwu_datagrid/datagrid/helpers.dart';
 import 'package:bwu_datagrid/groupitem_metadata_providers/groupitem_metadata_providers.dart';
 import 'package:bwu_datagrid/core/core.dart' as core;
 import 'dart:html';
+import 'dart:async';
 
 class CustomMapDataItemProvider extends DataProvider {
   Function _getItem;
@@ -38,11 +39,24 @@ class FxDatagrid extends FxBase {
   bool _flgDataproviderDirty = false;
   bool _flgColumnsDirty = false;
   
+  bool _isSetup = false;
+  
   bool isAsc = true;
   Column currentSortCol;
   
+  bool _propertiesDirty = false;
+  Timer propertiesTimer;
+  
   var gridOptions = new GridOptions(enableCellNavigation: true, enableColumnReorder: false);
 
+  @override
+  void invalidateProperties () {
+    _propertiesDirty = false;
+    if (propertiesTimer != null && propertiesTimer.isActive) {
+      propertiesTimer.cancel();
+    }
+    propertiesTimer = new Timer(new Duration (milliseconds:100), commitProperties);
+  }
   
   void dataProviderChanged (List<ChangeRecord> changes) {
     _flgDataproviderDirty = true;
@@ -95,7 +109,6 @@ class FxDatagrid extends FxBase {
   @override
   void commitProperties () {
     super.commitProperties();
-    
     if (_flgDataproviderDirty || _flgColumnsDirty) {
       if (_flgColumnsDirty) {
         _fetchColumns();
@@ -103,8 +116,24 @@ class FxDatagrid extends FxBase {
       }
       _commitDataProvider();
       _flgDataproviderDirty = false;
+      
       if (dataProvider != null) {
-        _grid.setup(dataProvider: _commitedData, columns: _columns, gridOptions: gridOptions);
+        if (!_isSetup) {
+          _grid.setup(dataProvider: _commitedData, columns: _columns, gridOptions: gridOptions).then((_) {
+            _grid.render();
+            _isSetup = true;
+          });
+        }
+        else {
+          /*this.children.remove(_grid);*/
+          this.shadowRoot.children.remove(_grid);
+          _grid = new Element.tag('bwu-datagrid');
+          this.shadowRoot.children.add(_grid);
+          _grid.setup(dataProvider: _commitedData, columns: _columns, gridOptions: gridOptions).then((_) {
+            _grid.render();
+            _isSetup = true;
+          });
+        }
         _grid.onBwuSort.listen((core.Sort args) {
           currentSortCol = args.sortColumn;
           isAsc = args.sortAsc;
