@@ -1,4 +1,5 @@
 import 'package:polymer/polymer.dart';
+import 'package:intl/intl.dart';
 import 'dart:html';
 import 'dart:async';
 import 'package:flex_components/fx_base.dart';
@@ -23,7 +24,7 @@ class FxSlider extends FxBase {
   @published bool doubleThumb = false;
   @published bool showSliderFill = true;
   
-  @published Function dataTipFormatter = (num dataTipValue) => "$dataTipValue";
+  @published Function dataTipFormatter = (num dataTipValue) => new NumberFormat("0").format(dataTipValue);
   
   @observable List<bool> dragging = toObservable([false, false]);
   
@@ -201,8 +202,8 @@ class FxSlider extends FxBase {
   
   void _updateDataTipValue () {
     try {
-      datatipValue[0] = dataTipFormatter(((_pixelValue[0] / _pixelWidth) * (maxValue - minValue) + minValue).round());
-      datatipValue[1] = dataTipFormatter(((_pixelValue[1] / _pixelWidth) * (maxValue - minValue) + minValue).round());
+      datatipValue[0] = dataTipFormatter(((_pixelValue[0] / _pixelWidth) * (maxValue - minValue) + minValue));
+      datatipValue[1] = dataTipFormatter(((_pixelValue[1] / _pixelWidth) * (maxValue - minValue) + minValue));
     }
     catch (exception, stackTrace) {
       print(exception);

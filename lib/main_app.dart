@@ -4,6 +4,7 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'dart:async';
+import 'package:intl/intl.dart';
 import 'package:flex_components/flex_components.dart';
 import 'package:flex_components/sample/fx_sample_panel.dart';
 import 'package:quiver/core.dart';
@@ -83,6 +84,8 @@ class MainApp extends PolymerElement {
   
   @observable List<num> sliderValue = [300,500];
   @observable Function sliderDataTipFormatter = (num val) => "${val}";
+  
+  @observable Function sliderDataTipFormatterUnDecimal = (num val) => new NumberFormat("0.0", "es_ES").format(val);
   
   @observable String textAreaText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend dignissim sodales. Donec id ex ut sapien egestas dictum. In finibus tristique risus et rhoncus. Suspendisse potenti. Aenean tristique felis ut lectus porta, eu tincidunt erat commodo. Maecenas laoreet metus ac mattis eleifend. Duis nisi sem, maximus in nisl at, vestibulum tincidunt odio. Aliquam non leo ut ligula feugiat facilisis. Donec hendrerit rutrum elit. In hac habitasse platea dictumst.";
   

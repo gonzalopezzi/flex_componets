@@ -201,16 +201,19 @@
           <div>Slider with double thumb and stepSize=100</div>
           <fx-slider id="slider1" value="{{sliderValue}}" 
             minValue="200" maxValue="1000" stepSize="100" animateStepSize="false"
-            doubleThumb="true" dataTipFormatter="{{sliderDataTipFormatter}}"></fx-slider>
+            doubleThumb="true"></fx-slider>
           <fx-label text="{{sliderValue[0]}}" style="height:30px"></fx-label><fx-label text="{{sliderValue[1]}}" style="height:30px"></fx-label>
           <div>Slider with double thumb without stepSize</div>
           <fx-slider id="slider2" value="{{sliderValue}}" 
             minValue="200" maxValue="1000"
-            doubleThumb="true" dataTipFormatter="{{sliderDataTipFormatter}}"></fx-slider>
+            doubleThumb="true"></fx-slider>
           <div>Slider with single thumb and no stepSize</div>
           <fx-slider id="slider3" value="{{sliderValue[1]}}" 
             minValue="200" maxValue="1000"
             dataTipFormatter="{{sliderDataTipFormatter}}"></fx-slider>
+          <fx-slider id="slider4" value="0" 
+            minValue="-10" maxValue="10" stepSize="0.5"
+            dataTipFormatter="{{sliderDataTipFormatterUnDecimal}}"></fx-slider>
           <div>{{sliderValue[1]}}</div>
         </div>
       </div>
