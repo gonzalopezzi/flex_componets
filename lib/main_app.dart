@@ -191,15 +191,17 @@ class MainApp extends PolymerElement {
     FxSamplePanel fxSamplePanel = new FxSamplePanel();
     fxSamplePanel.style.setProperty("width", "300px");
     fxSamplePanel.style.setProperty("height", "400px");
+    fxSamplePanel.texto = "Hola caracola";
     PopUpManager.addPopUp (fxSamplePanel, modal:true); 
   }
   
   void openPopup (MouseEvent event) {
     int top = event.page.y;
     int left = event.page.x;
-    FxSamplePanel fxSamplePanel = new FxSamplePanel();
-    fxSamplePanel.style.setProperty("width", "400px");
-    fxSamplePanel.style.setProperty("height", "400px");
+    FxSamplePanel fxSamplePanel = new FxSamplePanel ();
+    fxSamplePanel.style.setProperty ("width", "400px");
+    fxSamplePanel.style.setProperty ("height", "400px");
+    fxSamplePanel.texto = "Hola caracola";
     PopUpManager.addPopUp (fxSamplePanel, modal:false, top:top, left:left); 
   }
 
