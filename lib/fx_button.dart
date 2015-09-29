@@ -6,9 +6,10 @@ import 'dart:html';
 class FxButton extends FxBase {
 
   @published String label;
-  @observable bool pressed;
+  @observable bool pressed = false;
   @published String type;
   @published bool enabled = true;
+  @published bool toggle = false;
   
   /// Constructor used to create instance of FxButton.
   FxButton.created() : super.created() {
@@ -21,11 +22,15 @@ class FxButton extends FxBase {
   }
   
   void mouseDownHandler (Event e) {
-    pressed = true;
+    if(toggle)
+      pressed = !pressed;
+    else
+      pressed = true;
   }
   
   void mouseUpHandler (Event e) {
-    pressed = false;
+    if(!toggle)
+      pressed = false;
   }
   
   @override

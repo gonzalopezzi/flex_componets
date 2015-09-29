@@ -1,5 +1,6 @@
 import 'package:polymer/polymer.dart';
 import 'package:flex_components/fx_list.dart';
+import 'package:flex_components/flex_components.dart';
 import 'dart:html';
 
 /**
@@ -8,10 +9,12 @@ import 'dart:html';
 @CustomTag('fx-tree')
 class FxTree extends FxList {
 
+  @published List selectedItems = toObservable ([]);
+  
   /// Constructor used to create instance of FxTree.
   FxTree.created() : super.created() {
   }
-  factory FxTree () => new Element.tag('fx-tree');
+  factory FxTree () => new Element.tag('fx-tree');  
   
   @override
   void attached () {
@@ -23,16 +26,47 @@ class FxTree extends FxList {
     lstDiv = $['treeLst'] as DivElement;
   }
   
-  void selectionChangeHandler (CustomEvent e) {
-    this.selectedItem = e.detail;
+  void _eliminarSeleccionados(TreeNode nodo){
+    
+     selectedItems.remove(nodo);
+     if(nodo.children!=null &&  !nodo.children.isEmpty){
+              List children = nodo.children;
+              children.forEach((c)=>_eliminarSeleccionados(c));          
+            }
+        
   }
   
+  void _agregarSeleccionados(TreeNode nodo){
+     if(!selectedItems.contains(nodo)){        
+       if(nodo.children!=null && !nodo.children.isEmpty){
+                List children = nodo.children;
+                children.forEach((c)=>_agregarSeleccionados(c));          
+              }
+       selectedItems.add(nodo);   
+     }
+    
+  }
+  
+    
+  void selectionChangeHandler (CustomEvent e) {
+    if(this.allowMultipleSelection){
+      if(selectedItems.contains(e.detail)){        
+        _eliminarSeleccionados(e.detail);
+      }else{        
+        _agregarSeleccionados(e.detail);
+      }
+      fire("selected-items-change", detail: selectedItems);
+    }else{
+      this.selectedItem = e.detail;
+    }
+  }
+  /*
   @override
   void clickItem (Event e) {
-    /*int index = int.parse((e.target as Element).dataset['index']);
+    int index = int.parse((e.target as Element).dataset['index']);
     selectedIndex = index;
     selectedItem = dataProvider[index];
-    fire("selection-change", detail: selectedItem);*/
-  }
+    fire("selection-change", detail: selectedItem);
+  }*/
   
 }

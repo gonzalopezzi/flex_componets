@@ -1,13 +1,14 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'package:flex_components/flex_components.dart';
+import 'package:flex_components/fx_item_renderer.dart';
 import 'package:animation/animation.dart' as anim;
 
 /**
  * A Polymer fx-tree-item element.
  */
 @CustomTag('fx-tree-item')
-class FxTreeItem extends PolymerElement {
+class FxTreeItem extends FxItemRenderer {
   
   final int SPACER_WIDTH = 40;
 
@@ -15,6 +16,8 @@ class FxTreeItem extends PolymerElement {
   @published String itemRenderer;
   
   @published dynamic selectedItem;
+  @published List selectedItems;
+  @observable bool multipleSelected = false;
   
   @published int level = 0;
   @observable bool deployed = false;
@@ -26,6 +29,16 @@ class FxTreeItem extends PolymerElement {
   
   void treeItemClick (Event e, dynamic detail) {
     fire("selection-change", detail: this.value, canBubble: true);
+  }
+  
+  void selectedItemsChanged([_]){
+    var i = 0;
+    bool found = false;
+    while(i < selectedItems.length && !found){
+      found = selectedItems.elementAt(i) == value;
+       i++;       
+    }
+    multipleSelected = found;
   }
   
   void toggleDeployed (Event e) {
@@ -48,8 +61,7 @@ class FxTreeItem extends PolymerElement {
         int childHeight = getChildHeight();
         anim.animate($['treeItemLst'] as Element, duration:200, easing:anim.Easing.QUADRATIC_EASY_IN_OUT, 
                   properties:{'height': childHeight * (value as TreeNode).children.length } ).onComplete.listen((_) => ($['treeItemLst'] as Element).style.setProperty("height",  "auto"));
-      }
-      else {
+      }else {
         anim.animate($['treeItemLst'] as Element, duration:200, easing:anim.Easing.QUADRATIC_EASY_IN_OUT, 
          properties:{'height': 0 } );
         
@@ -58,7 +70,13 @@ class FxTreeItem extends PolymerElement {
     }
   }
   
-  bool isTreeNode (dynamic value) => value is TreeNode;
+  bool isTreeNode (dynamic value) {
+    bool response= false;
+    if(value is TreeNode){
+      response = (value as TreeNode).children != null && (value as TreeNode).children.length > 0; 
+    }
+    return response;
+  }
   
   String render(dynamic item) => "$item";
   

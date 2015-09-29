@@ -33,6 +33,7 @@ class FxList extends FxBase {
   @observable int focusedIndex;
   
   @published int listHeight = 250;
+  @published bool autoHeight = false;
   
   bool _flgDataProviderDirty = false;
   
@@ -65,7 +66,11 @@ class FxList extends FxBase {
   
   void _setLstHeight() {
     if (lstDiv != null) {
-      lstDiv.style.height = "${listHeight}px";
+      if(!autoHeight)
+        lstDiv.style.height = "${listHeight}px";
+      else
+        lstDiv.style.height = "auto";
+          
     }
   }
   

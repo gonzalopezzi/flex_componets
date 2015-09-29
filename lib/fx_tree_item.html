@@ -13,10 +13,15 @@
     </style>
     <core-style ref="fxTreeItemTheme"></core-style>
     
-    <div id="main-item" on-click="{{treeItemClick}}" class="{{ {selected: selectedItem == value} }}">
+    <div id="main-item" on-click="{{treeItemClick}}" class="{{ {selected: selectedItem == value || multipleSelected} }}">
       <div id="spacer"></div>
       <template if="{{isTreeNode(value)}}">
         <div id="expand-button" on-click="{{toggleDeployed}}" class="{{ {deployed:deployed} }}"></div>
+      </template>
+      <template if="{{value.icon != null && value.icon != ''}}">
+        <div class="image">
+          <img alt="{{value}}" _src="{{value.icon}}" class="icon">
+        </div>
       </template>
       <div id="text">
         <template if="{{itemRenderer != null}}">
@@ -33,7 +38,8 @@
         <template repeat="{{item in value.children}}">
           <fx-tree-item value="{{item}}" level="{{level+1}}"
               selectedItem="{{selectedItem}}" 
-              itemRenderer="{{itemRenderer}}"></fx-tree-item>
+              itemRenderer="{{itemRenderer}}"
+              selectedItems="{{selectedItems}}"></fx-tree-item>
         </template>
       </div>
     </template>
