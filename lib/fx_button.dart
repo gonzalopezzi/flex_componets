@@ -6,7 +6,7 @@ import 'dart:html';
 class FxButton extends FxBase {
 
   @published String label;
-  @observable bool pressed = false;
+  @published bool pressed = false;
   @published String type;
   @published bool enabled = true;
   @published bool toggle = false;
