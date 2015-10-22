@@ -161,9 +161,22 @@
           <fx-tree
             dataProvider="{{stores}}"
             selectedItem="{{selectedTreeItem}}"
+            selectedMultipleItems="{{selectedTreeItems}}"
             labelField="name"
             listHeight="250" 
-            on-selection-change="{{alertChange}}"></fx-tree>
+            on-selection-change="{{alertChange}}"
+            on-selected-items-change="{{cambioSeleccionTreeHandler}}"></fx-tree>
+            {{selectedTreeItem}}
+        </div>
+        <div class="form-item">
+          <fx-tree
+            dataProvider="{{stores}}"
+            selectedItem="{{selectedTreeItem}}"
+            selectedMultipleItems="{{selectedTreeItems}}"
+            labelField="name"
+            listHeight="250" 
+            on-selection-change="{{alertChange}}"
+            on-selected-items-change="{{cambioSeleccionTreeHandler}}"></fx-tree>
             {{selectedTreeItem}}
         </div>
         
@@ -173,7 +186,7 @@
           <fx-button id="btnSecondary" label="Popup" type="secondary"
             on-click="{{openPopup}}"></fx-button>
           <fx-button id="btnDisabled" label="Disabled" type="secondary"
-            enabled="false"></fx-button>
+            enabled="false"></fx-button>            
         </div>
       </div>
       <div id="center-panel">

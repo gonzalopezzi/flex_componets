@@ -9,31 +9,70 @@ import 'dart:html';
 @CustomTag('fx-tree')
 class FxTree extends FxList {
 
-  @published List selectedItems = toObservable ([]);
+  @published dynamic selectedMultipleItems;
   
   /// Constructor used to create instance of FxTree.
   FxTree.created() : super.created() {
   }
-  factory FxTree () => new Element.tag('fx-tree');  
+  factory FxTree () => new Element.tag('fx-tree');
   
   @override
   void attached () {
     super.attached();
     this.addEventListener("selection-change", selectionChangeHandler);
+    
+    selectedItems = toObservable(new List());
   }
+  
+  
+  selectedMultipleItemsChanged(dynamic valor){
+      this.selectedItems = selectedMultipleItems;
+      
+      if(selectedItems != null){
+        selectedItems.forEach((TreeNode tn) {
+          _agregarSeleccionados(tn);
+        });     
+      }
+  }
+  
+  
   
   void queryLstDiv () {
     lstDiv = $['treeLst'] as DivElement;
   }
   
-  void _eliminarSeleccionados(TreeNode nodo){
+  void selectionChangeHandler (CustomEvent e) {
+    this.selectedItem = e.detail;  //monoseleccion
     
+    if(selectedItem != null && selectedItem is Selectable)
+      selectedItem.selected = !selectedItem.selected;
+    //updateSelectedItems();  
+    
+    selectedItem is TreeNode && selectedItem.selected == true ? _agregarSeleccionados(selectedItem) : _eliminarSeleccionados(selectedItem);
+    
+    fire("selected-items-change", detail: selectedItems);
+  }
+  
+ 
+  
+  /*
+  updateSelectedItems(){
+    selectedItems = toObservable(new List());
+    
+    
+   dataProvider.forEach((dynamic tn) {
+      if(tn is Selectable && tn.selected)
+        selectedItems.add(tn);
+    });
+  } 
+  */
+  
+  void _eliminarSeleccionados(TreeNode nodo){      
      selectedItems.remove(nodo);
      if(nodo.children!=null &&  !nodo.children.isEmpty){
-              List children = nodo.children;
-              children.forEach((c)=>_eliminarSeleccionados(c));          
-            }
-        
+        List children = nodo.children;
+        children.forEach((c)=>_eliminarSeleccionados(c));          
+      }        
   }
   
   void _agregarSeleccionados(TreeNode nodo){
@@ -43,30 +82,20 @@ class FxTree extends FxList {
                 children.forEach((c)=>_agregarSeleccionados(c));          
               }
        selectedItems.add(nodo);   
-     }
-    
+     }    
   }
   
-    
-  void selectionChangeHandler (CustomEvent e) {
-    if(this.allowMultipleSelection){
-      if(selectedItems.contains(e.detail)){        
-        _eliminarSeleccionados(e.detail);
-      }else{        
-        _agregarSeleccionados(e.detail);
-      }
-      fire("selected-items-change", detail: selectedItems);
-    }else{
-      this.selectedItem = e.detail;
-    }
-  }
-  /*
+  
+  
+  
+  
   @override
   void clickItem (Event e) {
-    int index = int.parse((e.target as Element).dataset['index']);
+    print("eo");
+    /*int index = int.parse((e.target as Element).dataset['index']);
     selectedIndex = index;
     selectedItem = dataProvider[index];
-    fire("selection-change", detail: selectedItem);
-  }*/
+    fire("selection-change", detail: selectedItem);*/
+  }
   
 }

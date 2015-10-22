@@ -1,23 +1,23 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'package:flex_components/flex_components.dart';
-import 'package:flex_components/fx_item_renderer.dart';
 import 'package:animation/animation.dart' as anim;
 
 /**
  * A Polymer fx-tree-item element.
  */
 @CustomTag('fx-tree-item')
-class FxTreeItem extends FxItemRenderer {
+class FxTreeItem extends PolymerElement {
   
   final int SPACER_WIDTH = 40;
 
-  @published dynamic value;
+  @published dynamic value; //el valor de este nodo
   @published String itemRenderer;
+  @observable bool seleccionado = false;
   
-  @published dynamic selectedItem;
-  @published List selectedItems;
-  @observable bool multipleSelected = false;
+  @published dynamic selectedItem; //el valor de todo el tree seleccionado en mono seleccion
+  @published dynamic selectedItems; 
+  
   
   @published int level = 0;
   @observable bool deployed = false;
@@ -27,19 +27,36 @@ class FxTreeItem extends FxItemRenderer {
   }
   factory FxTreeItem () => new Element.tag('fx-tree-item');
   
-  void treeItemClick (Event e, dynamic detail) {
+  void treeItemClick (Event e, dynamic detail) {    
     fire("selection-change", detail: this.value, canBubble: true);
   }
   
-  void selectedItemsChanged([_]){
-    var i = 0;
-    bool found = false;
-    while(i < selectedItems.length && !found){
-      found = selectedItems.elementAt(i) == value;
-       i++;       
+  /*
+  selectedItemsChanged(dynamic items){
+    if(value != null)
+      print("---");         
+       print("Yo " + this.value.name + " " + this.value.selected.toString());
+    
+    if(items != null && items is List){
+      selectedItems.forEach((TreeNode tn) {
+        print(tn.name + " " + tn.selected.toString());
+      });
     }
-    multipleSelected = found;
   }
+  */
+  
+  void selectedItemsChanged([_]){
+      var i = 0;
+      bool found = false;
+      
+      if(selectedItems != null){
+        while(i < selectedItems.length && !found){
+          found = selectedItems.elementAt(i) == value;
+           i++;       
+        }
+      }
+      seleccionado = found;
+    }
   
   void toggleDeployed (Event e) {
     e.stopImmediatePropagation();
@@ -61,7 +78,8 @@ class FxTreeItem extends FxItemRenderer {
         int childHeight = getChildHeight();
         anim.animate($['treeItemLst'] as Element, duration:200, easing:anim.Easing.QUADRATIC_EASY_IN_OUT, 
                   properties:{'height': childHeight * (value as TreeNode).children.length } ).onComplete.listen((_) => ($['treeItemLst'] as Element).style.setProperty("height",  "auto"));
-      }else {
+      }
+      else {
         anim.animate($['treeItemLst'] as Element, duration:200, easing:anim.Easing.QUADRATIC_EASY_IN_OUT, 
          properties:{'height': 0 } );
         
@@ -69,6 +87,8 @@ class FxTreeItem extends FxItemRenderer {
       
     }
   }
+  
+  //bool isTreeNode (dynamic value) => value is TreeNode;
   
   bool isTreeNode (dynamic value) {
     bool response= false;

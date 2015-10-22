@@ -81,6 +81,7 @@ class MainApp extends PolymerElement {
                                    ]);
   
   @observable dynamic selectedTreeItem;
+  @observable dynamic selectedTreeItems;
   
   @observable List<num> sliderValue = [300,500];
   @observable Function sliderDataTipFormatter = (num val) => "${val}";
@@ -190,6 +191,34 @@ class MainApp extends PolymerElement {
     //window.alert("Change: ${e.detail}");
   }
   
+  
+  cambioSeleccionTreeHandler(event, detail, target){ 
+    selectedTreeItems = detail;
+  }
+  
+ // void cambiarTree () {
+    //selectedTreeItems = toObservable ([   stores[0]
+                                          /* (new Country ('ES', 'Spain'))
+                                                ..regions = toObservable ([
+                                                                new Region ("R01", "North")
+                                                                    ..stores = toObservable ([
+                                                                         new Store(1, "Food for you"),
+                                                                         new Store(2, "Market Me"),
+                                                                         new Store(3, "Super Precio")
+                                                                   ]),
+                                                                new Region ("R02", "South")
+                                                                  ..stores = toObservable ([
+                                                                                 new Store(1, "Food for you"),
+                                                                                 new Store(2, "Market Me"),
+                                                                                 new Store(3, "Super Precio")
+                                                                           ])
+                                                            ])*/
+                                           
+                                      // ]);
+   // }
+  
+  
+  
   void openModalPopup () {
     FxSamplePanel fxSamplePanel = new FxSamplePanel();
     fxSamplePanel.style.setProperty("width", "300px");
@@ -210,9 +239,11 @@ class MainApp extends PolymerElement {
 
 }
 
-class Country implements TreeNode {
+class Country implements TreeNode, Selectable {
   String code;
   String name;
+  String icon;
+  bool selected = false;
   List<Region> regions;
   
   Country (this.code, this.name);
@@ -223,9 +254,11 @@ class Country implements TreeNode {
   String toString () => "$name";
 }
 
-class Region implements TreeNode {
+class Region implements TreeNode, Selectable {
+  String icon;
   String code;
   String name;
+  bool selected = false;
   List<Store> stores;
   
   Region (this.code, this.name);
@@ -236,11 +269,15 @@ class Region implements TreeNode {
   String toString () => "$name";
 }
 
-class Store {
+class Store implements TreeNode, Selectable{
+  String icon;
   int code;
   String name;
+  bool selected = false;
   
   Store (this.code, this.name);
+  
+  List<dynamic> get children => null;
   
   @override
   String toString () => "$name";
@@ -249,7 +286,7 @@ class Store {
 class ProductCategory {
   int id; 
   String name;
-  
+  bool selected = false;
   ProductCategory (this.id, this.name);
   
   String toString () {
