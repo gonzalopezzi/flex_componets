@@ -67,7 +67,8 @@ class FxTree extends FxList {
   } 
   */
   
-  void _eliminarSeleccionados(TreeNode nodo){      
+  void _eliminarSeleccionados(TreeNode nodo){
+     (nodo as Selectable).selected = false;
      selectedItems.remove(nodo);
      if(nodo.children!=null &&  !nodo.children.isEmpty){
         List children = nodo.children;
@@ -81,6 +82,7 @@ class FxTree extends FxList {
                 List children = nodo.children;
                 children.forEach((c)=>_agregarSeleccionados(c));          
               }
+       (nodo as Selectable).selected = true;
        selectedItems.add(nodo);   
      }    
   }
