@@ -81,6 +81,8 @@ class FxTree extends FxList {
                 List children = nodo.children;
                 children.forEach((c)=>_agregarSeleccionados(c));          
               }
+       if(selectedItem is Selectable)
+          (nodo as Selectable).selected = true;
        selectedItems.add(nodo);   
      }    
   }
